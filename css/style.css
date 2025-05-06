@@ -1,0 +1,170 @@
+/* Apply Inter font globally */
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #0a0a0a;
+  /* Very dark background */
+  color: #e0e0e0;
+  /* Light grey text */
+}
+
+/* Custom scrollbar for a more futuristic feel (optional) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4a00e0;
+  /* Accent color */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8e2de2;
+  /* Lighter accent on hover */
+}
+
+/* Subtle gradient text effect for headers */
+.gradient-text {
+  background: linear-gradient(90deg, #8e2de2, #4a00e0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glassmorphism effect for cards */
+.glass-card {
+  background: rgba(26, 26, 26, 0.6);
+  /* Semi-transparent dark background */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Subtle border */
+  border-radius: 1rem;
+  /* Rounded corners */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(74, 0, 224, 0.2);
+  /* Accent color shadow on hover */
+}
+
+/* Button Styling */
+.btn-primary {
+  background: linear-gradient(90deg, #8e2de2, #4a00e0);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(74, 0, 224, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(74, 0, 224, 0.5);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid #4a00e0;
+  color: #e0e0e0;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(74, 0, 224, 0.1);
+  color: #fff;
+}
+
+/* Mobile Navigation Menu Styles (can be expanded) */
+#mobile-menu {
+  display: none; /* Hidden by default */
+  background-color: rgba(10, 10, 10, 0.95); /* Dark background for menu */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+#mobile-menu.active {
+  display: block; /* Shown when active */
+}
+
+#mobile-menu.active {
+  display: block; /* Shown when active */
+}
+
+/* Confetti Styles */
+.confetti-piece {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  opacity: 0; /* Start invisible, animation will handle fade in/out */
+  animation: fall 3s ease-out forwards;
+  z-index: 10000; /* Ensure confetti is on top of other elements */
+}
+
+@keyframes fall {
+  0% {
+    opacity: 1;
+    transform: translateY(0vh) translateX(var(--initial-x-offset, 0px))
+      rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100vh)
+      translateX(calc(var(--initial-x-offset, 0px) + var(--drift-x, 0px)))
+      rotate(720deg);
+  }
+}
+/* AI Chat Window Styles */
+#ai-chat-window.active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
+
+/* Custom scrollbar for chat messages (optional, but nice) */
+#ai-chat-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+#ai-chat-messages::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+#ai-chat-messages::-webkit-scrollbar-thumb {
+  background: #4a00e0; /* Accent color */
+  border-radius: 3px;
+}
+
+#ai-chat-messages::-webkit-scrollbar-thumb:hover {
+  background: #8e2de2; /* Lighter accent on hover */
+}
+
+.chat-message {
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.chat-message.user {
+  background-color: #4a00e0; /* Accent color for user */
+  color: white;
+  margin-left: auto; /* Align to the right */
+}
+
+.chat-message.ai {
+  background-color: #2d3748; /* Tailwind gray-700 */
+  color: #e0e0e0;
+  margin-right: auto; /* Align to the left */
+}
