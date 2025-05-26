@@ -98,9 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }, 30000); // 30 seconds delay
 
   // Mobile menu toggle
-  const mobileMenuButton = document.getElementById("mobile-menu-button");
-  const mobileMenu = document.getElementById("mobile-menu");
-
   // Newsletter Subscription and Confetti
   const newsletterForm = document.getElementById("newsletter-form");
   const subscribeButton = document.getElementById("subscribe-button"); // Though form submission is primary trigger
@@ -131,107 +128,128 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function triggerConfetti() {
-    const confettiCount = 60; // Number of confetti pieces
-    const colors = [
-      "#8e2de2",
-      "#4a00e0",
-      "#ff00ff",
-      "#00ffff",
-      "#facc15",
-      "#ffffff",
-    ]; // Theme purples, magenta, cyan, yellow, white
+function triggerConfetti() {
+  const confettiCount = 60; // Number of confetti pieces
+  const colors = [
+    "#8e2de2",
+    "#4a00e0",
+    "#ff00ff",
+    "#00ffff",
+    "#facc15",
+    "#ffffff",
+  ]; // Theme purples, magenta, cyan, yellow, white
 
-    for (let i = 0; i < confettiCount; i++) {
-      const confettiPiece = document.createElement("div");
-      confettiPiece.classList.add("confetti-piece");
+  for (let i = 0; i < confettiCount; i++) {
+    const confettiPiece = document.createElement("div");
+    confettiPiece.classList.add("confetti-piece");
 
-      const randomColor = colors[Math.floor(Math.random() * colors.length)];
-      const randomShape = Math.random() > 0.6 ? "50%" : "0"; // More squares/rects, some circles
-      const size = Math.random() * 8 + 5; // 5px to 13px
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    const randomShape = Math.random() > 0.6 ? "50%" : "0"; // More squares/rects, some circles
+    const size = Math.random() * 8 + 5; // 5px to 13px
 
-      confettiPiece.style.backgroundColor = randomColor;
+    confettiPiece.style.backgroundColor = randomColor;
+    confettiPiece.style.borderRadius = randomShape;
+    confettiPiece.style.width = `${size}px`;
+    confettiPiece.style.height = `${size}px`;
+    confettiPiece.style.position = 'fixed';
+    confettiPiece.style.left = `${Math.random() * 100}%`;
+    confettiPiece.style.top = `${Math.random() * 100}%`;
+    confettiPiece.style.transform = `rotate(${Math.random() * 360}deg)`;
+    confettiPiece.style.zIndex = '1000';
 
-      if (randomShape === "0" && Math.random() > 0.5) {
-        // Make some rectangles
-        confettiPiece.style.width = `${size * (Math.random() * 0.5 + 0.8)}px`; // slightly variable width
-        confettiPiece.style.height = `${size * (Math.random() * 0.3 + 0.5)}px`; // more rectangular
+    document.body.appendChild(confettiPiece);
+
+    // Animate confetti
+    confettiPiece.style.animation = `confetti ${Math.random() * 2 + 3}s ease-in-out forwards`;
+  }
+}
+
+// Mobile Menu Functionality
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileMenuButton = document.getElementById('mobile-menu-button');
+if (mobileMenu && mobileMenuButton) {
+if (mobileMenu && mobileMenuButton) {
   let popupShown = false;
-      const isExpanded = mobileMenu.classList.contains("active");
-      mobileMenuButton.setAttribute("aria-expanded", isExpanded);
-      if (isExpanded) {
-        // Change icon to 'X'
-        mobileMenuButton.innerHTML = `
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        `;
-      } else {
-        // Change icon back to hamburger
-        mobileMenuButton.innerHTML = `
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-          </svg>
-        `;
-      }
-    });
-
-    // Close menu when a link is clicked
-    const menuLinks = mobileMenu.querySelectorAll("a");
-    menuLinks.forEach((link) => {
-      link.addEventListener("click", () => {
-        if (mobileMenu.classList.contains("active")) {
-          // Close the menu with animation
-          mobileMenu.classList.remove("active");
-          setTimeout(() => {
-            mobileMenu.style.display = 'none';
-          }, 300);
-          
-          // Reset the menu button
-          mobileMenuButton.setAttribute("aria-expanded", "false");
-          mobileMenuButton.innerHTML = `
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-            </svg>
-          `;
-          
-          // Smooth scroll to the target section
-          const targetId = link.getAttribute('href');
-          if (targetId && targetId !== '#') {
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-              const headerOffset = 80;
-              const elementPosition = targetElement.getBoundingClientRect().top;
-              const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-              
-              window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-              });
-            }
-          }
-        }
-      });
-    });
+  mobileMenuButton.addEventListener('click', () => {
+    const isExpanded = mobileMenu.classList.contains("active");
+    mobileMenuButton.setAttribute("aria-expanded", !isExpanded);
     
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-      const isClickInside = mobileMenu.contains(e.target) || mobileMenuButton.contains(e.target);
-      if (!isClickInside && mobileMenu.classList.contains('active')) {
-        mobileMenu.classList.remove('active');
+    if (isExpanded) {
+      // Close the menu
+      mobileMenu.classList.remove("active");
+      setTimeout(() => {
+        mobileMenu.style.display = 'none';
+      }, 300);
+      mobileMenuButton.innerHTML = `
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      `;
+    } else {
+      // Open the menu
+      mobileMenu.style.display = 'block';
+      setTimeout(() => {
+        mobileMenu.classList.add("active");
+      }, 10);
+      mobileMenuButton.innerHTML = `
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      `;
+    }
+  });
+
+  // Close menu when a link is clicked
+  const menuLinks = mobileMenu.querySelectorAll("a");
+  menuLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      if (mobileMenu.classList.contains("active")) {
+        mobileMenu.classList.remove("active");
         setTimeout(() => {
           mobileMenu.style.display = 'none';
         }, 300);
-        mobileMenuButton.setAttribute('aria-expanded', 'false');
+        mobileMenuButton.setAttribute("aria-expanded", "false");
         mobileMenuButton.innerHTML = `
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
           </svg>
         `;
+        
+        const targetId = link.getAttribute('href');
+        if (targetId && targetId !== '#') {
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            const headerOffset = 80;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }
       }
     });
-  }
-});
+  });
+  
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    const isClickInside = mobileMenu.contains(e.target) || mobileMenuButton.contains(e.target);
+    if (!isClickInside && mobileMenu.classList.contains('active')) {
+      mobileMenu.classList.remove('active');
+      setTimeout(() => {
+        mobileMenu.style.display = 'none';
+      }, 300);
+      mobileMenuButton.setAttribute('aria-expanded', 'false');
+      mobileMenuButton.innerHTML = `
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      `;
+    }
+  });
+}
 // Newsletter Subscription and Confetti
 const newsletterForm = document.getElementById("newsletter-form");
 const subscribeButton = document.getElementById("subscribe-button"); // Though form submission is primary trigger
@@ -242,21 +260,19 @@ if (newsletterForm && subscribeMessage) {
     event.preventDefault(); // Prevent actual form submission for this demo
 
     const emailInput = newsletterForm.querySelector('input[type="email"]');
-    if (emailInput && emailInput.value && emailInput.checkValidity()) {
-      triggerConfetti();
-      subscribeMessage.textContent = "🎉 Thanks for subscribing!";
-      subscribeMessage.style.color = "#34d399"; // Tailwind green-400
-      emailInput.value = ""; // Clear the input
 
+    if (emailInput.value.trim()) {
+      // Simulate successful subscription
+      subscribeMessage.textContent = "Thanks for subscribing! 🎉";
+      subscribeMessage.style.display = "block";
+      
+      // Trigger confetti animation
+      triggerConfetti();
+      
+      // Reset form after 3 seconds
       setTimeout(() => {
-        subscribeMessage.textContent = "";
-      }, 5000);
-    } else if (emailInput) {
-      subscribeMessage.textContent = "Please enter a valid email address.";
-      subscribeMessage.style.color = "#f87171"; // Tailwind red-400
-      setTimeout(() => {
-        subscribeMessage.textContent = "";
-        subscribeMessage.style.color = "";
+        subscribeMessage.style.display = "none";
+        newsletterForm.reset();
       }, 3000);
     }
   });
@@ -416,22 +432,23 @@ if (
     aiChatMessages.scrollTop = aiChatMessages.scrollHeight; // Scroll to bottom
   }
 
-  function generateSimulatedResponse(userInput) {
-    userInput = userInput.toLowerCase();
-    if (userInput.includes("hello") || userInput.includes("hi"))
-      return "Hello there! How can I assist you with AI or space tech today?";
-    if (userInput.includes("project"))
-      return "You can find my projects under the 'Projects' section. I've worked on image recognition and NLP!";
-    if (userInput.includes("space"))
-      return "Space is fascinating! I'm particularly interested in exoplanet discoveries and AI's role in space exploration.";
-    if (
-      userInput.includes("ai") ||
-      userInput.includes("artificial intelligence")
-    )
-      return "AI is a powerful tool with applications across many fields. What aspect of AI are you curious about?";
-    if (userInput.includes("help"))
-      return "I can tell you about my projects, interests in AI and space, or you can ask me general tech questions!";
-    return "That's an interesting question! As a simulated AI, I'm still learning. Try asking about my projects or tech interests.";
-  }
+}); // End of DOMContentLoaded
+
+// AI Chatbot Response Generator
+function generateSimulatedResponse(userInput) {
+  userInput = userInput.toLowerCase();
+  if (userInput.includes("hello") || userInput.includes("hi"))
+    return "Hello there! How can I assist you with AI or space tech today?";
+  if (userInput.includes("project"))
+    return "You can find my projects under the 'Projects' section. I've worked on image recognition and NLP!";
+  if (userInput.includes("space"))
+    return "Space is fascinating! I'm particularly interested in exoplanet discoveries and AI's role in space exploration.";
+  if (
+    userInput.includes("ai") ||
+    userInput.includes("artificial intelligence")
+  )
+    return "AI is a powerful tool with applications across many fields. What aspect of AI are you curious about?";
+  if (userInput.includes("help"))
+    return "I can tell you about my projects, interests in AI and space, or you can ask me general tech questions!";
+  return "That's an interesting question! As a simulated AI, I'm still learning. Try asking about my projects or tech interests.";
 }
-// End of DOMContentLoaded
