@@ -1,3 +1,111 @@
+/* Animation Keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Animation Classes */
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.6s ease-out forwards;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.6s ease-out forwards;
+}
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+.delay-900 { animation-delay: 0.9s; }
+.delay-1000 { animation-delay: 1s; }
+
+/* Newsletter Popup Styles */
+#newsletterPopup {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#newsletterPopup.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+#popupContent {
+  transform: translateY(20px) scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+#newsletterPopup.show #popupContent {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+#closePopup {
+  transition: transform 0.2s ease;
+}
+
+#closePopup:hover {
+  transform: rotate(90deg);
+}
+
+#popupNewsletterForm input {
+  transition: all 0.3s ease;
+}
+
+#popupNewsletterForm input:focus {
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.5);
+}
+
+/* Prevent scrolling when popup is open */
+body.popup-open {
+  overflow: hidden;
+  padding-right: 15px; /* Prevent content shift when scrollbar disappears */
+}
+
+/* Initial state for animated elements */
+[class*="animate-"] {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
 /* Apply Inter font globally */
 body {
   font-family: "Inter", sans-serif;
@@ -45,13 +153,70 @@ body {
   /* Subtle border */
   border-radius: 1rem;
   /* Rounded corners */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+  will-change: transform, box-shadow;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(142, 45, 226, 0.1) 0%, rgba(74, 0, 224, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
 }
 
 .glass-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(74, 0, 224, 0.2);
+  transform: translateY(-5px) translateZ(0);
+  box-shadow: 0 15px 30px rgba(74, 0, 224, 0.25);
   /* Accent color shadow on hover */
+}
+
+.glass-card:hover::before {
+  opacity: 1;
+}
+
+/* Add a subtle scale effect on hover */
+.glass-card:active {
+  transform: translateY(-2px) scale(0.99) translateZ(0);
+  transition: transform 0.1s ease;
+}
+
+/* Add a subtle pulse animation to call-to-action elements */
+@keyframes subtlePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.cta-pulse {
+  animation: subtlePulse 2s infinite ease-in-out;
+}
+
+/* Add a subtle hover effect to all interactive elements */
+button, a, [role="button"], input[type="submit"], .btn-primary, .btn-secondary {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+button:hover, a:hover, [role="button"]:hover, input[type="submit"]:hover, 
+.btn-primary:hover, .btn-secondary:hover {
+  transform: translateY(-2px) translateZ(0);
+}
+
+button:active, a:active, [role="button"]:active, input[type="submit"]:active,
+.btn-primary:active, .btn-secondary:active {
+  transform: translateY(1px) translateZ(0);
+  transition: transform 0.1s ease;
 }
 
 /* Button Styling */
@@ -86,19 +251,81 @@ body {
 }
 
 /* Mobile Navigation Menu Styles (can be expanded) */
+/* Navigation Link Hover Effects */
+nav a {
+  position: relative;
+  padding: 0.5rem 0.75rem;
+  margin: 0 0.25rem;
+  overflow: hidden;
+  border-radius: 0.375rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Desktop navigation links */
+@media (min-width: 768px) {
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #8e2de2, #4a00e0);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  nav a:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  nav a:hover::after {
+    width: calc(100% - 1.5rem);
+  }
+}
+
+/* Mobile navigation links */
+#mobile-menu a {
+  display: block;
+  padding: 0.75rem 1rem;
+  margin: 0.25rem 0;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+#mobile-menu a:hover {
+  background: rgba(138, 99, 210, 0.1);
+  padding-left: 1.25rem;
+  color: #fff;
+}
+
+#mobile-menu a::after {
+  display: none;
+}
+
+/* Mobile Navigation Menu Styles */
 #mobile-menu {
   display: none; /* Hidden by default */
-  background-color: rgba(10, 10, 10, 0.95); /* Dark background for menu */
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  background-color: rgba(10, 10, 10, 0.98); /* Dark background for menu */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+}
+
+#mobile-menu.active {
+  display: block;
+  transform: translateY(0);
+  opacity: 1;
 }
 
 #mobile-menu.active {
   display: block; /* Shown when active */
-}
-
-#mobile-menu.active {
-  display: block; /* Shown when active */
+  transform: translateY(0); /* Reset transform */
 }
 
 /* Confetti Styles */

@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/animations.js" defer></script>
 </head>
 
 <body class="antialiased">
@@ -62,21 +63,25 @@
       class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-700 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse animation-delay-2000">
     </div>
 
-    <div class="z-10">
-      <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4">
+    <div class="z-10 animate-fadeInUp" style="opacity: 0; transform: translateY(20px);">
+      <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 fade-in-up" style="opacity: 0; transform: translateY(20px);">
         Innovating at the Intersection of <span class="gradient-text">AI</span> & <span
           class="gradient-text">Space</span>
       </h2>
-      <p class="text-lg md:text-xl text-gray-400 mb-8 max-w-3xl mx-auto">
+      <p class="text-lg md:text-xl text-gray-400 mb-8 max-w-3xl mx-auto fade-in-up delay-100" style="opacity: 0; transform: translateY(20px);">
         Exploring the frontiers of technology, from deep learning algorithms to the vastness of cosmic exploration.
       </p>
-      <a href="#projects" class="btn-primary mr-4">View Projects</a>
-      <a href="#contact" class="btn-secondary">Get In Touch</a>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#projects" class="btn-primary fade-in-up delay-200" style="opacity: 0; transform: translateY(20px);">View
+          Projects</a>
+        <a href="#contact" class="btn-secondary fade-in-up delay-300" style="opacity: 0; transform: translateY(20px);">Get
+          In Touch</a>
+      </div>
     </div>
   </section>
 
   <section id="about" class="py-20 px-4 md:px-8">
-    <div class="container mx-auto max-w-4xl text-center">
+    <div class="container mx-auto max-w-4xl text-center fade-in-up" style="opacity: 0; transform: translateY(20px);">
       <h2 class="text-3xl md:text-4xl font-bold mb-6 gradient-text">About Me</h2>
       <img src="https://placehold.co/150x150/1a1a1a/e0e0e0?text=You" alt="Your Name"
         class="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto mb-6 border-4 border-purple-600 shadow-lg">
@@ -100,7 +105,7 @@
   </section>
 
   <section id="projects" class="py-20 px-4 md:px-8 bg-black bg-opacity-20">
-    <div class="container mx-auto">
+    <div class="container mx-auto fade-in-up" style="opacity: 0; transform: translateY(20px);">
       <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center gradient-text">AI & Machine Learning Projects</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div class="glass-card p-6 flex flex-col">
@@ -152,7 +157,7 @@
   </section>
 
   <section id="experience" class="py-20 px-4 md:px-8">
-    <div class="container mx-auto max-w-4xl">
+    <div class="container mx-auto max-w-4xl fade-in-up" style="opacity: 0; transform: translateY(20px);">
       <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center gradient-text">Experience & Research</h2>
       <div class="relative border-l-2 border-purple-600 pl-8 space-y-12">
         <div class="relative">
@@ -179,7 +184,7 @@
   </section>
 
   <section id="exploration" class="py-20 px-4 md:px-8 bg-black bg-opacity-20">
-    <div class="container mx-auto text-center">
+    <div class="container mx-auto text-center fade-in-up" style="opacity: 0; transform: translateY(20px);">
       <h2 class="text-3xl md:text-4xl font-bold mb-6 gradient-text">Spatial Exploration Insights</h2>
       <p class="text-gray-400 text-lg mb-10 max-w-3xl mx-auto">
         Fascinated by the cosmos? Share your thoughts, learnings, or links related to space exploration, astrophysics,
@@ -205,7 +210,7 @@
   </section>
 
   <section id="news" class="py-20 px-4 md:px-8">
-    <div class="container mx-auto">
+    <div class="container mx-auto fade-in-up" style="opacity: 0; transform: translateY(20px);">
       <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center gradient-text">Tech News & Thoughts</h2>
       <div class="max-w-3xl mx-auto space-y-8">
         <div class="glass-card p-6">
@@ -308,6 +313,28 @@
           <span class="sr-only">Send</span>
         </button>
       </form>
+    </div>
+  </div>
+
+  <!-- Newsletter Popup Modal -->
+  <div id="newsletterPopup" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 hidden">
+    <div class="bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg rounded-xl max-w-md w-full mx-4 p-6 shadow-2xl border border-purple-900 transform transition-all duration-300 scale-95 opacity-0" id="popupContent">
+      <button id="closePopup" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+        <i class="fas fa-times text-xl"></i>
+      </button>
+      <div class="text-center">
+        <i class="fas fa-envelope-open-text text-4xl text-purple-500 mb-4"></i>
+        <h3 class="text-2xl font-bold text-white mb-2">Stay Updated!</h3>
+        <p class="text-gray-300 mb-6">Subscribe to my newsletter for the latest in AI, Space, and Tech.</p>
+        <form id="popupNewsletterForm" class="space-y-4">
+          <div>
+            <input type="email" placeholder="your.email@example.com" required
+              class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none text-white">
+          </div>
+          <button type="submit" class="w-full btn-primary py-3 px-6">Subscribe Now</button>
+          <p class="text-xs text-gray-500 mt-2">No spam, just valuable content. Unsubscribe anytime.</p>
+        </form>
+      </div>
     </div>
   </div>
 
