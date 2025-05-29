@@ -432,7 +432,7 @@ if (
     aiChatMessages.scrollTop = aiChatMessages.scrollHeight; // Scroll to bottom
   }
 
-}); // End of DOMContentLoaded
+});
 
 // AI Chatbot Response Generator
 function generateSimulatedResponse(userInput) {
