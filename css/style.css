@@ -323,10 +323,6 @@ nav a {
   opacity: 1;
 }
 
-#mobile-menu.active {
-  display: block; /* Shown when active */
-  transform: translateY(0); /* Reset transform */
-}
 
 /* Confetti Styles */
 .confetti-piece {
