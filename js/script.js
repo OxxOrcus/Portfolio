@@ -317,25 +317,42 @@ document.addEventListener("DOMContentLoaded", () => {
       aiChatInput.value = "";
       aiChatInput.disabled = true;
 
-      addMessageToChat("Thinking...", "ai", true); // Temporary thinking message
+      // Add a "thinking" message while waiting for the response
+      addMessageToChat("Thinking...", "ai", true);
 
       try {
-        // ** SIMULATED GEMINI API CALL **
-        await new Promise((resolve) => setTimeout(resolve, 1500 + Math.random() * 1000));
-        const aiResponse = generateSimulatedResponse(userMessage); // Defined below
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message: userMessage }),
+        });
 
+        const data = await response.json();
+
+        // Remove the "thinking" message
         const thinkingMessageElement = aiChatMessages.querySelector(".thinking");
         if (thinkingMessageElement) {
           thinkingMessageElement.remove();
         }
-        addMessageToChat(aiResponse, "ai");
+
+        if (data.success) {
+          addMessageToChat(data.message, "ai");
+        } else {
+          addMessageToChat(data.message || "Sorry, something went wrong.", "ai");
+        }
+
       } catch (error) {
         console.error("Error communicating with AI:", error);
+
+        // Remove the "thinking" message on error as well
         const thinkingMessageElement = aiChatMessages.querySelector(".thinking");
         if (thinkingMessageElement) {
           thinkingMessageElement.remove();
         }
-        addMessageToChat("Sorry, I couldn't connect to the AI. Please try again later.", "ai");
+
+        addMessageToChat("Sorry, I couldn't connect to the AI. Please check your connection and try again.", "ai");
       } finally {
         aiChatInput.disabled = false;
         aiChatInput.focus();
@@ -344,30 +361,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function addMessageToChat(text, sender, isThinking = false) {
       const messageElement = document.createElement("div");
-      messageElement.classList.add("chat-message", sender); // Ensure CSS for .chat-message, .user, .ai exists
+      messageElement.classList.add("chat-message", sender);
       if (isThinking) {
-        messageElement.classList.add("thinking"); // Class to identify thinking message for removal
+        messageElement.classList.add("thinking");
       }
-      messageElement.textContent = text; // For simple text. Use .innerHTML if you need to render HTML.
+      messageElement.textContent = text;
       aiChatMessages.appendChild(messageElement);
-      aiChatMessages.scrollTop = aiChatMessages.scrollHeight; // Scroll to the latest message
+      aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
     }
-  }
-
-  // AI Chatbot Response Generator (helper function)
-  function generateSimulatedResponse(userInput) {
-    userInput = userInput.toLowerCase();
-    if (userInput.includes("hello") || userInput.includes("hi"))
-      return "Hello there! How can I assist you with AI or space tech today?";
-    if (userInput.includes("project"))
-      return "You can find my projects under the 'Projects' section. I've worked on image recognition and NLP!";
-    if (userInput.includes("space"))
-      return "Space is fascinating! I'm particularly interested in exoplanet discoveries and AI's role in space exploration.";
-    if (userInput.includes("ai") || userInput.includes("artificial intelligence"))
-      return "AI is a powerful tool with applications across many fields. What aspect of AI are you curious about?";
-    if (userInput.includes("help"))
-      return "I can tell you about my projects, interests in AI and space, or you can ask me general tech questions!";
-    return "That's an interesting question! As a simulated AI, I'm still learning. Try asking about my projects or tech interests.";
   }
 
 }); // End of DOMContentLoaded
