@@ -1,12 +1,29 @@
-// Intersection Observer for scroll animations
+// js/animations.js
+
+// -----------------------------------------------------------------------------
+// SCROLL-TRIGGERED ANIMATIONS
+// -----------------------------------------------------------------------------
+
+// This script handles animations that are triggered as the user scrolls down the page.
+// It uses the Intersection Observer API for performance, only animating elements
+// as they enter the viewport.
+
 document.addEventListener('DOMContentLoaded', () => {
-  // Configure the intersection observer
+
+  // --- INTERSECTION OBSERVER CONFIGURATION ---
+
+  // Common options for the observers.
+  // The animation will trigger when 10% of the element is visible.
+  // The rootMargin offsets the intersection area, making animations trigger a bit earlier.
   const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
   };
 
-  // Animation for fading elements in on scroll
+  // --- OBSERVER FOR FADE-IN-UP ANIMATIONS ---
+
+  // Creates an observer that adds the 'animate-fadeInUp' class to elements when they become visible.
+  // Once an element has been animated, the observer stops watching it to save resources.
   const fadeInUpObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -16,7 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, observerOptions);
 
-  // Animation for sliding elements in from the sides
+  // --- OBSERVER FOR SLIDE-IN ANIMATIONS ---
+
+  // Creates an observer for elements that slide in from the sides.
   const slideInObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -26,7 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, observerOptions);
 
-  // Apply animations to elements with the appropriate classes
+  // --- APPLYING OBSERVERS TO ELEMENTS ---
+
+  // Find all elements with the '.fade-in-up' class, set their initial state
+  // for the animation, and start observing them.
   document.querySelectorAll('.fade-in-up').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
@@ -34,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fadeInUpObserver.observe(el);
   });
 
+  // Find all elements with the '.slide-in-left' class and prepare them for animation.
   document.querySelectorAll('.slide-in-left').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateX(-30px)';
@@ -41,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     slideInObserver.observe(el);
   });
 
+  // Find all elements with the '.slide-in-right' class and prepare them for animation.
   document.querySelectorAll('.slide-in-right').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateX(30px)';
@@ -48,7 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
     slideInObserver.observe(el);
   });
 
-  // Add animation classes when elements come into view
+  // --- GENERAL ANIMATION OBSERVER ---
+
+  // This observer adds a 'animate-visible' class, which can be used for more generic
+  // animations or for CSS to handle the transition.
   const animateOnScroll = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -58,20 +85,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.1 });
 
-  // Observe all elements with animation classes
+  // Observe all elements that have animation classes.
   document.querySelectorAll('.fade-in-up, .slide-in-left, .slide-in-right').forEach(el => {
     animateOnScroll.observe(el);
   });
 });
 
-// Add animation classes for the hero section
+
+// -----------------------------------------------------------------------------
+// HERO SECTION ANIMATIONS
+// -----------------------------------------------------------------------------
+
+// This section ensures the hero content animates on page load.
 document.addEventListener('DOMContentLoaded', () => {
   const heroContent = document.querySelector('#hero > div');
   if (heroContent) {
     heroContent.classList.add('animate-fadeInUp');
   }
   
-  // Add animation delay to hero buttons
+  // Adds a staggered animation delay to the hero section buttons for a nice effect.
   const heroButtons = document.querySelectorAll('#hero .btn-primary, #hero .btn-secondary');
   heroButtons.forEach((btn, index) => {
     btn.style.animationDelay = `${0.3 + index * 0.1}s`;
@@ -79,20 +111,27 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-// Add smooth scroll to anchor links with offset for fixed header
+
+// -----------------------------------------------------------------------------
+// SMOOTH SCROLLING FOR ANCHOR LINKS
+// -----------------------------------------------------------------------------
+
+// This script provides a smooth scrolling behavior for all anchor links (e.g., '#about').
+// It also accounts for the height of the fixed header.
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
-    e.preventDefault();
+    e.preventDefault(); // Prevent the default instant jump.
     
     const targetId = this.getAttribute('href');
-    if (targetId === '#') return;
+    if (targetId === '#') return; // Ignore empty hashes.
     
     const targetElement = document.querySelector(targetId);
     if (targetElement) {
-      const headerOffset = 80; // Height of your fixed header
+      const headerOffset = 80; // Height of the fixed header in pixels.
       const elementPosition = targetElement.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
+      // Smoothly scroll to the calculated position.
       window.scrollTo({
         top: offsetPosition,
         behavior: 'smooth'
