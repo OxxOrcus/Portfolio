@@ -363,26 +363,27 @@ document.addEventListener("DOMContentLoaded", () => {
       aiChatInput.value = "";
       aiChatInput.disabled = true; // Prevent multiple submissions.
 
-      addMessageToChat("Thinking...", "ai", true); // Show a temporary "thinking" message.
-
-      try {
-        // Simulate a call to a Gemini-like API.
-        await new Promise((resolve) => setTimeout(resolve, 1500 + Math.random() * 1000));
-        const aiResponse = generateSimulatedResponse(userMessage);
-
-        // Remove the "thinking" message and display the actual response.
         const thinkingMessageElement = aiChatMessages.querySelector(".thinking");
         if (thinkingMessageElement) {
           thinkingMessageElement.remove();
         }
-        addMessageToChat(aiResponse, "ai");
+
+        if (data.success) {
+          addMessageToChat(data.message, "ai");
+        } else {
+          addMessageToChat(data.message || "Sorry, something went wrong.", "ai");
+        }
+
       } catch (error) {
         console.error("Error communicating with AI:", error);
+
+        // Remove the "thinking" message on error as well
         const thinkingMessageElement = aiChatMessages.querySelector(".thinking");
         if (thinkingMessageElement) {
           thinkingMessageElement.remove();
         }
-        addMessageToChat("Sorry, I couldn't connect to the AI. Please try again later.", "ai");
+
+        addMessageToChat("Sorry, I couldn't connect to the AI. Please check your connection and try again.", "ai");
       } finally {
         aiChatInput.disabled = false; // Re-enable input.
         aiChatInput.focus();
@@ -403,29 +404,5 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       messageElement.textContent = text;
       aiChatMessages.appendChild(messageElement);
-      aiChatMessages.scrollTop = aiChatMessages.scrollHeight; // Auto-scroll to the bottom.
-    }
-  }
-
-  /**
-   * Generates a simulated response from the AI based on user input.
-   * This is a simplified placeholder for a real API integration.
-   * @param {string} userInput The user's message.
-   * @returns {string} A simulated AI response.
-   */
-  function generateSimulatedResponse(userInput) {
-    userInput = userInput.toLowerCase();
-    if (userInput.includes("hello") || userInput.includes("hi"))
-      return "Hello there! How can I assist you with AI or space tech today?";
-    if (userInput.includes("project"))
-      return "You can find my projects under the 'Projects' section. I've worked on image recognition and NLP!";
-    if (userInput.includes("space"))
-      return "Space is fascinating! I'm particularly interested in exoplanet discoveries and AI's role in space exploration.";
-    if (userInput.includes("ai") || userInput.includes("artificial intelligence"))
-      return "AI is a powerful tool with applications across many fields. What aspect of AI are you curious about?";
-    if (userInput.includes("help"))
-      return "I can tell you about my projects, interests in AI and space, or you can ask me general tech questions!";
-    return "That's an interesting question! As a simulated AI, I'm still learning. Try asking about my projects or tech interests.";
-  }
 
 }); // End of DOMContentLoaded
