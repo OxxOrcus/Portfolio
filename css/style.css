@@ -45,16 +45,36 @@
   animation: slideInRight 0.6s ease-out forwards;
 }
 
-.delay-100 { animation-delay: 0.1s; }
-.delay-200 { animation-delay: 0.2s; }
-.delay-300 { animation-delay: 0.3s; }
-.delay-400 { animation-delay: 0.4s; }
-.delay-500 { animation-delay: 0.5s; }
-.delay-600 { animation-delay: 0.6s; }
-.delay-700 { animation-delay: 0.7s; }
-.delay-800 { animation-delay: 0.8s; }
-.delay-900 { animation-delay: 0.9s; }
-.delay-1000 { animation-delay: 1s; }
+.delay-100 {
+  animation-delay: 0.1s;
+}
+.delay-200 {
+  animation-delay: 0.2s;
+}
+.delay-300 {
+  animation-delay: 0.3s;
+}
+.delay-400 {
+  animation-delay: 0.4s;
+}
+.delay-500 {
+  animation-delay: 0.5s;
+}
+.delay-600 {
+  animation-delay: 0.6s;
+}
+.delay-700 {
+  animation-delay: 0.7s;
+}
+.delay-800 {
+  animation-delay: 0.8s;
+}
+.delay-900 {
+  animation-delay: 0.9s;
+}
+.delay-1000 {
+  animation-delay: 1s;
+}
 
 /* Newsletter Popup Styles */
 #newsletterPopup {
@@ -143,6 +163,25 @@ body {
   background-clip: text;
 }
 
+/* Skill badge styles */
+.skill-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.03);
+  color: #d1c4ff;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  border: 1px solid rgba(138, 99, 210, 0.12);
+}
+
+/* Slightly stronger CTA contrast on dark backgrounds */
+.btn-primary {
+  box-shadow: 0 6px 20px rgba(74, 0, 224, 0.35);
+}
+.btn-secondary {
+  border-color: rgba(138, 99, 210, 0.28);
+}
+
 /* Glassmorphism effect for cards */
 .glass-card {
   background: rgba(26, 26, 26, 0.6);
@@ -161,13 +200,17 @@ body {
 }
 
 .glass-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(142, 45, 226, 0.1) 0%, rgba(74, 0, 224, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(142, 45, 226, 0.1) 0%,
+    rgba(74, 0, 224, 0.05) 100%
+  );
   opacity: 0;
   transition: opacity 0.4s ease;
   z-index: -1;
@@ -191,9 +234,15 @@ body {
 
 /* Add a subtle pulse animation to call-to-action elements */
 @keyframes subtlePulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.02); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .cta-pulse {
@@ -201,20 +250,33 @@ body {
 }
 
 /* Add a subtle hover effect to all interactive elements */
-button, a, [role="button"], input[type="submit"], .btn-primary, .btn-secondary {
+button,
+a,
+[role="button"],
+input[type="submit"],
+.btn-primary,
+.btn-secondary {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-font-smoothing: subpixel-antialiased;
 }
 
-button:hover, a:hover, [role="button"]:hover, input[type="submit"]:hover, 
-.btn-primary:hover, .btn-secondary:hover {
+button:hover,
+a:hover,
+[role="button"]:hover,
+input[type="submit"]:hover,
+.btn-primary:hover,
+.btn-secondary:hover {
   transform: translateY(-2px) translateZ(0);
 }
 
-button:active, a:active, [role="button"]:active, input[type="submit"]:active,
-.btn-primary:active, .btn-secondary:active {
+button:active,
+a:active,
+[role="button"]:active,
+input[type="submit"]:active,
+.btn-primary:active,
+.btn-secondary:active {
   transform: translateY(1px) translateZ(0);
   transition: transform 0.1s ease;
 }
@@ -264,7 +326,7 @@ nav a {
 /* Desktop navigation links */
 @media (min-width: 768px) {
   nav a::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0.25rem;
     left: 50%;
@@ -274,12 +336,12 @@ nav a {
     background: linear-gradient(90deg, #8e2de2, #4a00e0);
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  
+
   nav a:hover {
     color: #fff;
     background: rgba(255, 255, 255, 0.05);
   }
-  
+
   nav a:hover::after {
     width: calc(100% - 1.5rem);
   }
@@ -322,7 +384,6 @@ nav a {
   transform: translateY(0);
   opacity: 1;
 }
-
 
 /* Confetti Styles */
 .confetti-piece {

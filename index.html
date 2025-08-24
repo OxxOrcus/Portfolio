@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paulo Brocco - Portfolio</title>
+  <title>Paulo Brocco — Full Stack Engineer</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,14 +19,15 @@
   <header
     class="py-6 px-4 md:px-8 sticky top-0 z-50 bg-opacity-80 backdrop-filter backdrop-blur-lg border-b border-gray-800">
     <div class="container mx-auto flex justify-between items-center">
-      <h1 class="text-2xl md:text-3xl font-bold gradient-text">Dev_Oxx.orcus</h1>
+      <h1 class="text-2xl md:text-3xl font-bold gradient-text">Paulo Brocco</h1>
       <nav class="hidden md:flex space-x-6 text-gray-300">
         <a href="#about" class="hover:text-white transition duration-300">About</a>
+        <a href="#skills" class="hover:text-white transition duration-300">Skills</a>
         <a href="#projects" class="hover:text-white transition duration-300">Projects</a>
         <a href="#experience" class="hover:text-white transition duration-300">Experience</a>
-        <a href="#exploration" class="hover:text-white transition duration-300">Exploration</a>
-        <a href="#news" class="hover:text-white transition duration-300">Tech News</a>
-        <a href="digital-service.html" class="text-purple-400 hover:text-purple-300 transition duration-300 font-medium">AI Services</a>
+        <a href="#education" class="hover:text-white transition duration-300">Education</a>
+        <a href="digital-service.html"
+          class="text-purple-400 hover:text-purple-300 transition duration-300 font-medium">AI Services</a>
         <a href="#contact" class="hover:text-white transition duration-300">Contact</a>
       </nav>
       <button id="mobile-menu-button" class="md:hidden text-gray-300 hover:text-white focus:outline-none"
@@ -39,18 +40,19 @@
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="md:hidden absolute top-full left-0 right-0 py-4 px-4 z-40">
       <nav class="flex flex-col space-y-3 text-gray-300">
-        <a href="digital-service.html" class="text-purple-400 hover:text-purple-300 transition duration-300 font-medium block px-3 py-2 rounded-md">AI Services</a>
         <a href="#about"
           class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium">About</a>
+        <a href="#skills"
+          class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium">Skills</a>
         <a href="#projects"
           class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium">Projects</a>
         <a href="#experience"
           class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium">Experience</a>
-        <a href="#exploration"
-          class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium">Exploration</a>
-        <a href="#news"
-          class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium">Tech
-          News</a>
+        <a href="#education"
+          class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium">Education</a>
+        <a href="digital-service.html"
+          class="text-purple-400 hover:text-purple-300 transition duration-300 font-medium block px-3 py-2 rounded-md">AI
+          Services</a>
         <a href="#contact"
           class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium">Contact</a>
       </nav>
@@ -65,19 +67,15 @@
       class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-700 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse animation-delay-2000">
     </div>
 
-    <div class="z-10 animate-fadeInUp" style="opacity: 0; transform: translateY(20px);">
-      <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 fade-in-up" style="opacity: 0; transform: translateY(20px);">
-        Innovating at the Intersection of <span class="gradient-text">AI</span> & <span
-          class="gradient-text">Space</span>
-      </h2>
-      <p class="text-lg md:text-xl text-gray-400 mb-8 max-w-3xl mx-auto fade-in-up delay-100" style="opacity: 0; transform: translateY(20px);">
-        Exploring the frontiers of technology, from deep learning algorithms to the vastness of cosmic exploration.
-      </p>
+    <div class="z-10 animate-fadeInUp">
+      <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4">Paulo Brocco</h2>
+      <p class="text-xl text-gray-300 mb-4">Full Stack Engineer — Cork, Ireland</p>
+      <p class="text-lg md:text-xl text-gray-400 mb-8 max-w-3xl mx-auto">I build reliable and scalable systems and
+        automation that impact thousands of users. I bring ~5 years of hands-on experience developing web and backend
+        applications, and I love solving complex problems with modern technologies.</p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href="#projects" class="btn-primary fade-in-up delay-200" style="opacity: 0; transform: translateY(20px);">View
-          Projects</a>
-        <a href="#contact" class="btn-secondary fade-in-up delay-300" style="opacity: 0; transform: translateY(20px);">Get
-          In Touch</a>
+        <a href="#projects" class="btn-primary">View My Work</a>
+        <a href="#contact" class="btn-secondary">Contact Me</a>
       </div>
     </div>
   </section>
@@ -87,90 +85,161 @@
       <h2 class="text-3xl md:text-4xl font-bold mb-6 gradient-text">About Me</h2>
       <img src="https://picsum.photos/seed/portrait/150/150" alt="Paulo Brocco"
         class="w-32 h-32 md:w-40 md:h-40 rounded-full mx-auto mb-6 border-4 border-purple-600 shadow-lg">
-      <p class="text-gray-300 text-lg mb-8 leading-relaxed">
-        As a passionate developer, I thrive at the intersection of AI and space exploration. My journey is driven by a curiosity for deep learning, machine learning, and the cosmos. I specialize in creating innovative solutions that push the boundaries of technology.
+      <p class="text-gray-300 text-lg mb-4 leading-relaxed">I'm a 32-year-old developer from São Paulo, Brazil,
+        currently based in Cork, Ireland. I'm passionate about solving complex problems using cutting-edge technology.
+        Over the past ~5 years I've focused on building systems and automation that reach and help thousands of users.
       </p>
+      <p class="text-gray-400 text-sm mb-6">Languages: Portuguese (Native) • English (B2) • Availability: Open to
+        opportunities and collaborations.</p>
       <div class="flex flex-wrap justify-center gap-3 text-sm">
-        <span class="bg-gray-800 text-purple-300 px-3 py-1 rounded-full">Python</span>
-        <span class="bg-gray-800 text-purple-300 px-3 py-1 rounded-full">TensorFlow/Keras</span>
-        <span class="bg-gray-800 text-purple-300 px-3 py-1 rounded-full">PyTorch</span>
-        <span class="bg-gray-800 text-purple-300 px-3 py-1 rounded-full">Machine Learning</span>
-        <span class="bg-gray-800 text-purple-300 px-3 py-1 rounded-full">Deep Learning</span>
-        <span class="bg-gray-800 text-purple-300 px-3 py-1 rounded-full">Data Analysis</span>
-        <span class="bg-gray-800 text-purple-300 px-3 py-1 rounded-full">Astrophysics Concepts</span>
+        <a class="inline-block bg-gray-800 text-purple-300 px-3 py-1 rounded-full" href="#skills">View my skills</a>
+        <a class="inline-block bg-gray-800 text-purple-300 px-3 py-1 rounded-full" href="#projects">See projects</a>
+        <a class="inline-block bg-gray-800 text-purple-300 px-3 py-1 rounded-full"
+          href="Paulo Brocco — Full Stack Engineer.pdf" target="_blank">Download CV</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="py-16 px-4 md:px-8 bg-black bg-opacity-10">
+    <div class="container mx-auto max-w-5xl">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">Technical Skills</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="glass-card p-6">
+          <h3 class="font-semibold mb-3">Frontend</h3>
+          <p class="text-sm text-gray-300">JavaScript (ES6+), HTML5, CSS3, React, React Native, Responsive Design</p>
+        </div>
+        <div class="glass-card p-6">
+          <h3 class="font-semibold mb-3">Backend</h3>
+          <p class="text-sm text-gray-300">Node.js, Express, Python (Flask, Django), RESTful APIs, Automation Scripts
+          </p>
+        </div>
+        <div class="glass-card p-6">
+          <h3 class="font-semibold mb-3">Databases</h3>
+          <p class="text-sm text-gray-300">MongoDB, PostgreSQL, MySQL</p>
+        </div>
+        <div class="glass-card p-6">
+          <h3 class="font-semibold mb-3">DevOps & Tools</h3>
+          <p class="text-sm text-gray-300">Docker, Git, GitHub, Linux, Bash scripting</p>
+        </div>
+        <div class="glass-card p-6">
+          <h3 class="font-semibold mb-3">AI & Automation</h3>
+          <p class="text-sm text-gray-300">Gemini, ChatGPT, Claude, Copilot, n8n, Manus, Grok, Cursor, WindSurf</p>
+        </div>
+        <div class="glass-card p-6">
+          <h3 class="font-semibold mb-3">Other</h3>
+          <p class="text-sm text-gray-300">Agile methodologies, Automation frameworks, Clean Code</p>
+        </div>
       </div>
     </div>
   </section>
 
   <section id="projects" class="py-20 px-4 md:px-8 bg-black bg-opacity-20">
     <div class="container mx-auto fade-in-up" style="opacity: 0; transform: translateY(20px);">
-      <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center gradient-text">AI & Machine Learning Projects</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center gradient-text">Projects</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Project cards generated from CV projects list -->
         <div class="glass-card p-6 flex flex-col">
-          <img src="https://picsum.photos/seed/project1/600/400" alt="Project 1 Thumbnail"
-            class="rounded-lg mb-4 w-full h-48 object-cover">
-          <h3 class="text-xl font-semibold mb-2 text-white">Image Recognition Model</h3>
-          <p class="text-gray-400 text-sm mb-4 flex-grow">A deep learning model trained to classify celestial objects, utilizing Python, TensorFlow, and CNNs to achieve high accuracy.</p>
-          <div class="mt-auto">
-            <a href="#"
-              class="text-purple-400 hover:text-purple-300 transition duration-300 mr-4 text-sm font-medium">View
-              Details</a>
-            <a href="#" class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium">GitHub
-              Repo</a>
+          <h3 class="text-xl font-semibold mb-2 text-white">Portfolio</h3>
+          <p class="text-gray-400 text-sm mb-4 flex-grow">Personal portfolio & AI services site built with HTML,
+            Tailwind and vanilla JS.</p>
+          <div class="mt-auto flex items-center gap-3">
+            <a href="https://portfolio-rose-zeta-llu88vdo68.vercel.app/" target="_blank" rel="noopener noreferrer"
+              class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium">Live demo</a>
+            <a href="https://github.com/OxxOrcus/Portfolio" target="_blank" rel="noopener noreferrer"
+              class="text-gray-400 hover:text-white transition duration-300 text-sm">Repo</a>
           </div>
         </div>
         <div class="glass-card p-6 flex flex-col">
-          <img src="https://picsum.photos/seed/project2/600/400" alt="Project 2 Thumbnail"
-            class="rounded-lg mb-4 w-full h-48 object-cover">
-          <h3 class="text-xl font-semibold mb-2 text-white">NLP Sentiment Analysis</h3>
-          <p class="text-gray-400 text-sm mb-4 flex-grow">A sentiment analysis tool that processes space-related social media data, built with Python and NLTK/spaCy.</p>
-          <div class="mt-auto">
-            <a href="#"
-              class="text-purple-400 hover:text-purple-300 transition duration-300 mr-4 text-sm font-medium">View
-              Details</a>
-            <a href="#" class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium">Live
-              Demo</a>
+          <h3 class="text-xl font-semibold mb-2 text-white">BroccoRealtors</h3>
+          <p class="text-gray-400 text-sm mb-4 flex-grow">Real estate prototype demonstrating responsive UI and dynamic
+            listings.</p>
+          <div class="mt-auto flex items-center gap-3">
+            <!-- No public demo detected; link to repo -->
+            <a href="https://github.com/OxxOrcus/BroccoRealtors" target="_blank" rel="noopener noreferrer"
+              class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium">View Repo</a>
           </div>
         </div>
         <div class="glass-card p-6 flex flex-col">
-          <img src="https://picsum.photos/seed/project3/600/400" alt="Project 3 Thumbnail"
-            class="rounded-lg mb-4 w-full h-48 object-cover">
-          <h3 class="text-xl font-semibold mb-2 text-white">Reinforcement Learning Agent</h3>
-          <p class="text-gray-400 text-sm mb-4 flex-grow">An autonomous agent trained with reinforcement learning to navigate simulated space environments, using Python and OpenAI Gym.</p>
-          <div class="mt-auto">
-            <a href="#"
-              class="text-purple-400 hover:text-purple-300 transition duration-300 mr-4 text-sm font-medium">View
-              Details</a>
-            <a href="#"
-              class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium">Research
-              Paper</a>
+          <h3 class="text-xl font-semibold mb-2 text-white">clone-tabnews</h3>
+          <p class="text-gray-400 text-sm mb-4 flex-grow">Front-end learning project: practice layout, styling and API
+            integration.</p>
+          <div class="mt-auto flex items-center gap-3">
+            <a href="https://clone-tabnews-taupe-rho.vercel.app/" target="_blank" rel="noopener noreferrer"
+              class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium">Live demo</a>
+            <a href="https://github.com/OxxOrcus/clone-tabnews" target="_blank" rel="noopener noreferrer"
+              class="text-gray-400 hover:text-white transition duration-300 text-sm">Repo</a>
+          </div>
+        </div>
+        <div class="glass-card p-6 flex flex-col">
+          <h3 class="text-xl font-semibold mb-2 text-white">machine-learning</h3>
+          <p class="text-gray-400 text-sm mb-4 flex-grow">Learning journey with Jupyter notebooks and small ML
+            experiments.</p>
+          <div class="mt-auto flex items-center gap-3">
+            <a href="https://github.com/OxxOrcus/machine-learning" target="_blank" rel="noopener noreferrer"
+              class="text-gray-400 hover:text-white transition duration-300 text-sm">Repo</a>
+          </div>
+        </div>
+        <div class="glass-card p-6 flex flex-col">
+          <h3 class="text-xl font-semibold mb-2 text-white">website-projetos-estudantes</h3>
+          <p class="text-gray-400 text-sm mb-4 flex-grow">Website to expose student projects with categories, search and
+            contributor pages.</p>
+          <div class="mt-auto flex items-center gap-3">
+            <a href="https://github.com/OxxOrcus/website-projetos-estudantes" target="_blank" rel="noopener noreferrer"
+              class="text-gray-400 hover:text-white transition duration-300 text-sm">Repo</a>
+          </div>
+        </div>
+        <div class="glass-card p-6 flex flex-col">
+          <h3 class="text-xl font-semibold mb-2 text-white">piscine_42_london_pbrocco</h3>
+          <p class="text-gray-400 text-sm mb-4 flex-grow">Collection of exercises and projects from the 42 London C
+            Piscine (July 2024).</p>
+          <div class="mt-auto flex items-center gap-3">
+            <a href="https://github.com/OxxOrcus/piscine_42_london_pbrocco" target="_blank" rel="noopener noreferrer"
+              class="text-gray-400 hover:text-white transition duration-300 text-sm">Repo</a>
           </div>
         </div>
       </div>
+      <p class="text-center text-sm text-gray-400 mt-6">More projects on <a href="https://github.com/OxxOrcus"
+          target="_blank" rel="noopener noreferrer" class="text-purple-400">github.com/OxxOrcus</a></p>
     </div>
   </section>
 
   <section id="experience" class="py-20 px-4 md:px-8">
     <div class="container mx-auto max-w-4xl fade-in-up" style="opacity: 0; transform: translateY(20px);">
-      <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center gradient-text">Experience & Research</h2>
-      <div class="relative border-l-2 border-purple-600 pl-8 space-y-12">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">Experience</h2>
+      <div class="relative border-l-2 border-purple-600 pl-8 space-y-8">
         <div class="relative">
           <div class="absolute -left-10 top-1 w-4 h-4 bg-purple-400 rounded-full border-2 border-gray-900"></div>
-          <h3 class="text-xl font-semibold text-white mb-1">AI Research Scientist</h3>
-          <p class="text-sm text-purple-300 mb-2">FutureTech Innovations | 2022 - Present</p>
+          <h3 class="text-xl font-semibold text-white mb-1">Full Stack Developer Intern</h3>
+          <p class="text-sm text-purple-300 mb-2">Rebel LLC — June 2025 – Present | New York, USA</p>
           <ul class="list-disc list-inside text-gray-400 text-sm space-y-1 pl-2">
-            <li>Led research on advanced neural network architectures for cosmic data analysis.</li>
-            <li>Published findings in peer-reviewed journals, contributing to the field of astro-informatics.</li>
-            <li>Developed and deployed machine learning models for real-time satellite data processing.</li>
+            <li>Designed and implemented automation systems used by thousands, focusing on reliability and scalability.
+            </li>
+            <li>Developed and maintained web applications using modern frameworks (React, Node.js).</li>
+            <li>Led end-to-end development of personal and collaborative projects; contributed to open-source and
+              mentored juniors.</li>
           </ul>
         </div>
-        <div class="relative">
-          <div class="absolute -left-10 top-1 w-4 h-4 bg-purple-400 rounded-full border-2 border-gray-900"></div>
-          <h3 class="text-xl font-semibold text-white mb-1">Machine Learning Engineer</h3>
-          <p class="text-sm text-purple-300 mb-2">Data-Driven Solutions | 2020 - 2022</p>
-          <ul class="list-disc list-inside text-gray-400 text-sm space-y-1 pl-2">
-            <li>Designed and implemented predictive models for various clients.</li>
-            <li>Collaborated with cross-functional teams to deliver robust AI solutions.</li>
+      </div>
+    </div>
+  </section>
+
+  <section id="education" class="py-16 px-4 md:px-8 bg-black bg-opacity-10">
+    <div class="container mx-auto max-w-4xl">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center gradient-text">Education & Training</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="glass-card p-6">
+          <h3 class="font-semibold mb-2">Internet Systems — FMU (In Progress)</h3>
+          <p class="text-sm text-gray-300 mb-2">Degree in Internet Systems (5/5). Curriculum blends technical and
+            business topics.</p>
+        </div>
+        <div class="glass-card p-6">
+          <h3 class="font-semibold mb-2">Notable Programs & Bootcamps</h3>
+          <ul class="text-sm text-gray-300 list-disc list-inside space-y-1">
+            <li>Full Stack Trail — Codecademy</li>
+            <li>C Piscine Program — 42 London (July 2024) — intensive C, Git, Makefiles</li>
+            <li>Mobile Development — Digital Innovation One</li>
+            <li>Back End Development — ADA Tech</li>
+            <li>Programming Logic — Digital Innovation One</li>
           </ul>
         </div>
       </div>
@@ -187,13 +256,17 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
         <div class="glass-card p-6 text-left">
           <h3 class="text-xl font-semibold mb-2 text-white">AI in Space Navigation</h3>
-          <p class="text-gray-400 text-sm mb-4">Exploring how AI can revolutionize spacecraft navigation and astronomical data analysis, paving the way for autonomous cosmic exploration.</p>
-          <a href="#" class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium">Read More</a>
+          <p class="text-gray-400 text-sm mb-4">Exploring how AI can revolutionize spacecraft navigation and
+            astronomical data analysis, paving the way for autonomous cosmic exploration.</p>
+          <a href="#" class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium">Read
+            More</a>
         </div>
         <div class="glass-card p-6 text-left">
           <h3 class="text-xl font-semibold mb-2 text-white">Latest Exoplanet Discoveries</h3>
-          <p class="text-gray-400 text-sm mb-4">A look at the most recent exoplanet findings from missions like the James Webb Space Telescope and their implications for the search for life.</p>
-          <a href="#" class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium">Learn More</a>
+          <p class="text-gray-400 text-sm mb-4">A look at the most recent exoplanet findings from missions like the
+            James Webb Space Telescope and their implications for the search for life.</p>
+          <a href="#" class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium">Learn
+            More</a>
         </div>
       </div>
     </div>
@@ -206,14 +279,18 @@
         <div class="glass-card p-6">
           <h3 class="text-xl font-semibold text-white mb-2">The Rise of Generative AI</h3>
           <p class="text-sm text-purple-300 mb-3">August 8, 2025 | AI Ethics</p>
-          <p class="text-gray-400 text-sm mb-4">A deep dive into the rapid advancements of generative AI and the ethical considerations that come with it.</p>
-          <a href="#" class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium">Original Article</a>
+          <p class="text-gray-400 text-sm mb-4">A deep dive into the rapid advancements of generative AI and the ethical
+            considerations that come with it.</p>
+          <a href="#" class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium">Original
+            Article</a>
         </div>
         <div class="glass-card p-6">
           <h3 class="text-xl font-semibold text-white mb-2">Quantum Computing Breakthroughs</h3>
           <p class="text-sm text-purple-300 mb-3">August 7, 2025 | Quantum Computing</p>
-          <p class="text-gray-400 text-sm mb-4">Exploring the latest breakthroughs in quantum computing and their potential to revolutionize industries.</p>
-          <a href="#" class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium">Read Source</a>
+          <p class="text-gray-400 text-sm mb-4">Exploring the latest breakthroughs in quantum computing and their
+            potential to revolutionize industries.</p>
+          <a href="#" class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium">Read
+            Source</a>
         </div>
       </div>
 
@@ -237,14 +314,14 @@
     <div class="container mx-auto text-center max-w-2xl">
       <h2 class="text-3xl md:text-4xl font-bold mb-6 gradient-text">Get In Touch</h2>
       <p class="text-gray-400 text-lg mb-8">
-        Interested in collaborating, discussing tech, or just want to connect? Feel free to reach out!
+        Interested in collaborating, discussing tech, or want to hire? I'm open to new opportunities — let's talk.
       </p>
       <div class="flex justify-center space-x-6 mb-8">
-        <a href=https://github.com/OxxOrcus target="_blank" rel="noopener noreferrer"
+        <a href="https://github.com/OxxOrcus/Portfolio" target="_blank" rel="noopener noreferrer"
           class="text-gray-400 hover:text-purple-400 transition duration-300">
           <i class="fab fa-github fa-2x"></i>
         </a>
-        <a href=http://linkedin.com/in/paulo-brocco Link]" target="_blank" rel="noopener noreferrer"
+        <a href="https://www.linkedin.com/in/paulo-brocco" target="_blank" rel="noopener noreferrer"
           class="text-gray-400 hover:text-purple-400 transition duration-300">
           <i class="fab fa-linkedin fa-2x"></i>
         </a>
@@ -256,8 +333,9 @@
           class="text-gray-400 hover:text-purple-400 transition duration-300">
           <i class="fas fa-link fa-2x"></i> </a>
       </div>
-      <p class="text-gray-500 text-sm mb-4">Or, send me an email directly.</p>
-      <a href="mailto:dev.oxx.orcus@gmail.com" class="btn-primary">Email Me</a>
+      <p class="text-gray-500 text-sm mb-4">Email: <a href="mailto:paulobroccooxx@gmail.com"
+          class="text-purple-400">paulobroccooxx@gmail.com</a></p>
+      <a href="mailto:paulobroccooxx@gmail.com" class="btn-primary">Email Me</a>
 
     </div>
   </section>
@@ -305,7 +383,9 @@
 
   <!-- Newsletter Popup Modal -->
   <div id="newsletterPopup" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 hidden">
-    <div class="bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg rounded-xl max-w-md w-full mx-4 p-6 shadow-2xl border border-purple-900 transform transition-all duration-300 scale-95 opacity-0" id="popupContent">
+    <div
+      class="bg-gray-900 bg-opacity-90 backdrop-filter backdrop-blur-lg rounded-xl max-w-md w-full mx-4 p-6 shadow-2xl border border-purple-900 transform transition-all duration-300 scale-95 opacity-0"
+      id="popupContent">
       <button id="closePopup" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
         <i class="fas fa-times text-xl"></i>
       </button>
