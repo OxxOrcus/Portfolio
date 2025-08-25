@@ -94,14 +94,159 @@
       const whatsapp = document.getElementById('whatsapp').value;
       // In a real application, send data to backend here
       const messageBox = document.getElementById('messageBox');
-      messageBox.classList.remove('hidden');
-      messageBox.classList.add('block');
-      this.reset();
-      setTimeout(() => {
-        messageBox.classList.remove('block');
-        messageBox.classList.add('hidden');
-      }, 5000);
-    });
-  </script>
-</body>
-</html>
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hire Paulo Brocco 1 Freelance & Contract Services</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <meta name="description" content="Hire Paulo Brocco - Full Stack Engineer. Web apps, APIs, automation, AI integrations. Available for freelance, contract, or hire.">
+      </head>
+      <body class="antialiased" style="background: #0a0a0a; color: #e0e0e0;">
+        <header class="py-6 px-4 md:px-8 border-b border-gray-800 bg-opacity-80 backdrop-filter backdrop-blur-lg">
+          <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl md:text-3xl font-bold gradient-text">Paulo Brocco</h1>
+            <nav class="hidden md:flex space-x-6 text-gray-300">
+              <a href="index.html" class="hover:text-white transition duration-300">Home</a>
+              <a href="digital-service.html" class="text-purple-400 hover:text-purple-300 transition duration-300 font-medium">AI Services</a>
+            </nav>
+          </div>
+        </header>
+
+        <main class="min-h-screen flex items-center justify-center px-4 py-12 bg-dark relative overflow-hidden">
+          <div style="position: absolute; top: 10%; left: -10vw; width: 350px; height: 350px; background: radial-gradient(circle at 50% 50%, #8e2de2 60%, transparent 100%); filter: blur(80px); opacity: 0.25; z-index: 0;"></div>
+          <div style="position: absolute; bottom: 5%; right: -10vw; width: 350px; height: 350px; background: radial-gradient(circle at 50% 50%, #4a00e0 60%, transparent 100%); filter: blur(80px); opacity: 0.20; z-index: 0;"></div>
+
+          <div class="glass-card max-w-3xl w-full p-8 md:p-10 mx-auto relative z-10 flex flex-col items-start shadow-2xl border border-purple-900" style="backdrop-filter: blur(12px);">
+            <div class="w-full mb-6 text-left">
+              <h1 class="text-3xl md:text-4xl font-extrabold gradient-text mb-1">Hire Paulo Brocco</h1>
+              <h2 class="text-lg md:text-xl font-medium text-purple-400">Full Stack Engineer — Freelance, Contract, or Hire</h2>
+              <p class="text-gray-300 mt-4">I build reliable web apps, scalable backends, automation and AI integrations. Available for short-term freelance jobs, mid-term contracts, and long-term hiring.</p>
+            </div>
++
+            <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div class="p-4 bg-black bg-opacity-30 rounded-md">
+                <h3 class="font-semibold text-white mb-2">Services I Offer</h3>
++          <ul class="text-gray-200 text-sm list-disc list-inside space-y-1">
++            <li>Full-stack web applications (React, Node.js, Express)</li>
++            <li>APIs and backend systems (Postgres, MongoDB)</li>
++            <li>AI integrations & automation (Chatbots, pipelines, n8n)</li>
++            <li>Mobile/web responsive UI and UX</li>
++            <li>DevOps: Docker, CI/CD, deployments</li>
++          </ul>
++        </div>
++
++        <div class="p-4 bg-black bg-opacity-30 rounded-md">
++          <h3 class="font-semibold text-white mb-2">Engagement Options</h3>
++          <ul class="text-gray-200 text-sm list-disc list-inside space-y-1">
++            <li><strong>Freelance</strong> — Hourly or fixed milestones, fast delivery</li>
++            <li><strong>Contract</strong> — 1–6 month engagements for feature builds</li>
++            <li><strong>Hire</strong> — Part-time or full-time employment opportunities</li>
++          </ul>
++        </div>
++      </div>
++
++      <form id="contactForm" class="space-y-4 w-full">
++        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
++          <div>
++            <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Name <span class="text-purple-400">*</span></label>
++            <input type="text" id="name" name="name" placeholder="Your name" required class="mt-1 block w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white">
++          </div>
++          <div>
++            <label for="company" class="block text-sm font-medium text-gray-300 mb-1">Company</label>
++            <input type="text" id="company" name="company" placeholder="Company (optional)" class="mt-1 block w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white">
++          </div>
++        </div>
++
++        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
++          <div>
++            <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email <span class="text-purple-400">*</span></label>
++            <input type="email" id="email" name="email" placeholder="you@company.com" required class="mt-1 block w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white">
++          </div>
++          <div>
++            <label for="phone" class="block text-sm font-medium text-gray-300 mb-1">Phone / WhatsApp</label>
++            <input type="tel" id="phone" name="phone" placeholder="+44 7..." class="mt-1 block w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white">
++          </div>
++          <div>
++            <label for="timeline" class="block text-sm font-medium text-gray-300 mb-1">Timeline</label>
++            <select id="timeline" name="timeline" class="mt-1 block w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white">
++              <option value="asap">ASAP</option>
++              <option value="1-4 weeks">1-4 weeks</option>
++              <option value="1-3 months">1-3 months</option>
++              <option value="3+ months">3+ months</option>
++            </select>
++          </div>
++        </div>
++
++        <div>
++          <label for="engagement" class="block text-sm font-medium text-gray-300 mb-1">Preferred engagement <span class="text-purple-400">*</span></label>
++          <div class="flex gap-4 text-gray-200">
++            <label class="inline-flex items-center"><input type="radio" name="engagement" value="freelance" checked class="mr-2"> Freelance</label>
++            <label class="inline-flex items-center"><input type="radio" name="engagement" value="contract" class="mr-2"> Contract</label>
++            <label class="inline-flex items-center"><input type="radio" name="engagement" value="hire" class="mr-2"> Hire</label>
++          </div>
++        </div>
++
++        <div>
++          <label for="budget" class="block text-sm font-medium text-gray-300 mb-1">Budget (estimate)</label>
++          <select id="budget" name="budget" class="mt-1 block w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white">
++            <option value="undisclosed">Prefer not to share</option>
++            <option value="<$1k">&lt;$1k</option>
++            <option value="$1k-$5k">$1k-$5k</option>
++            <option value="$5k-$20k">$5k-$20k</option>
++            <option value=">$20k">&gt;$20k</option>
++          </select>
++        </div>
++
++        <div>
++          <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Project summary</label>
++          <textarea id="message" name="message" rows="4" placeholder="Brief description of your project / goals" class="mt-1 block w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white"></textarea>
++        </div>
++
++        <div class="flex items-center justify-between w-full">
++          <button type="submit" class="py-3 px-6 rounded-md text-lg font-semibold btn-primary">Send request</button>
++          <a href="mailto:paulobroccooxx@gmail.com" class="text-sm text-gray-300 hover:text-purple-300">Or email: paulobroccooxx@gmail.com</a>
++        </div>
++      </form>
++
++      <div id="contactMessage" class="hidden mt-4 p-3 rounded-md text-sm"></div>
++    </div>
++  </main>
++
++  <footer class="py-6 px-4 md:px-8 border-t border-gray-800 text-center text-gray-500 text-sm">
++    &copy; 2025 Paulo Brocco. All Rights Reserved.
++  </footer>
++
++  <script>
++    document.getElementById('contactForm').addEventListener('submit', function(event) {
++      event.preventDefault();
++      const data = {
++        name: document.getElementById('name').value,
++        company: document.getElementById('company').value,
++        email: document.getElementById('email').value,
++        phone: document.getElementById('phone').value,
++        timeline: document.getElementById('timeline').value,
++        engagement: document.querySelector('input[name="engagement"]:checked').value,
++        budget: document.getElementById('budget').value,
++        message: document.getElementById('message').value
++      };
++      // TODO: replace with real backend endpoint or Zapier / n8n webhook
++      console.log('Contact request:', data);
++      const msg = document.getElementById('contactMessage');
++      msg.classList.remove('hidden');
++      msg.classList.add('block');
++      msg.style.background = 'rgba(16, 185, 129, 0.08)';
++      msg.style.color = '#9ae6b4';
++      msg.textContent = 'Thanks — your request has been recorded. I will respond within 48 hours.';
++      this.reset();
++      setTimeout(() => { msg.classList.remove('block'); msg.classList.add('hidden'); }, 7000);
++    });
++  </script>
++</body>
++
++</html>
++
