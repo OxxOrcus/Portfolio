@@ -58,14 +58,27 @@ document.addEventListener("DOMContentLoaded", () => {
   function showPopup() {
     if (!newsletterPopup) return;
     if (popupShown) return;
-    newsletterPopup.classList.add("active");
+    // Remove Tailwind 'hidden' so the element can be visible, then add the
+    // CSS-controlled 'show' class to trigger transitions defined in
+    // `css/style.css` (#newsletterPopup.show).
+    newsletterPopup.classList.remove("hidden");
+    // small delay to ensure browser registers the removal before adding show
+    setTimeout(() => newsletterPopup.classList.add("show"), 10);
+    // prevent page scrolling while popup is open
+    document.body.classList.add("popup-open");
     popupShown = true;
     markPopupSeen();
   }
 
   function hidePopup() {
     if (!newsletterPopup) return;
-    newsletterPopup.classList.remove("active");
+    // Remove the 'show' class so CSS transitions run, then re-add Tailwind
+    // 'hidden' after the transition completes to fully hide the element.
+    newsletterPopup.classList.remove("show");
+    document.body.classList.remove("popup-open");
+    setTimeout(() => {
+      newsletterPopup.classList.add("hidden");
+    }, 300);
   }
 
   if (closePopup) closePopup.addEventListener("click", hidePopup);
@@ -73,7 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (popupForm) {
     popupForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      // Simple success UI in the popup
+      // Simple success UI in the popup + confetti
+      triggerConfetti();
       if (popupContent) {
         popupContent.innerHTML = `
           <div class="text-center py-8">
