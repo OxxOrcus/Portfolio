@@ -464,7 +464,7 @@ nav a {
   }
 }
 
-.hero-subtitle {
+.typing-subtitle {
   display: inline-block;
   white-space: nowrap;
   color: #39ff14; /* Matrix green */
@@ -475,6 +475,6 @@ nav a {
   min-width: 1ch; /* ensure caret visible when empty */
 }
 
-.hero-subtitle.caret-blink {
+.typing-subtitle.caret-blink {
   animation: matrixBlink 1s steps(1) infinite;
 }

@@ -353,12 +353,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ---------------------------------------------------------------------------
-  // HERO SUBTITLE TYPING (letter-by-letter) + re-trigger on entering viewport
+  // SUBTITLE TYPING (letter-by-letter) + re-trigger on entering viewport
   // ---------------------------------------------------------------------------
-  function initHeroTyping() {
-    const subtitleSpan = document.querySelector(".hero-subtitle");
-    const heroSection = document.getElementById("hero");
-    if (!subtitleSpan || !heroSection) return;
+  function initTypingAnimation() {
+    const subtitleSpan = document.querySelector(".typing-subtitle");
+    const triggerSection = document.getElementById("about");
+    if (!subtitleSpan || !triggerSection) return;
 
     const fullText = subtitleSpan.textContent.trim();
     subtitleSpan.textContent = "";
@@ -397,9 +397,9 @@ document.addEventListener("DOMContentLoaded", () => {
       { root: null, threshold: 0.4 }
     );
 
-    observer.observe(heroSection);
+    observer.observe(triggerSection);
     setTimeout(playTyping, 250);
   }
 
-  initHeroTyping();
+  initTypingAnimation();
 });
