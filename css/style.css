@@ -478,3 +478,17 @@ nav a {
 .hero-subtitle.caret-blink {
   animation: matrixBlink 1s steps(1) infinite;
 }
+
+#cursor-ball {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 60%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease-out;
+  z-index: 9999;
+}
