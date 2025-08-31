@@ -312,15 +312,6 @@ input[type="submit"]:active,
   color: #fff;
 }
 
-.btn-icon {
-  padding: 0.75rem;
-  width: 3rem;
-  height: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 /* Mobile Navigation Menu Styles (can be expanded) */
 /* Navigation Link Hover Effects */
 nav a {
@@ -473,7 +464,7 @@ nav a {
   }
 }
 
-.hero-subtitle {
+.typing-subtitle {
   display: inline-block;
   white-space: nowrap;
   color: #39ff14; /* Matrix green */
@@ -484,6 +475,6 @@ nav a {
   min-width: 1ch; /* ensure caret visible when empty */
 }
 
-.hero-subtitle.caret-blink {
+.typing-subtitle.caret-blink {
   animation: matrixBlink 1s steps(1) infinite;
 }
