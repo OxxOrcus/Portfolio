@@ -2,6 +2,101 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   // ---------------------------------------------------------------------------
+  // MATRIX RAIN EFFECT
+  // ---------------------------------------------------------------------------
+  // Create canvas for matrix effect
+  const matrixCanvas = document.createElement("canvas");
+  matrixCanvas.id = "matrix-canvas";
+  matrixCanvas.style.position = "fixed";
+  matrixCanvas.style.top = "0";
+  matrixCanvas.style.left = "0";
+  matrixCanvas.style.width = "100vw";
+  matrixCanvas.style.height = "100vh";
+  matrixCanvas.style.pointerEvents = "none";
+  matrixCanvas.style.zIndex = "100";
+  matrixCanvas.style.display = "none";
+  document.body.appendChild(matrixCanvas);
+
+  let matrixActive = false;
+  let matrixAnimationId = null;
+
+  function startMatrixRain() {
+    if (matrixActive) return;
+    matrixActive = true;
+    matrixCanvas.width = window.innerWidth;
+    matrixCanvas.height = window.innerHeight;
+    matrixCanvas.style.display = "block";
+    runMatrixRain();
+  }
+
+  function stopMatrixRain() {
+    matrixActive = false;
+    matrixCanvas.style.display = "none";
+    if (matrixAnimationId) cancelAnimationFrame(matrixAnimationId);
+  }
+
+  function runMatrixRain() {
+    const ctx = matrixCanvas.getContext("2d");
+    const w = matrixCanvas.width;
+    const h = matrixCanvas.height;
+    const fontSize = 18;
+    const columns = Math.floor(w / fontSize);
+    const drops = Array(columns).fill(1);
+    const matrixChars =
+      "アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズヅブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    function draw() {
+      // Draw a semi-transparent black background (0.25 opacity)
+      ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
+      ctx.fillRect(0, 0, w, h);
+      ctx.font = fontSize + "px monospace";
+  // Draw more visible green letters (higher opacity)
+  ctx.fillStyle = "rgba(0,255,65,0.7)";
+      for (let i = 0; i < drops.length; i++) {
+        const text = matrixChars.charAt(
+          Math.floor(Math.random() * matrixChars.length)
+        );
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > h && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+      if (matrixActive) {
+        matrixAnimationId = requestAnimationFrame(draw);
+      }
+    }
+    draw();
+  }
+
+  // Responsive canvas
+  window.addEventListener("resize", () => {
+    if (matrixActive) {
+      matrixCanvas.width = window.innerWidth;
+      matrixCanvas.height = window.innerHeight;
+    }
+  });
+
+  // Trigger matrix rain on Learn More button click
+  // Trigger matrix rain automatically on page load
+  startMatrixRain();
+  // Fade out matrix effect over the last 3 seconds of a 5.2s total duration
+  let fadeTimeout, fadeInterval;
+  fadeTimeout = setTimeout(() => {
+    let fadeDuration = 3000; // ms
+    let fadeStart = Date.now();
+    fadeInterval = setInterval(() => {
+      let elapsed = Date.now() - fadeStart;
+      let progress = Math.min(elapsed / fadeDuration, 1);
+      matrixCanvas.style.opacity = 1 - progress;
+      if (progress >= 1) {
+        clearInterval(fadeInterval);
+        stopMatrixRain();
+        matrixCanvas.style.opacity = 1;
+      }
+    }, 30);
+  }, 2200);
+  // ---------------------------------------------------------------------------
   // ELEMENT REFERENCES
   // ---------------------------------------------------------------------------
   const newsletterPopup = document.getElementById("newsletterPopup");

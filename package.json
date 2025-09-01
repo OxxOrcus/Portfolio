@@ -20,6 +20,8 @@
   "homepage": "https://github.com/OxxOrcus/Portfolio#readme",
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
-    "nodemailer": "^7.0.6"
+    "@vercel/edge-config": "^1.4.0",
+    "nodemailer": "^7.0.6",
+    "resend": "^6.0.2"
   }
 }
