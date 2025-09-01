@@ -401,5 +401,5 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(playTyping, 250);
   }
 
-  initTypingAnimation();
+>>>> main
 });
