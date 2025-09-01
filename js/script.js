@@ -401,5 +401,17 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(playTyping, 250);
   }
 
->>>> main
+  // Call the typing animation function
+  initTypingAnimation();
+
+  // ---------------------------------------------------------------------------
+  // CURSOR BALL EFFECT
+  // ---------------------------------------------------------------------------
+  const cursorBall = document.getElementById('cursor-ball');
+  if (cursorBall) {
+    document.addEventListener('mousemove', (e) => {
+      cursorBall.style.left = e.clientX + 'px';
+      cursorBall.style.top = e.clientY + 'px';
+    });
+  }
 });
