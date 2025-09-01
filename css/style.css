@@ -483,12 +483,20 @@ nav a {
   position: fixed;
   top: 0;
   left: 0;
-  width: 50px;
-  height: 50px;
+  width: 30vw;
+  height: 30vw;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 60%);
+  background: radial-gradient(
+    circle at 60% 40%,
+    #a259ff 0%,
+    #6a11cb 60%,
+    #1b0036 100%
+  );
+  filter: blur(60px);
   pointer-events: none;
   transform: translate(-50%, -50%);
   transition: transform 0.1s ease-out;
-  z-index: 9999;
+  z-index: -1;
+  mix-blend-mode: lighten;
+  opacity: 0.15;
 }

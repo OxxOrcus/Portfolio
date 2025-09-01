@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/OxxOrcus/Portfolio#readme",
   "dependencies": {
-    "@google/generative-ai": "^0.24.1"
+    "@google/generative-ai": "^0.24.1",
+    "nodemailer": "^7.0.6"
   }
 }

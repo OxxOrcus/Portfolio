@@ -84,22 +84,34 @@ document.addEventListener("DOMContentLoaded", () => {
   if (closePopup) closePopup.addEventListener("click", hidePopup);
 
   if (popupForm) {
-    popupForm.addEventListener("submit", (e) => {
+    popupForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      // Simple success UI in the popup + confetti
-      triggerConfetti();
-      if (popupContent) {
-        popupContent.innerHTML = `
-          <div class="text-center py-8">
-            <i class="fas fa-check-circle text-5xl text-green-500 mb-4"></i>
-            <h3 class="text-2xl font-bold text-white mb-2">Thank You!</h3>
-            <p class="text-gray-300 mb-6">You've been successfully subscribed to our newsletter.</p>
-            <button id="closePopupConfirm" class="btn-primary py-2 px-6">Close</button>
-          </div>
-        `;
-        const confirmBtn = document.getElementById("closePopupConfirm");
-        if (confirmBtn) confirmBtn.addEventListener("click", hidePopup);
-        setTimeout(hidePopup, 3000);
+      const emailInput = popupForm.querySelector('input[type="email"]');
+      if (emailInput && emailInput.value.trim() && emailInput.checkValidity()) {
+        // Send to backend
+        try {
+          await fetch("/api/newsletter", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: emailInput.value.trim() }),
+          });
+        } catch (err) {
+          // Optionally show error
+        }
+        triggerConfetti();
+        if (popupContent) {
+          popupContent.innerHTML = `
+            <div class="text-center py-8">
+              <i class="fas fa-check-circle text-5xl text-green-500 mb-4"></i>
+              <h3 class="text-2xl font-bold text-white mb-2">Thank You!</h3>
+              <p class="text-gray-300 mb-6">You've been successfully subscribed to our newsletter.</p>
+              <button id="closePopupConfirm" class="btn-primary py-2 px-6">Close</button>
+            </div>
+          `;
+          const confirmBtn = document.getElementById("closePopupConfirm");
+          if (confirmBtn) confirmBtn.addEventListener("click", hidePopup);
+          setTimeout(hidePopup, 3000);
+        }
       }
     });
   }
@@ -115,12 +127,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // In-page newsletter form (footer)
   if (pageNewsletterForm && pageSubscribeMessage) {
-    pageNewsletterForm.addEventListener("submit", (event) => {
+    pageNewsletterForm.addEventListener("submit", async (event) => {
       event.preventDefault();
       const emailInput = pageNewsletterForm.querySelector(
         'input[type="email"]'
       );
       if (emailInput && emailInput.value.trim() && emailInput.checkValidity()) {
+        try {
+          await fetch("/api/newsletter", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: emailInput.value.trim() }),
+          });
+        } catch (err) {
+          // Optionally show error
+        }
         triggerConfetti();
         pageSubscribeMessage.textContent = "Thanks for subscribing! 🎉";
         pageSubscribeMessage.style.color = "#34d399";
@@ -407,11 +428,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------------------------------------------------------------------------
   // CURSOR BALL EFFECT
   // ---------------------------------------------------------------------------
-  const cursorBall = document.getElementById('cursor-ball');
+  const cursorBall = document.getElementById("cursor-ball");
   if (cursorBall) {
-    document.addEventListener('mousemove', (e) => {
-      cursorBall.style.left = e.clientX + 'px';
-      cursorBall.style.top = e.clientY + 'px';
+    document.addEventListener("mousemove", (e) => {
+      cursorBall.style.left = e.clientX + "px";
+      cursorBall.style.top = e.clientY + "px";
     });
   }
 });
