@@ -402,4 +402,42 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   initHeroTyping();
+
+  // ---------------------------------------------------------------------------
+  // CURSOR FOLLOWER
+  // ---------------------------------------------------------------------------
+  function initCursorFollower() {
+    const cursorBall = document.getElementById("cursor-ball");
+    if (!cursorBall) return;
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let ballX = 0;
+    let ballY = 0;
+    const speed = 0.1; // Lower value = smoother, more delayed effect
+
+    document.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function animate() {
+      // Calculate the distance between the ball and the mouse
+      const dx = mouseX - ballX;
+      const dy = mouseY - ballY;
+
+      // Move the ball towards the mouse
+      ballX += dx * speed;
+      ballY += dy * speed;
+
+      // Apply the new position to the ball
+      cursorBall.style.transform = `translate(${ballX}px, ${ballY}px) translate(-50%, -50%)`;
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  }
+
+  initCursorFollower();
 });
