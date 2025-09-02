@@ -1,3 +1,141 @@
+// ---------------------------------------------------------------------------
+// STAR CONFETTI ON CONTRACT ME BUTTON
+// ---------------------------------------------------------------------------
+function triggerStarConfetti() {
+  const confettiCount = 36;
+  const colors = [
+    "#facc15", // yellow
+    "#fbbf24", // gold
+    "#38bdf8", // blue
+    "#0ea5e9", // cyan
+    "#fff", // white
+  ];
+  for (let i = 0; i < confettiCount; i++) {
+    const el = document.createElement("div");
+    el.className = "star-confetti-piece";
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    el.innerHTML = `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="11,2 13.5,8.5 21,9 15,14 17,21 11,17.5 5,21 7,14 1,9 8.5,8.5" fill="${color}" stroke="#fff" stroke-width="0.7"/></svg>`;
+    el.style.position = "fixed";
+    el.style.left = `${Math.random() * 100}vw`;
+    el.style.top = `${Math.random() * 10 + 10}vh`;
+    el.style.pointerEvents = "none";
+    el.style.zIndex = 9999;
+    el.style.opacity = 0.95;
+    el.style.transform = `rotate(${Math.random() * 360}deg)`;
+    el.style.animation = `star-fall 1.8s cubic-bezier(.6,.2,.4,1) forwards`;
+    el.style.animationDelay = `${Math.random() * 0.5}s`;
+    document.body.appendChild(el);
+    el.addEventListener("animationend", () => el.remove());
+  }
+}
+
+// Comet animation
+
+function triggerComet() {
+  // Get header position and width
+  const header = document.querySelector("header");
+  if (!header) return;
+  const rect = header.getBoundingClientRect();
+  // Start: bottom left of viewport
+  const startX = 0;
+  const startY = window.innerHeight;
+  // End: 60% of window width or header width (whichever is greater), at header's vertical center
+  const winTarget = window.innerWidth * 0.68; // a bit more to the right than 60%
+  const headerTarget = rect.left + rect.width * 0.68;
+  const endX = Math.max(winTarget, headerTarget);
+  const endY = rect.top + rect.height / 2;
+
+  // Calculate angle for comet body
+  const dx = endX - startX;
+  const dy = endY - startY;
+  const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+
+  // Comet SVG: tail points left, head points right
+  const comet = document.createElement("div");
+  comet.className = "comet-anim";
+  comet.innerHTML = `<svg width="120" height="32" viewBox="0 0 120 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block">
+    <rect x="0" y="13" width="90" height="6" rx="3" fill="url(#comet-tail)"/>
+    <ellipse cx="105" cy="16" rx="13" ry="8" fill="url(#comet-glow)"/>
+    <ellipse cx="108" cy="16" rx="7" ry="3.5" fill="#fff" fill-opacity="0.85"/>
+    <defs>
+      <linearGradient id="comet-tail" x1="0" y1="16" x2="90" y2="16" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#fff" stop-opacity="0.0"/>
+        <stop offset="0.5" stop-color="#facc15" stop-opacity="0.5"/>
+        <stop offset="1" stop-color="#fbbf24" stop-opacity="0.9"/>
+      </linearGradient>
+      <radialGradient id="comet-glow" cx="0" cy="0" r="1" gradientTransform="translate(105 16) scale(13 8)" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#fff" stop-opacity="0.9"/>
+        <stop offset="1" stop-color="#facc15" stop-opacity="0.7"/>
+      </radialGradient>
+    </defs>
+  </svg>`;
+  comet.style.position = "fixed";
+  comet.style.left = `${startX - 60}px`;
+  comet.style.top = `${startY - 16}px`;
+  comet.style.zIndex = 99999;
+  comet.style.pointerEvents = "none";
+  comet.style.width = "120px";
+  comet.style.height = "32px";
+  comet.style.opacity = "1";
+  comet.style.transition = "none";
+  comet.style.transform = `rotate(${angle}deg)`;
+  document.body.appendChild(comet);
+  // Animate with CSS
+  comet.animate(
+    [
+      { transform: `rotate(${angle}deg) translate(0,0)`, opacity: 1 },
+      {
+        transform: `rotate(${angle}deg) translate(${dx}px,${dy}px)`,
+        opacity: 0.2,
+      },
+    ],
+    {
+      duration: 2000,
+      easing: "cubic-bezier(.7,.1,.3,1)",
+    }
+  );
+  setTimeout(() => comet.remove(), 2100);
+}
+
+// Attach to Contract Me button
+document.querySelectorAll("a,button").forEach((el) => {
+  if (el.textContent && el.textContent.match(/Contract Me/i)) {
+    el.addEventListener("click", function (e) {
+      // If already handled, do nothing
+      if (el.dataset.confettiHandled) return;
+      e.preventDefault();
+      triggerStarConfetti();
+      triggerComet();
+      el.dataset.confettiHandled = "1";
+      setTimeout(() => {
+        window.open(el.href, "_blank", "noopener");
+        el.dataset.confettiHandled = "";
+      }, 2000);
+    });
+  }
+});
+
+// Add confetti and comet animation CSS
+const style = document.createElement("style");
+style.innerHTML = `
+    @keyframes star-fall {
+      0% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+      80% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(60vh) scale(0.7) rotate(180deg); }
+    }
+    .star-confetti-piece {
+      pointer-events: none;
+      will-change: transform, opacity;
+      transition: opacity 0.2s;
+    }
+    .comet-anim {
+      pointer-events: none;
+      will-change: transform, opacity;
+      filter: drop-shadow(0 0 16px #fff) drop-shadow(0 0 32px #facc15);
+      opacity: 1;
+    }
+  `;
+document.head.appendChild(style);
 // js/script.js
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -50,8 +188,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
       ctx.fillRect(0, 0, w, h);
       ctx.font = fontSize + "px monospace";
-  // Draw more visible green letters (higher opacity)
-  ctx.fillStyle = "rgba(0,255,65,0.7)";
+      // Draw more visible green letters (higher opacity)
+      ctx.fillStyle = "rgba(0,255,65,0.7)";
       for (let i = 0; i < drops.length; i++) {
         const text = matrixChars.charAt(
           Math.floor(Math.random() * matrixChars.length)
@@ -530,4 +668,65 @@ document.addEventListener("DOMContentLoaded", () => {
       cursorBall.style.top = e.clientY + "px";
     });
   }
+
+  // ---------------------------------------------------------------------------
+  // EYES FOLLOW CURSOR EFFECT
+  // ---------------------------------------------------------------------------
+
+  function initEyesFollowCursor() {
+    const eyes = document.querySelectorAll(".menu-eyes .eye-styled");
+    if (!eyes.length) return;
+
+    // Each eye SVG: get the pupil (the large dark circle with class 'eye-pupil')
+    const pupils = [];
+    const centers = [];
+    eyes.forEach((eye) => {
+      const svg = eye.querySelector("svg");
+      if (!svg) return;
+      const pupil = svg.querySelector(".eye-pupil");
+      if (pupil) {
+        pupils.push(pupil);
+        // Get the white eyeball circle (center)
+        const main = svg.querySelector(
+          "circle:not(.eye-pupil):not(.eye-highlight)"
+        );
+        if (main) {
+          centers.push({
+            x: parseFloat(main.getAttribute("cx")),
+            y: parseFloat(main.getAttribute("cy")),
+            rx: 7.5, // how far pupil can move horizontally
+            ry: 5.5, // how far pupil can move vertically
+          });
+        } else {
+          centers.push({ x: 22, y: 14, rx: 7.5, ry: 5.5 });
+        }
+      }
+    });
+
+    function movePupils(event) {
+      const mouseX = event.clientX;
+      const mouseY = event.clientY;
+      eyes.forEach((eye, i) => {
+        const rect = eye.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        let dx = mouseX - centerX;
+        let dy = mouseY - centerY;
+        // Normalize and clamp
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist > 0.1) {
+          dx = (dx / dist) * centers[i].rx;
+          dy = (dy / dist) * centers[i].ry;
+        }
+        // Animate pupil movement for smoothness
+        if (pupils[i]) {
+          pupils[i].setAttribute("cx", (centers[i].x + dx).toFixed(2));
+          pupils[i].setAttribute("cy", (centers[i].y + dy).toFixed(2));
+        }
+      });
+    }
+
+    document.addEventListener("mousemove", movePupils);
+  }
+  initEyesFollowCursor();
 });

@@ -1,3 +1,295 @@
+/* ===== Circle Portal Effect for About Photo ===== */
+.portal-photo-wrapper {
+  position: relative;
+  display: inline-block;
+}
+/* Portal main glow */
+.portal-effect {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 204px;
+  height: 204px;
+  background: radial-gradient(
+    circle at 60% 40%,
+    #a259ff 0%,
+    #6a11cb 60%,
+    #1b0036 100%
+  );
+  border-radius: 50%;
+  filter: blur(18px) brightness(1.2);
+  z-index: 1;
+  opacity: 0.7;
+  animation: portalPulse 2.5s infinite alternate, portalSpin 6s linear infinite;
+  overflow: visible;
+}
+.portal-effect::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.18) 10%,
+    rgba(255, 255, 255, 0.03) 60%,
+    rgba(255, 255, 255, 0.18) 90%
+  );
+  opacity: 0.7;
+  filter: blur(2px);
+  z-index: 2;
+  animation: portalReflection 2.5s linear infinite;
+}
+.portal-effect::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background: linear-gradient(
+    60deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.02) 60%,
+    rgba(255, 255, 255, 0.12) 100%
+  );
+  opacity: 0.5;
+  filter: blur(1.5px);
+  z-index: 3;
+  animation: portalReflectionSweep 3.5s linear infinite;
+}
+@media (min-width: 768px) {
+  .portal-effect {
+    width: 252px;
+    height: 252px;
+  }
+}
+@keyframes portalSpin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+@keyframes portalReflection {
+  0% {
+    opacity: 0.7;
+    filter: blur(2px);
+  }
+  50% {
+    opacity: 1;
+    filter: blur(3.5px);
+  }
+  100% {
+    opacity: 0.7;
+    filter: blur(2px);
+  }
+}
+@keyframes portalReflectionSweep {
+  0% {
+    opacity: 0.5;
+    background-position: 0% 50%;
+  }
+  50% {
+    opacity: 0.8;
+    background-position: 100% 50%;
+  }
+  100% {
+    opacity: 0.5;
+    background-position: 0% 50%;
+  }
+}
+@media (min-width: 768px) {
+  .portal-effect {
+    width: 210px;
+    height: 210px;
+  }
+}
+@keyframes portalPulse {
+  0% {
+    filter: blur(18px) brightness(1.2);
+    opacity: 0.7;
+    box-shadow: 0 0 32px 8px #a259ff44, 0 0 0 0 #6a11cb22;
+  }
+  50% {
+    filter: blur(24px) brightness(1.4);
+    opacity: 1;
+    box-shadow: 0 0 48px 16px #a259ff66, 0 0 32px 8px #6a11cb44;
+  }
+  100% {
+    filter: blur(18px) brightness(1.2);
+    opacity: 0.7;
+    box-shadow: 0 0 32px 8px #a259ff44, 0 0 0 0 #6a11cb22;
+  }
+}
+/* Fire effect for github link */
+/* Fire effect for github link and hero button */
+.fire-link {
+  position: relative;
+  display: inline-block;
+  color: #a259ff;
+  transition: color 0.2s;
+  z-index: 1;
+}
+.fire-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 6px;
+  pointer-events: none;
+  background: linear-gradient(90deg, #ffb347 0%, #ff6961 40%, #ffb347 100%);
+  opacity: 0;
+  filter: blur(2px) brightness(1.2);
+  border-radius: 50%;
+  transition: opacity 0.2s;
+  z-index: -1;
+}
+.fire-link:hover {
+  color: #ffb347;
+  text-shadow: 0 0 8px #ffb347, 0 0 16px #ff6961;
+}
+.fire-link:hover::after {
+  opacity: 1;
+  animation: fire-flicker 0.25s infinite alternate;
+}
+@keyframes fire-flicker {
+  0% {
+    transform: scaleY(1) translateY(0);
+    filter: blur(2px) brightness(1.2);
+  }
+  30% {
+    transform: scaleY(1.2) translateY(-2px) scaleX(1.05);
+    filter: blur(3px) brightness(1.4);
+  }
+  60% {
+    transform: scaleY(0.9) translateY(1px) scaleX(0.97);
+    filter: blur(1.5px) brightness(1.1);
+  }
+  100% {
+    transform: scaleY(1.1) translateY(-1px) scaleX(1.03);
+    filter: blur(2.5px) brightness(1.3);
+  }
+}
+/* Extra contrast for experience card */
+.experience-contrast-card {
+  background: rgba(10, 10, 20, 0.92);
+  border-radius: 1rem;
+  box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 0.45);
+  padding: 2rem 1.5rem;
+  color: #fff;
+}
+.experience-contrast-card h3,
+.experience-contrast-card p,
+.experience-contrast-card ul,
+.experience-contrast-card li,
+.experience-contrast-card strong,
+.experience-contrast-card code {
+  color: #fff !important;
+  text-shadow: 0 2px 8px #000;
+}
+.experience-contrast-card .text-purple-300,
+.experience-contrast-card .text-purple-400,
+.experience-contrast-card .text-xs {
+  color: #e0c3fc !important;
+}
+.experience-contrast-card ul {
+  background: none;
+}
+/* White shadow for main section titles */
+#about h2,
+#skills h2,
+#soft-skills h2,
+#projects h2,
+#experience h2,
+#education h2 {
+  text-shadow: 0 2px 12px #fff, 0 0px 2px #fff;
+}
+/* Improve contrast for section titles and card text on galaxy background */
+.galaxy-bg-wrapper h2,
+.galaxy-bg-wrapper .gradient-text {
+  color: #fff !important;
+  text-shadow: 0 2px 12px #000, 0 0px 2px #4a00e0;
+}
+
+.galaxy-bg-wrapper .glass-card {
+  background: rgba(10, 10, 20, 0.82);
+  color: #f3f3f3;
+  border: 1.5px solid rgba(138, 99, 210, 0.18);
+}
+
+.galaxy-bg-wrapper .glass-card h3 {
+  color: #fff;
+  text-shadow: 0 2px 8px #000, 0 0px 2px #8e2de2;
+}
+
+.galaxy-bg-wrapper .glass-card p,
+.galaxy-bg-wrapper .glass-card ul,
+.galaxy-bg-wrapper .glass-card li {
+  color: #e0e0e0;
+  text-shadow: 0 1px 4px #000;
+}
+
+/* Galaxy background for all sections after hero */
+.galaxy-bg-wrapper {
+  background: url("../assets/images/galaxy_background_purple.png") center top
+    no-repeat;
+  background-size: cover;
+  width: 100%;
+  min-height: 100%;
+  position: relative;
+  z-index: 0;
+}
+
+/* Hidden Eyes on Menu Bar - new SVG style */
+.menu-stars {
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+header:hover .menu-stars {
+  opacity: 1;
+  pointer-events: auto;
+}
+.star-styled {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 8px #fbbf24);
+  transition: transform 0.3s, filter 0.3s;
+}
+.star-styled:hover {
+  transform: scale(1.18) rotate(-8deg);
+  filter: drop-shadow(0 0 16px #fff);
+}
+/* Hidden Eyes on Menu Bar */
+.menu-eyes {
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+header:hover .menu-eyes {
+  opacity: 1;
+  pointer-events: auto;
+}
+.menu-eyes .fa-eye {
+  color: #8e2de2;
+  font-size: 1.25rem;
+  filter: drop-shadow(0 0 2px #4a00e0);
+  transition: transform 0.3s;
+}
+.menu-eyes .fa-eye:hover {
+  transform: scale(1.2) rotate(-10deg);
+  color: #fff;
+}
 /* Matrix Rain Canvas Overlay */
 #matrix-canvas {
   position: fixed;
@@ -508,7 +800,7 @@ nav a {
   pointer-events: none;
   transform: translate(-50%, -50%);
   transition: transform 0.1s ease-out;
-  z-index: -1;
+  z-index: 10;
   mix-blend-mode: lighten;
   opacity: 0.15;
 }

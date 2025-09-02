@@ -38,12 +38,47 @@
         <a href="#projects" class="hover:text-white transition duration-300">Projects</a>
         <a href="#experience" class="hover:text-white transition duration-300">Experience</a>
         <a href="#education" class="hover:text-white transition duration-300">Education</a>
-        <a href="digital-service.html"
+        <a href="digital-service.html" target="_blank" rel="noopener noreferrer"
           class="btn-primary px-5 py-2 rounded-md text-lg flex items-center gap-2 transition duration-300">
           <i class="fas fa-briefcase"></i>
           Contract Me
         </a>
         <a href="#contact" class="hover:text-white transition duration-300">Contact</a>
+        <!-- Hidden Eyes -->
+        <div class="menu-stars ml-4 flex gap-4 items-center">
+          <a class="star-styled" href="https://github.com/OxxOrcus" target="_blank" rel="noopener noreferrer"
+            aria-label="GitHub">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="20,4 24.5,15.5 36,16 27,24 30,36 20,29.5 10,36 13,24 4,16 15.5,15.5" fill="#facc15"
+                stroke="#fbbf24" stroke-width="2.5" filter="url(#star-glow1)" />
+              <defs>
+                <filter id="star-glow1" x="0" y="0" width="40" height="40" filterUnits="userSpaceOnUse">
+                  <feGaussianBlur stdDeviation="2.5" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+            </svg>
+          </a>
+          <a class="star-styled" href="https://www.linkedin.com/in/paulo-brocco" target="_blank"
+            rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="20,4 24.5,15.5 36,16 27,24 30,36 20,29.5 10,36 13,24 4,16 15.5,15.5" fill="#38bdf8"
+                stroke="#0ea5e9" stroke-width="2.5" filter="url(#star-glow2)" />
+              <defs>
+                <filter id="star-glow2" x="0" y="0" width="40" height="40" filterUnits="userSpaceOnUse">
+                  <feGaussianBlur stdDeviation="2.5" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+            </svg>
+          </a>
+        </div>
       </nav>
       <button id="mobile-menu-button" class="md:hidden text-gray-300 hover:text-white focus:outline-none"
         aria-controls="mobile-menu" aria-expanded="false">
@@ -80,467 +115,494 @@
   </header>
 
   <section id="hero" class="min-h-screen flex items-center justify-center text-center px-4 relative overflow-hidden">
-    <div
-      class="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-700 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse">
+
+
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none" style="z-index:1;">
+      <img src="./assets/images/hero_section.png" alt="Hero section illustration"
+        class="w-full h-full object-cover opacity-40" style="max-width:100vw; max-height:100vh;" />
     </div>
     <div
-      class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-700 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse animation-delay-2000">
-    </div>
+      class="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-700 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"
+      style="z-index:2;"></div>
+    <div
+      class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-700 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse animation-delay-2000"
+      style="z-index:2;"></div>
 
     <div class="z-10 animate-fadeInUp">
-      <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-2">Paulo Brocco</h2>
-      <p class="text-xl text-gray-300 mb-4">Full Stack Engineer — Cork, Ireland</p>
-      <p class="text-lg md:text-xl text-gray-400 mb-8 max-w-3xl mx-auto">I build reliable and scalable systems and
-        automation that impact thousands of users. I bring ~5 years of hands-on experience developing web and backend
-        applications, and I love solving complex problems with modern technologies.</p>
+      <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-2 text-white drop-shadow-lg">Paulo Brocco</h2>
+      <p
+        class="text-xl text-white mb-4 font-semibold drop-shadow-lg bg-black bg-opacity-40 px-4 py-2 rounded-lg inline-block">
+        Full Stack Engineer — Cork, Ireland</p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href="#about" class="btn-primary">Learn More <i class="fas fa-arrow-down"></i></a>
+        <a href="#about" class="btn-primary fire-link">Learn More <i class="fas fa-arrow-down"></i></a>
       </div>
     </div>
   </section>
 
 
-  <section id="about" class="py-20 px-4 md:px-8">
-    <div class="container mx-auto max-w-4xl text-center fade-in-up" style="opacity: 0; transform: translateY(20px);">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6 gradient-text">About Me</h2>
-      <img src="./assets/images/Paulo-Brocco.jpg" alt="Paulo Brocco"
-        class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover aspect-square mx-auto mb-6 border-4 border-purple-600 shadow-lg">
-      <p class="text-sm text-green-400 font-mono mb-4" aria-hidden="true"><span
-          class="typing-subtitle">Dev_Oxx.orcus</span></p>
-      <p class="text-gray-300 text-lg mb-4 leading-relaxed">I'm a 32-year-old developer from São Paulo, Brazil,
-        currently based in Cork, Ireland. I'm passionate about solving complex problems using cutting-edge technology.
-        Over the past ~5 years I've focused on building systems and automation that reach and help thousands of users.
-      </p>
-      <p class="text-gray-400 text-sm mb-6">Languages: Portuguese (Native) • English (B2) • Availability: Open to
-        opportunities and collaborations.</p>
-      <div class="flex flex-wrap justify-center gap-3 text-sm">
-        <a class="inline-block bg-gray-800 text-purple-300 px-3 py-1 rounded-full" href="#skills">View my skills</a>
-        <a class="inline-block bg-gray-800 text-purple-300 px-3 py-1 rounded-full" href="#projects">See projects</a>
-        <a class="inline-block bg-gray-800 text-purple-300 px-3 py-1 rounded-full"
-          href="Paulo Brocco — Full Stack Engineer.pdf" target="_blank">Download CV</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="skills" class="py-16 px-4 md:px-8 bg-black bg-opacity-10">
-    <div class="container mx-auto max-w-5xl">
-      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">Technical Skills</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="glass-card p-6">
-          <h3 class="font-semibold mb-3">Frontend</h3>
-          <div class="flex flex-wrap gap-3">
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fab fa-js text-yellow-400"></i><span>JavaScript (ES6+)</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fab fa-html5 text-orange-500"></i><span>HTML5</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fab fa-css3-alt text-sky-400"></i><span>CSS3</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fab fa-react text-cyan-400"></i><span>React</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fas fa-mobile-alt text-indigo-300"></i><span>React Native</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fas fa-desktop text-gray-400"></i><span>Responsive Design</span></span>
-          </div>
+  <!-- Galaxy background wrapper start -->
+  <div class="galaxy-bg-wrapper">
+    <section id="about" class="py-20 px-4 md:px-8">
+      <div class="container mx-auto max-w-4xl text-center fade-in-up" style="opacity: 0; transform: translateY(20px);">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 gradient-text">About Me</h2>
+        <div class="portal-photo-wrapper mx-auto mb-6" style="position: relative; display: inline-block;">
+          <div class="portal-effect"></div>
+          <img src="./assets/images/Paulo-Brocco.jpg" alt="Paulo Brocco"
+            class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover aspect-square border-4 border-purple-600 shadow-lg"
+            style="position: relative; z-index: 2;">
         </div>
-        <div class="glass-card p-6">
-          <h3 class="font-semibold mb-3">Backend</h3>
-          <div class="flex flex-wrap gap-3">
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fab fa-node-js text-green-400"></i><span>Node.js</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fas fa-server text-gray-400"></i><span>Express</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fab fa-python text-yellow-300"></i><span>Python (Flask, Django)</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fas fa-network-wired text-purple-400"></i><span>RESTful APIs</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fas fa-robot text-indigo-400"></i><span>Automation Scripts</span></span>
-          </div>
-        </div>
-        <div class="glass-card p-6">
-          <h3 class="font-semibold mb-3">Databases</h3>
-          <div class="flex flex-wrap gap-3">
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fas fa-database text-amber-400"></i><span>MongoDB</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fas fa-database text-sky-500"></i><span>PostgreSQL</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fas fa-database text-blue-400"></i><span>MySQL</span></span>
-          </div>
-        </div>
-        <div class="glass-card p-6">
-          <h3 class="font-semibold mb-3">DevOps & Tools</h3>
-          <div class="flex flex-wrap gap-3">
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fab fa-docker text-blue-400"></i><span>Docker</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fab fa-git-alt text-orange-400"></i><span>Git</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fab fa-github text-gray-300"></i><span>GitHub</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fab fa-linux text-gray-400"></i><span>Linux</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fas fa-terminal text-green-300"></i><span>Bash scripting</span></span>
-          </div>
-        </div>
-        <div class="glass-card p-6">
-          <h3 class="font-semibold mb-3">AI & Automation</h3>
-          <div class="flex flex-wrap gap-3">
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fas fa-robot text-indigo-300"></i><span>Gemini</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fas fa-robot text-indigo-300"></i><span>ChatGPT</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fas fa-robot text-indigo-300"></i><span>Claude</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fas fa-code-branch text-purple-300"></i><span>Copilot</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fas fa-flow-chart text-yellow-300"></i><span>n8n</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fas fa-robot text-indigo-300"></i><span>Manus</span></span>
-          </div>
-        </div>
-        <div class="glass-card p-6">
-          <h3 class="font-semibold mb-3">Other</h3>
-          <div class="flex flex-wrap gap-3">
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fas fa-users-cog text-gray-300"></i><span>Agile methodologies</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fas fa-project-diagram text-gray-300"></i><span>Automation frameworks</span></span>
-            <span class="flex items-center text-sm text-gray-300 gap-2"><i
-                class="fas fa-code text-gray-300"></i><span>Clean Code</span></span>
-          </div>
+        <p class="text-sm text-green-400 font-mono mb-4" aria-hidden="true"><span
+            class="typing-subtitle">Dev_Oxx.orcus</span></p>
+        <p class="text-gray-300 text-lg mb-4 leading-relaxed">
+          I'm a 32-year-old developer from São Paulo, Brazil, currently based in Cork, Ireland.<br>
+          Focused on building reliable and scalable systems that reach thousands of users.<br>
+          Experienced in web and backend development, with a passion for solving complex problems using modern
+          technology.<br>
+          Over the past ~5 years I've focused on building systems and automation that reach and help thousands of users.
+        </p>
+        <p class="text-gray-400 text-sm mb-6">Languages: Portuguese (Native) • English (B2) • Availability: Open to
+          opportunities and collaborations.</p>
+        <div class="flex flex-wrap justify-center gap-3 text-sm">
+          <a class="inline-block bg-gray-800 text-purple-300 px-3 py-1 rounded-full" href="#skills">View my skills</a>
+          <a class="inline-block bg-gray-800 text-purple-300 px-3 py-1 rounded-full" href="#projects">See projects</a>
+          <a class="inline-block bg-gray-800 text-purple-300 px-3 py-1 rounded-full"
+            href="Paulo Brocco — Full Stack Engineer.pdf" target="_blank">Download CV</a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="soft-skills" class="py-16 px-4 md:px-8 bg-black bg-opacity-5">
-    <div class="container mx-auto max-w-5xl">
-      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">Soft Skills</h2>
-      <p class="text-center text-gray-400 mb-8 max-w-2xl mx-auto">Core interpersonal strengths that help me build better
-        products and work effectively with teams.</p>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="glass-card p-6 flex flex-col">
-          <div class="flex items-center gap-3 mb-3">
-            <i class="fas fa-heart text-pink-400 fa-lg"></i>
-            <h3 class="text-xl font-semibold">Empathy</h3>
-          </div>
-          <p class="text-gray-400 text-sm">Understanding the user's perspective and my colleagues to build more
-            intuitive and effective applications. It's about putting myself in the user's shoes to create technology
-            that truly serves their needs.</p>
-        </div>
-
-        <div class="glass-card p-6 flex flex-col">
-          <div class="flex items-center gap-3 mb-3">
-            <i class="fas fa-lightbulb text-yellow-400 fa-lg"></i>
-            <h3 class="text-xl font-semibold">Problem-Solving</h3>
-          </div>
-          <p class="text-gray-400 text-sm">A passion for tackling complex challenges and finding elegant, efficient
-            solutions. I thrive on debugging and architecting systems that are both robust and scalable.</p>
-        </div>
-
-        <div class="glass-card p-6 flex flex-col">
-          <div class="flex items-center gap-3 mb-3">
-            <i class="fas fa-users text-sky-400 fa-lg"></i>
-            <h3 class="text-xl font-semibold">Collaboration &amp; Teamwork</h3>
-          </div>
-          <p class="text-gray-400 text-sm">Actively contributing to team projects, valuing diverse perspectives, and
-            using tools like Git, GitHub, Slack, Discord and Jira to work effectively with others. I have experience
-            helping people and contributing to open-source projects.</p>
-        </div>
-
-        <div class="glass-card p-6 flex flex-col">
-          <div class="flex items-center gap-3 mb-3">
-            <i class="fas fa-comments text-green-400 fa-lg"></i>
-            <h3 class="text-xl font-semibold">Communication</h3>
-          </div>
-          <p class="text-gray-400 text-sm">Clearly articulating technical concepts to both technical and non-technical
-            audiences. Good communication is key to successful project management and team alignment.</p>
-        </div>
-
-        <div class="glass-card p-6 flex flex-col">
-          <div class="flex items-center gap-3 mb-3">
-            <i class="fas fa-book text-indigo-400 fa-lg"></i>
-            <h3 class="text-xl font-semibold">Adaptability &amp; Continuous Learning</h3>
-          </div>
-          <p class="text-gray-400 text-sm">A commitment to staying current with the latest technologies and continuously
-            improving my skill set through bootcamps, courses, and personal projects. The tech landscape is always
-            evolving, and I'm dedicated to growing with it.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <section id="projects" class="py-20 px-4 md:px-8 bg-black bg-opacity-20">
-    <div class="container mx-auto fade-in-up" style="opacity: 0; transform: translateY(20px);">
-      <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center gradient-text">Projects</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Project cards generated from CV projects list -->
-        <div class="glass-card p-6 flex flex-col">
-          <h3 class="text-xl font-semibold mb-2 text-white">Portfolio</h3>
-          <p class="text-gray-400 text-sm mb-4 flex-grow">Personal portfolio & AI services site built with HTML,
-            Tailwind and vanilla JS.</p>
-          <div class="mt-auto flex items-center gap-3">
-            <a href="https://portfolio-rose-zeta-llu88vdo68.vercel.app/" target="_blank" rel="noopener noreferrer"
-              class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium">Live demo</a>
-            <a href="https://github.com/OxxOrcus/Portfolio" target="_blank" rel="noopener noreferrer"
-              class="text-gray-400 hover:text-white transition duration-300 text-sm">Repo</a>
-          </div>
-        </div>
-        <div class="glass-card p-6 flex flex-col">
-          <h3 class="text-xl font-semibold mb-2 text-white">BroccoRealtors</h3>
-          <p class="text-gray-400 text-sm mb-4 flex-grow">Real estate prototype demonstrating responsive UI and dynamic
-            listings.</p>
-          <div class="mt-auto flex items-center gap-3">
-            <!-- No public demo detected; link to repo -->
-            <a href="https://github.com/OxxOrcus/BroccoRealtors" target="_blank" rel="noopener noreferrer"
-              class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium"></a>
-          </div>
-        </div>
-        <div class="glass-card p-6 flex flex-col">
-          <h3 class="text-xl font-semibold mb-2 text-white">clone-tabnews</h3>
-          <p class="text-gray-400 text-sm mb-4 flex-grow">Front-end learning project: practice layout, styling and API
-            integration.</p>
-          <div class="mt-auto flex items-center gap-3">
-            <a href="https://clone-tabnews-taupe-rho.vercel.app/" target="_blank" rel="noopener noreferrer"
-              class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium">Live demo</a>
-            <a href="https://github.com/OxxOrcus/clone-tabnews" target="_blank" rel="noopener noreferrer"
-              class="text-gray-400 hover:text-white transition duration-300 text-sm">Repo</a>
-          </div>
-        </div>
-        <div class="glass-card p-6 flex flex-col">
-          <h3 class="text-xl font-semibold mb-2 text-white">machine-learning</h3>
-          <p class="text-gray-400 text-sm mb-4 flex-grow">Learning journey with Jupyter notebooks and small ML
-            experiments.</p>
-          <div class="mt-auto flex items-center gap-3">
-            <a href="https://github.com/OxxOrcus/machine-learning" target="_blank" rel="noopener noreferrer"
-              class="text-gray-400 hover:text-white transition duration-300 text-sm">Repo</a>
-          </div>
-        </div>
-        <div class="glass-card p-6 flex flex-col">
-          <h3 class="text-xl font-semibold mb-2 text-white">C-Sharp-challenges-sources-and-courses</h3>
-          <p class="text-gray-400 text-sm mb-4 flex-grow">Repositório de estudos e projetos em C# e .NET, incluindo:
-          <ul class='list-disc pl-5'>
-            <li>Sistema de Celular com POO</li>
-            <li>Consultas Relacionais com SQL Server</li>
-            <li>API Mínima em ASP.NET</li>
-            <li>Sistema de Hospedagem em Hotel</li>
-          </ul>
-          Projetos demonstram conceitos de POO, SQL, APIs modernas e lógica de programação.
-          </p>
-          <div class="mt-auto flex items-center gap-3">
-            <a href="https://github.com/OxxOrcus/C-Sharp-challenges-sources-and-courses" target="_blank"
-              rel="noopener noreferrer" class="text-gray-400 hover:text-white transition duration-300 text-sm">Repo</a>
-          </div>
-        </div>
-        <div class="glass-card p-6 flex flex-col">
-          <h3 class="text-xl font-semibold mb-2 text-white">piscine_42_london_pbrocco</h3>
-          <p class="text-gray-400 text-sm mb-4 flex-grow">Collection of exercises and projects from the 42 London C
-            Piscine (July 2024).</p>
-          <div class="mt-auto flex items-center gap-3">
-            <a href="https://github.com/OxxOrcus/piscine_42_london_pbrocco" target="_blank" rel="noopener noreferrer"
-              class="text-gray-400 hover:text-white transition duration-300 text-sm">Repo</a>
-          </div>
-        </div>
-      </div>
-      <p class="text-center text-sm text-gray-400 mt-6">More projects on <a href="https://github.com/OxxOrcus"
-          target="_blank" rel="noopener noreferrer" class="text-purple-400">github.com/OxxOrcus</a></p>
-    </div>
-  </section>
-
-  <section id="experience" class="py-20 px-4 md:px-8">
-    <div class="container mx-auto max-w-4xl fade-in-up" style="opacity: 0; transform: translateY(20px);">
-      <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">Experience</h2>
-      <div class="relative border-l-2 border-purple-600 pl-8 space-y-8">
-        <div class="relative">
-          <div class="absolute -left-10 top-1 w-4 h-4 bg-purple-400 rounded-full border-2 border-gray-900"></div>
-          <h3 class="text-xl font-semibold text-white mb-1">Full Stack Developer Intern</h3>
-          <p class="text-sm text-purple-300 mb-2">Rebel LLC — June 2025 – Present | New York, USA</p>
-          <ul class="list-disc list-inside text-gray-400 text-sm space-y-4 pl-2">
-            <li>
-              <strong>Mobile UI/UX Development</strong>: <br /> Spearheaded key UI features for a mobile web app,
-              including a
-              cover-art upload screen built with Expo and a reusable action-bar component, ensuring pixel-perfect
-              design and consistency with style guides.
-              <div class="mt-1 text-xs text-purple-300">Technologies: Expo, React Native, React, Tamagui, Figma &
-                Android Studio</div>
-            </li>
-
-            <li>
-              <strong>Full-Stack Feature Integration</strong>: <br />Developed and integrated new platform features such
-              as
-              SMS notifications and participated in design discussions for advanced ideas (e.g., AI-based music rating
-              system) to improve content discovery and moderation.
-              <div class="mt-1 text-xs text-purple-300">Technologies: Node.js, Express, Twilio (SMS), PostgreSQL, REST
-                APIs</div>
-            </li>
-
-            <li>
-              <strong>Proactive Project Contribution</strong>: <br />Adapted quickly after a team pivot by preparing and
-              presenting new project concepts (Discord-style communities, AI integrations), and actively contributed to
-              strategic planning sessions.
-              <div class="mt-1 text-xs text-purple-300">Technologies / Tools: Discord, GitHub, Google AI
-                Workspace, Miro</div>
-            </li>
-
-            <li>
-              <strong>Process Improvement &amp; Collaboration</strong>: <br />Transitioned the team from
-              spreadsheet-based
-              task
-              tracking to GitHub Projects, improving transparency, assignment clarity, and cross-team collaboration.
-              <div class="mt-1 text-xs text-purple-300">Technologies / Tools: GitHub Projects, Git, Slack, Pull Requests
-              </div>
-            </li>
-
-            <li>
-              <strong>Database &amp; Onboarding Enhancement</strong>: <br />Helped streamline onboarding with a focus on
-              child
-              safety and parent-child account flows, contributing DB changes including a new
-              <code>API_user_profile_child</code>
-              table to better manage relationships and permissions.
-              <div class="mt-1 text-xs text-purple-300">Technologies: PostgreSQL, Node.js, Backend
-                API design</div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="education" class="py-16 px-4 md:px-8 bg-black bg-opacity-10">
-    <div class="container mx-auto max-w-4xl">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center gradient-text">Education & Training</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="glass-card p-6">
-          <h3 class="font-semibold mb-2 flex items-center gap-2"><i class="fas fa-globe text-purple-400"></i> Internet
-            Systems <span class="text-xs text-gray-400">FMU (Faculdades Metropolitanas Unidas), Brazil | In
-              Progress</span></h3>
-          <p class="text-sm text-gray-300 mb-4">This degree offers a comprehensive blend of technical and business
-            skills, preparing students for careers in web technologies and IT project management.</p>
-          <ul class="text-sm text-gray-300 space-y-2 mb-4">
-            <li><i class="fas fa-code text-blue-400 mr-2"></i><b>Core Programming & Development:</b> Programming Logic,
-              Object-Oriented Programming, Client-Side Web Development, Server-Side Web Development, Mobile Device
-              Computing, Java Web & Frameworks.</li>
-            <li><i class="fas fa-project-diagram text-green-400 mr-2"></i><b>Software Engineering & Project
-                Management:</b> Information Systems Theory, Software Engineering, Software Engineering Practices,
-              Project Management, Software & Projects Laboratory.</li>
-            <li><i class="fas fa-database text-amber-400 mr-2"></i><b>Data & Databases:</b> Databases, Database
-              Practices.</li>
-            <li><i class="fas fa-bullhorn text-pink-400 mr-2"></i><b>Web & Marketing:</b> Web Design, Social Media &
-              Digital Marketing, Human-Computer Interface, Content Management & Web Administration, E-commerce.</li>
-            <li><i class="fas fa-network-wired text-indigo-400 mr-2"></i><b>Infrastructure & Networking:</b> Operating
-              Systems, Computer Networks.</li>
-            <li><i class="fas fa-briefcase text-yellow-400 mr-2"></i><b>Business & Social Context:</b> Business Process
-              & Entrepreneurship, Communication, Human & Social Development.</li>
-          </ul>
-          <details class="text-xs text-gray-400">
-            <summary class="cursor-pointer font-semibold mb-2"><i class="fas fa-list-ul mr-1"></i>Full Curriculum by
-              Period (click to expand)</summary>
-            <div class="mt-2">
-              <b>1st Period:</b>
-              <ul class="list-disc list-inside ml-4">
-                <li>Information Systems Theory (66h)</li>
-                <li>Web Design (66h)</li>
-                <li>Social Media & Digital Marketing (66h)</li>
-                <li>Human-Computer Interface (66h)</li>
-                <li>Programming Logic (66h)</li>
-                <li>Communication (88h)</li>
-              </ul>
-              <b>2nd Period:</b>
-              <ul class="list-disc list-inside ml-4">
-                <li>Software Engineering (66h)</li>
-                <li>Business Process & Entrepreneurship (66h)</li>
-                <li>Project Management (66h)</li>
-                <li>Operating Systems (66h)</li>
-                <li>Databases (66h)</li>
-                <li>Human & Social Development (88h)</li>
-                <li><b>Total for the cycle:</b> 836h</li>
-              </ul>
-              <b>3rd Period:</b>
-              <ul class="list-disc list-inside ml-4">
-                <li>Software Engineering Practices (66h)</li>
-                <li>Object-Oriented Programming (66h)</li>
-                <li>Database Practices (66h)</li>
-                <li>Client-Side Web Development (66h)</li>
-                <li>Computer Networks (66h)</li>
-                <li>Anthropology & Brazilian Culture (88h)</li>
-                <li><b>Total for the cycle:</b> 418h</li>
-              </ul>
-              <b>4th Period:</b>
-              <ul class="list-disc list-inside ml-4">
-                <li>Mobile Device Computing (66h)</li>
-                <li>Content Management & Web Administration (66h)</li>
-                <li>Java Web & Frameworks (66h)</li>
-                <li>Server-Side Web Development (66h)</li>
-                <li>Technical Certification Fundamentals (66h)</li>
-                <li>Statistics Applied to Data Science (88h)</li>
-              </ul>
-              <b>5th Period:</b>
-              <ul class="list-disc list-inside ml-4">
-                <li>Mobile Projects (66h)</li>
-                <li>Distance Education Projects (66h)</li>
-                <li>Software & Projects Laboratory (66h)</li>
-                <li>E-commerce (66h)</li>
-                <li>Elective (66h)</li>
-                <li>Complementary Activities (100h)</li>
-                <li><b>Total for the cycle:</b> 848h</li>
-              </ul>
-              <b>Total Course Load:</b> 2,102h
+    <section id="skills" class="py-16 px-4 md:px-8 bg-black bg-opacity-10">
+      <div class="container mx-auto max-w-5xl">
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">Technical Skills</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="glass-card p-6">
+            <h3 class="font-semibold mb-3">Frontend</h3>
+            <div class="flex flex-wrap gap-3">
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fab fa-js text-yellow-400"></i><span>JavaScript (ES6+)</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fab fa-html5 text-orange-500"></i><span>HTML5</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fab fa-css3-alt text-sky-400"></i><span>CSS3</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fab fa-react text-cyan-400"></i><span>React</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fas fa-mobile-alt text-indigo-300"></i><span>React Native</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fas fa-desktop text-gray-400"></i><span>Responsive Design</span></span>
             </div>
-          </details>
-        </div>
-        <div class="glass-card p-6">
-          <h3 class="font-semibold mb-2 flex items-center gap-2"><i class="fas fa-graduation-cap text-purple-400"></i>
-            Notable Programs & Bootcamps</h3>
-          <ul class="text-sm text-gray-300 space-y-3">
-            <li class="flex items-start gap-2"><i class="fas fa-laptop-code text-blue-400 mt-1"></i>
-              <div>
-                <b>Full Stack Trail — Codecademy</b><br>
-                <span class="text-xs text-gray-400">Comprehensive hands-on curriculum covering front-end, back-end, and
-                  deployment. Built real-world projects using JavaScript, React, Node.js, and more.</span>
-              </div>
-            </li>
-            <li class="flex items-start gap-2"><i class="fas fa-terminal text-green-400 mt-1"></i>
-              <div>
-                <b>C Piscine Program — 42 London (July 2024)</b><br>
-                <span class="text-xs text-gray-400">Intensive bootcamp focused on C programming, Git, Makefiles, and
-                  collaborative problem-solving in a peer-to-peer environment.</span>
-              </div>
-            </li>
-            <li class="flex items-start gap-2"><i class="fas fa-mobile-alt text-pink-400 mt-1"></i>
-              <div>
-                <b>Mobile Development — Digital Innovation One</b><br>
-                <span class="text-xs text-gray-400">Practical training in mobile app development, UI/UX, and
-                  cross-platform tools for Android and iOS.</span>
-              </div>
-            </li>
-            <li class="flex items-start gap-2"><i class="fas fa-server text-yellow-400 mt-1"></i>
-              <div>
-                <b>Back End Development — ADA Tech</b><br>
-                <span class="text-xs text-gray-400">Focused on server-side programming, databases, and API design using
-                  modern back-end technologies.</span>
-              </div>
-            </li>
-            <li class="flex items-start gap-2"><i class="fas fa-brain text-indigo-400 mt-1"></i>
-              <div>
-                <b>Programming Logic — Digital Innovation One</b><br>
-                <span class="text-xs text-gray-400">Fundamentals of programming logic, algorithms, and problem-solving
-                  for software development.</span>
-              </div>
-            </li>
-          </ul>
+          </div>
+          <div class="glass-card p-6">
+            <h3 class="font-semibold mb-3">Backend</h3>
+            <div class="flex flex-wrap gap-3">
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fab fa-node-js text-green-400"></i><span>Node.js</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fas fa-server text-gray-400"></i><span>Express</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fab fa-python text-yellow-300"></i><span>Python (Flask, Django)</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fas fa-network-wired text-purple-400"></i><span>RESTful APIs</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fas fa-robot text-indigo-400"></i><span>Automation Scripts</span></span>
+            </div>
+          </div>
+          <div class="glass-card p-6">
+            <h3 class="font-semibold mb-3">Databases</h3>
+            <div class="flex flex-wrap gap-3">
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fas fa-database text-amber-400"></i><span>MongoDB</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fas fa-database text-sky-500"></i><span>PostgreSQL</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fas fa-database text-blue-400"></i><span>MySQL</span></span>
+            </div>
+          </div>
+          <div class="glass-card p-6">
+            <h3 class="font-semibold mb-3">DevOps & Tools</h3>
+            <div class="flex flex-wrap gap-3">
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fab fa-docker text-blue-400"></i><span>Docker</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fab fa-git-alt text-orange-400"></i><span>Git</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fab fa-github text-gray-300"></i><span>GitHub</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fab fa-linux text-gray-400"></i><span>Linux</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fas fa-terminal text-green-300"></i><span>Bash scripting</span></span>
+            </div>
+          </div>
+          <div class="glass-card p-6">
+            <h3 class="font-semibold mb-3">AI & Automation</h3>
+            <div class="flex flex-wrap gap-3">
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fas fa-robot text-indigo-300"></i><span>Gemini</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fas fa-robot text-indigo-300"></i><span>ChatGPT</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fas fa-robot text-indigo-300"></i><span>Claude</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fas fa-code-branch text-purple-300"></i><span>Copilot</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fas fa-flow-chart text-yellow-300"></i><span>n8n</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fas fa-robot text-indigo-300"></i><span>Manus</span></span>
+            </div>
+          </div>
+          <div class="glass-card p-6">
+            <h3 class="font-semibold mb-3">Other</h3>
+            <div class="flex flex-wrap gap-3">
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fas fa-users-cog text-gray-300"></i><span>Agile methodologies</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fas fa-project-diagram text-gray-300"></i><span>Automation frameworks</span></span>
+              <span class="flex items-center text-sm text-gray-300 gap-2"><i
+                  class="fas fa-code text-gray-300"></i><span>Clean Code</span></span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="exploration" class="py-20 px-4 md:px-8 bg-black bg-opacity-20">
-    <!-- Spatial Exploration Insights Section Start -->
-    <!-- <div class="container mx-auto text-center fade-in-up" style="opacity: 0; transform: translateY(20px);">
+    <section id="soft-skills" class="py-16 px-4 md:px-8 bg-black bg-opacity-5">
+      <div class="container mx-auto max-w-5xl">
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">Soft Skills</h2>
+        <p class="text-center text-gray-400 mb-8 max-w-2xl mx-auto">Core interpersonal strengths that help me build
+          better
+          products and work effectively with teams.</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="glass-card p-6 flex flex-col">
+            <div class="flex items-center gap-3 mb-3">
+              <i class="fas fa-heart text-pink-400 fa-lg"></i>
+              <h3 class="text-xl font-semibold">Empathy</h3>
+            </div>
+            <p class="text-gray-400 text-sm">Understanding the user's perspective and my colleagues to build more
+              intuitive and effective applications. It's about putting myself in the user's shoes to create technology
+              that truly serves their needs.</p>
+          </div>
+
+          <div class="glass-card p-6 flex flex-col">
+            <div class="flex items-center gap-3 mb-3">
+              <i class="fas fa-lightbulb text-yellow-400 fa-lg"></i>
+              <h3 class="text-xl font-semibold">Problem-Solving</h3>
+            </div>
+            <p class="text-gray-400 text-sm">A passion for tackling complex challenges and finding elegant, efficient
+              solutions. I thrive on debugging and architecting systems that are both robust and scalable.</p>
+          </div>
+
+          <div class="glass-card p-6 flex flex-col">
+            <div class="flex items-center gap-3 mb-3">
+              <i class="fas fa-users text-sky-400 fa-lg"></i>
+              <h3 class="text-xl font-semibold">Collaboration &amp; Teamwork</h3>
+            </div>
+            <p class="text-gray-400 text-sm">Actively contributing to team projects, valuing diverse perspectives, and
+              using tools like Git, GitHub, Slack, Discord and Jira to work effectively with others. I have experience
+              helping people and contributing to open-source projects.</p>
+          </div>
+
+          <div class="glass-card p-6 flex flex-col">
+            <div class="flex items-center gap-3 mb-3">
+              <i class="fas fa-comments text-green-400 fa-lg"></i>
+              <h3 class="text-xl font-semibold">Communication</h3>
+            </div>
+            <p class="text-gray-400 text-sm">Clearly articulating technical concepts to both technical and non-technical
+              audiences. Good communication is key to successful project management and team alignment.</p>
+          </div>
+
+          <div class="glass-card p-6 flex flex-col">
+            <div class="flex items-center gap-3 mb-3">
+              <i class="fas fa-book text-indigo-400 fa-lg"></i>
+              <h3 class="text-xl font-semibold">Adaptability &amp; Continuous Learning</h3>
+            </div>
+            <p class="text-gray-400 text-sm">A commitment to staying current with the latest technologies and
+              continuously
+              improving my skill set through bootcamps, courses, and personal projects. The tech landscape is always
+              evolving, and I'm dedicated to growing with it.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="projects" class="py-20 px-4 md:px-8 bg-black bg-opacity-20">
+      <div class="container mx-auto fade-in-up" style="opacity: 0; transform: translateY(20px);">
+        <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center gradient-text">Projects</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Project cards generated from CV projects list -->
+          <div class="glass-card p-6 flex flex-col">
+            <h3 class="text-xl font-semibold mb-2 text-white">Portfolio</h3>
+            <p class="text-gray-400 text-sm mb-4 flex-grow">Personal portfolio & AI services site built with HTML,
+              Tailwind and vanilla JS.</p>
+            <div class="mt-auto flex items-center gap-3">
+              <a href="https://portfolio-rose-zeta-llu88vdo68.vercel.app/" target="_blank" rel="noopener noreferrer"
+                class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium">Live demo</a>
+              <a href="https://github.com/OxxOrcus/Portfolio" target="_blank" rel="noopener noreferrer"
+                class="text-gray-400 hover:text-white transition duration-300 text-sm">Repo</a>
+            </div>
+          </div>
+          <div class="glass-card p-6 flex flex-col">
+            <h3 class="text-xl font-semibold mb-2 text-white">BroccoRealtors</h3>
+            <p class="text-gray-400 text-sm mb-4 flex-grow">Real estate prototype demonstrating responsive UI and
+              dynamic
+              listings.</p>
+            <div class="mt-auto flex items-center gap-3">
+              <!-- No public demo detected; link to repo -->
+              <a href="https://github.com/OxxOrcus/BroccoRealtors" target="_blank" rel="noopener noreferrer"
+                class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium"></a>
+            </div>
+          </div>
+          <div class="glass-card p-6 flex flex-col">
+            <h3 class="text-xl font-semibold mb-2 text-white">clone-tabnews</h3>
+            <p class="text-gray-400 text-sm mb-4 flex-grow">Front-end learning project: practice layout, styling and API
+              integration.</p>
+            <div class="mt-auto flex items-center gap-3">
+              <a href="https://clone-tabnews-taupe-rho.vercel.app/" target="_blank" rel="noopener noreferrer"
+                class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium">Live demo</a>
+              <a href="https://github.com/OxxOrcus/clone-tabnews" target="_blank" rel="noopener noreferrer"
+                class="text-gray-400 hover:text-white transition duration-300 text-sm">Repo</a>
+            </div>
+          </div>
+          <div class="glass-card p-6 flex flex-col">
+            <h3 class="text-xl font-semibold mb-2 text-white">machine-learning</h3>
+            <p class="text-gray-400 text-sm mb-4 flex-grow">Learning journey with Jupyter notebooks and small ML
+              experiments.</p>
+            <div class="mt-auto flex items-center gap-3">
+              <a href="https://github.com/OxxOrcus/machine-learning" target="_blank" rel="noopener noreferrer"
+                class="text-gray-400 hover:text-white transition duration-300 text-sm">Repo</a>
+            </div>
+          </div>
+          <div class="glass-card p-6 flex flex-col">
+            <h3 class="text-xl font-semibold mb-2 text-white">C-Sharp-challenges-sources-and-courses</h3>
+            <p class="text-gray-400 text-sm mb-4 flex-grow">Repositório de estudos e projetos em C# e .NET, incluindo:
+            <ul class='list-disc pl-5'>
+              <li>Sistema de Celular com POO</li>
+              <li>Consultas Relacionais com SQL Server</li>
+              <li>API Mínima em ASP.NET</li>
+              <li>Sistema de Hospedagem em Hotel</li>
+            </ul>
+            Projetos demonstram conceitos de POO, SQL, APIs modernas e lógica de programação.
+            </p>
+            <div class="mt-auto flex items-center gap-3">
+              <a href="https://github.com/OxxOrcus/C-Sharp-challenges-sources-and-courses" target="_blank"
+                rel="noopener noreferrer"
+                class="text-gray-400 hover:text-white transition duration-300 text-sm">Repo</a>
+            </div>
+          </div>
+          <div class="glass-card p-6 flex flex-col">
+            <h3 class="text-xl font-semibold mb-2 text-white">piscine_42_london_pbrocco</h3>
+            <p class="text-gray-400 text-sm mb-4 flex-grow">Collection of exercises and projects from the 42 London C
+              Piscine (July 2024).</p>
+            <div class="mt-auto flex items-center gap-3">
+              <a href="https://github.com/OxxOrcus/piscine_42_london_pbrocco" target="_blank" rel="noopener noreferrer"
+                class="text-gray-400 hover:text-white transition duration-300 text-sm">Repo</a>
+            </div>
+          </div>
+        </div>
+        <p class="text-center text-sm text-gray-400 mt-6">More projects on <a href="https://github.com/OxxOrcus"
+            target="_blank" rel="noopener noreferrer" class="text-purple-400 fire-link">github.com/OxxOrcus</a></p>
+      </div>
+    </section>
+
+    <section id="experience" class="py-20 px-4 md:px-8">
+      <div class="container mx-auto max-w-4xl fade-in-up" style="opacity: 0; transform: translateY(20px);">
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center gradient-text">Experience</h2>
+        <div class="relative border-l-2 border-purple-600 pl-8 space-y-8">
+          <div class="relative experience-contrast-card">
+            <div class="absolute -left-10 top-1 w-4 h-4 bg-purple-400 rounded-full border-2 border-gray-900"></div>
+            <h3 class="text-xl font-semibold text-white mb-1">Full Stack Developer Intern</h3>
+            <p class="text-sm text-purple-300 mb-2">Rebel LLC — June 2025 – Present | New York, USA</p>
+            <ul class="list-disc list-inside text-gray-400 text-sm space-y-4 pl-2">
+              <li>
+                <strong>Mobile UI/UX Development</strong>: <br /> Spearheaded key UI features for a mobile web app,
+                including a
+                cover-art upload screen built with Expo and a reusable action-bar component, ensuring pixel-perfect
+                design and consistency with style guides.
+                <div class="mt-1 text-xs text-purple-300">Technologies: Expo, React Native, React, Tamagui, Figma &
+                  Android Studio</div>
+              </li>
+
+              <li>
+                <strong>Full-Stack Feature Integration</strong>: <br />Developed and integrated new platform features
+                such
+                as
+                SMS notifications and participated in design discussions for advanced ideas (e.g., AI-based music rating
+                system) to improve content discovery and moderation.
+                <div class="mt-1 text-xs text-purple-300">Technologies: Node.js, Express, Twilio (SMS), PostgreSQL, REST
+                  APIs</div>
+              </li>
+
+              <li>
+                <strong>Proactive Project Contribution</strong>: <br />Adapted quickly after a team pivot by preparing
+                and
+                presenting new project concepts (Discord-style communities, AI integrations), and actively contributed
+                to
+                strategic planning sessions.
+                <div class="mt-1 text-xs text-purple-300">Technologies / Tools: Discord, GitHub, Google AI
+                  Workspace, Miro</div>
+              </li>
+
+              <li>
+                <strong>Process Improvement &amp; Collaboration</strong>: <br />Transitioned the team from
+                spreadsheet-based
+                task
+                tracking to GitHub Projects, improving transparency, assignment clarity, and cross-team collaboration.
+                <div class="mt-1 text-xs text-purple-300">Technologies / Tools: GitHub Projects, Git, Slack, Pull
+                  Requests
+                </div>
+              </li>
+
+              <li>
+                <strong>Database &amp; Onboarding Enhancement</strong>: <br />Helped streamline onboarding with a focus
+                on
+                child
+                safety and parent-child account flows, contributing DB changes including a new
+                <code>API_user_profile_child</code>
+                table to better manage relationships and permissions.
+                <div class="mt-1 text-xs text-purple-300">Technologies: PostgreSQL, Node.js, Backend
+                  API design</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="py-16 px-4 md:px-8 bg-black bg-opacity-10">
+      <div class="container mx-auto max-w-4xl">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-center gradient-text">Education & Training</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="glass-card p-6">
+            <h3 class="font-semibold mb-2 flex items-center gap-2"><i class="fas fa-globe text-purple-400"></i> Internet
+              Systems <span class="text-xs text-gray-400">FMU (Faculdades Metropolitanas Unidas), Brazil | In
+                Progress</span></h3>
+            <p class="text-sm text-gray-300 mb-4">This degree offers a comprehensive blend of technical and business
+              skills, preparing students for careers in web technologies and IT project management.</p>
+            <ul class="text-sm text-gray-300 space-y-2 mb-4">
+              <li><i class="fas fa-code text-blue-400 mr-2"></i><b>Core Programming & Development:</b> Programming
+                Logic,
+                Object-Oriented Programming, Client-Side Web Development, Server-Side Web Development, Mobile Device
+                Computing, Java Web & Frameworks.</li>
+              <li><i class="fas fa-project-diagram text-green-400 mr-2"></i><b>Software Engineering & Project
+                  Management:</b> Information Systems Theory, Software Engineering, Software Engineering Practices,
+                Project Management, Software & Projects Laboratory.</li>
+              <li><i class="fas fa-database text-amber-400 mr-2"></i><b>Data & Databases:</b> Databases, Database
+                Practices.</li>
+              <li><i class="fas fa-bullhorn text-pink-400 mr-2"></i><b>Web & Marketing:</b> Web Design, Social Media &
+                Digital Marketing, Human-Computer Interface, Content Management & Web Administration, E-commerce.</li>
+              <li><i class="fas fa-network-wired text-indigo-400 mr-2"></i><b>Infrastructure & Networking:</b> Operating
+                Systems, Computer Networks.</li>
+              <li><i class="fas fa-briefcase text-yellow-400 mr-2"></i><b>Business & Social Context:</b> Business
+                Process
+                & Entrepreneurship, Communication, Human & Social Development.</li>
+            </ul>
+            <details class="text-xs text-gray-400">
+              <summary class="cursor-pointer font-semibold mb-2"><i class="fas fa-list-ul mr-1"></i>Full Curriculum by
+                Period (click to expand)</summary>
+              <div class="mt-2">
+                <b>1st Period:</b>
+                <ul class="list-disc list-inside ml-4">
+                  <li>Information Systems Theory (66h)</li>
+                  <li>Web Design (66h)</li>
+                  <li>Social Media & Digital Marketing (66h)</li>
+                  <li>Human-Computer Interface (66h)</li>
+                  <li>Programming Logic (66h)</li>
+                  <li>Communication (88h)</li>
+                </ul>
+                <b>2nd Period:</b>
+                <ul class="list-disc list-inside ml-4">
+                  <li>Software Engineering (66h)</li>
+                  <li>Business Process & Entrepreneurship (66h)</li>
+                  <li>Project Management (66h)</li>
+                  <li>Operating Systems (66h)</li>
+                  <li>Databases (66h)</li>
+                  <li>Human & Social Development (88h)</li>
+                  <li><b>Total for the cycle:</b> 836h</li>
+                </ul>
+                <b>3rd Period:</b>
+                <ul class="list-disc list-inside ml-4">
+                  <li>Software Engineering Practices (66h)</li>
+                  <li>Object-Oriented Programming (66h)</li>
+                  <li>Database Practices (66h)</li>
+                  <li>Client-Side Web Development (66h)</li>
+                  <li>Computer Networks (66h)</li>
+                  <li>Anthropology & Brazilian Culture (88h)</li>
+                  <li><b>Total for the cycle:</b> 418h</li>
+                </ul>
+                <b>4th Period:</b>
+                <ul class="list-disc list-inside ml-4">
+                  <li>Mobile Device Computing (66h)</li>
+                  <li>Content Management & Web Administration (66h)</li>
+                  <li>Java Web & Frameworks (66h)</li>
+                  <li>Server-Side Web Development (66h)</li>
+                  <li>Technical Certification Fundamentals (66h)</li>
+                  <li>Statistics Applied to Data Science (88h)</li>
+                </ul>
+                <b>5th Period:</b>
+                <ul class="list-disc list-inside ml-4">
+                  <li>Mobile Projects (66h)</li>
+                  <li>Distance Education Projects (66h)</li>
+                  <li>Software & Projects Laboratory (66h)</li>
+                  <li>E-commerce (66h)</li>
+                  <li>Elective (66h)</li>
+                  <li>Complementary Activities (100h)</li>
+                  <li><b>Total for the cycle:</b> 848h</li>
+                </ul>
+                <b>Total Course Load:</b> 2,102h
+              </div>
+            </details>
+          </div>
+          <div class="glass-card p-6">
+            <h3 class="font-semibold mb-2 flex items-center gap-2"><i class="fas fa-graduation-cap text-purple-400"></i>
+              Notable Programs & Bootcamps</h3>
+            <ul class="text-sm text-gray-300 space-y-3">
+              <li class="flex items-start gap-2"><i class="fas fa-laptop-code text-blue-400 mt-1"></i>
+                <div>
+                  <b>Full Stack Trail — Codecademy</b><br>
+                  <span class="text-xs text-gray-400">Comprehensive hands-on curriculum covering front-end, back-end,
+                    and
+                    deployment. Built real-world projects using JavaScript, React, Node.js, and more.</span>
+                </div>
+              </li>
+              <li class="flex items-start gap-2"><i class="fas fa-terminal text-green-400 mt-1"></i>
+                <div>
+                  <b>C Piscine Program — 42 London (July 2024)</b><br>
+                  <span class="text-xs text-gray-400">Intensive bootcamp focused on C programming, Git, Makefiles, and
+                    collaborative problem-solving in a peer-to-peer environment.</span>
+                </div>
+              </li>
+              <li class="flex items-start gap-2"><i class="fas fa-mobile-alt text-pink-400 mt-1"></i>
+                <div>
+                  <b>Mobile Development — Digital Innovation One</b><br>
+                  <span class="text-xs text-gray-400">Practical training in mobile app development, UI/UX, and
+                    cross-platform tools for Android and iOS.</span>
+                </div>
+              </li>
+              <li class="flex items-start gap-2"><i class="fas fa-server text-yellow-400 mt-1"></i>
+                <div>
+                  <b>Back End Development — ADA Tech</b><br>
+                  <span class="text-xs text-gray-400">Focused on server-side programming, databases, and API design
+                    using
+                    modern back-end technologies.</span>
+                </div>
+              </li>
+              <li class="flex items-start gap-2"><i class="fas fa-brain text-indigo-400 mt-1"></i>
+                <div>
+                  <b>Programming Logic — Digital Innovation One</b><br>
+                  <span class="text-xs text-gray-400">Fundamentals of programming logic, algorithms, and problem-solving
+                    for software development.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="exploration" class="py-20 px-4 md:px-8 bg-black bg-opacity-20">
+      <!-- Spatial Exploration Insights Section Start -->
+      <!-- <div class="container mx-auto text-center fade-in-up" style="opacity: 0; transform: translateY(20px);">
       <h2 class="text-3xl md:text-4xl font-bold mb-6 gradient-text">Spatial Exploration Insights</h2>
       <p class="text-gray-400 text-lg mb-10 max-w-3xl mx-auto">
         Fascinated by the cosmos? Share your thoughts, learnings, or links related to space exploration, astrophysics,
@@ -564,9 +626,9 @@
       </div>
     </div>
   </section> -->
-    <!-- Spatial Exploration Insights Section End -->
+      <!-- Spatial Exploration Insights Section End -->
 
-    <!--
+      <!--
     <section id="news" class="py-20 px-4 md:px-8">
       <div class="container mx-auto fade-in-up" style="opacity: 0; transform: translateY(20px);">
         <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center gradient-text">Tech News & Thoughts</h2>
@@ -592,19 +654,19 @@
         </div>
 
         <! Newsletter Subscription -->
-    <div class="max-w-xl mx-auto mt-16 text-center glass-card p-8">
-      <h3 class="text-2xl font-semibold text-white mb-4">Stay Updated!</h3>
-      <p class="text-gray-400 mb-6">Subscribe to my newsletter for the latest in AI, Space, and Tech.</p>
-      <form id="newsletter-form" class="flex flex-col sm:flex-row gap-4 justify-center">
-        <input type="email" placeholder="your.email@example.com"
-          class="bg-gray-800 text-white border border-gray-700 rounded-md px-4 py-2 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none flex-grow"
-          required>
-        <button type="submit" id="subscribe-button" class="btn-primary">Subscribe</button>
-      </form>
-      <p id="subscribe-message" class="mt-4 text-sm h-5"></p> <!-- Added h-5 for consistent height -->
-    </div>
+      <div class="max-w-xl mx-auto mt-16 text-center glass-card p-8">
+        <h3 class="text-2xl font-semibold text-white mb-4">Stay Updated!</h3>
+        <p class="text-gray-400 mb-6">Subscribe to my newsletter for the latest in AI, Space, and Tech.</p>
+        <form id="newsletter-form" class="flex flex-col sm:flex-row gap-4 justify-center">
+          <input type="email" placeholder="your.email@example.com"
+            class="bg-gray-800 text-white border border-gray-700 rounded-md px-4 py-2 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none flex-grow"
+            required>
+          <button type="submit" id="subscribe-button" class="btn-primary">Subscribe</button>
+        </form>
+        <p id="subscribe-message" class="mt-4 text-sm h-5"></p> <!-- Added h-5 for consistent height -->
+      </div>
 
-    </div>
+  </div>
   </section>
 
   <section id="contact" class="py-20 px-4 md:px-8 bg-black bg-opacity-20">
@@ -641,7 +703,7 @@
     </div>
   </footer>
 
-  <!-- Floating AI Chat Button -->
+  <!-- Floating AI Chat Button (hidden by default, appears on menu hover) -->
   <button id="ai-chat-button"
     class="fixed bottom-6 right-6 bg-gradient-to-br from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white p-4 rounded-full shadow-xl transition-all duration-300 ease-in-out transform hover:scale-110 focus:outline-none z-50">
     <i class="fas fa-robot fa-lg"></i>
@@ -700,6 +762,7 @@
     </div>
   </div>
 
+  </div> <!-- End galaxy-bg-wrapper -->
   <script src="js/script.js"></script>
 </body>
 
