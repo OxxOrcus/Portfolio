@@ -697,18 +697,50 @@
     </div>
   </section>
 
+  <!-- Support My Work Section -->
+  <section class="py-10 px-4 md:px-8 text-center">
+    <h3 class="text-2xl md:text-3xl font-bold mb-3 gradient-text">Support My Work</h3>
+    <p class="text-gray-300 text-base md:text-lg mb-4 max-w-2xl mx-auto">If you find my projects and contributions
+      helpful, please consider supporting my work. It helps me dedicate more time to open source and creating valuable
+      content for the community.</p>
+    <p class="mb-2">
+      <a href="https://www.buymeacoffee.com/OxxOrcusPBROCCO" target="_blank" rel="noopener noreferrer">
+        <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="180" alt="Buy Me A Coffee"
+          style="margin: 0 auto;" />
+      </a>
+    </p>
+  </section>
   <footer class="py-6 px-4 md:px-8 border-t border-gray-800">
     <div class="container mx-auto text-center text-gray-500 text-sm">
       &copy; 2025 Paulo Brocco. All Rights Reserved. | Designed with a futuristic touch.
     </div>
   </footer>
 
-  <!-- Floating AI Chat Button (hidden by default, appears on menu hover) -->
-  <button id="ai-chat-button"
-    class="fixed bottom-6 right-6 bg-gradient-to-br from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white p-4 rounded-full shadow-xl transition-all duration-300 ease-in-out transform hover:scale-110 focus:outline-none z-50">
-    <i class="fas fa-robot fa-lg"></i>
-    <span class="sr-only">Dev_Oxx.orcus AI Chat</span>
-  </button>
+
+  <!-- Floating Buttons: AI Chat & Buy Me a Coffee Widget -->
+  <div
+    style="position: fixed; bottom: 24px; right: 24px; z-index: 100; display: flex; flex-direction: row; gap: 16px; align-items: end;">
+    <!--
+    <button id="ai-chat-button"
+      class="bg-gradient-to-br from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white p-4 rounded-full shadow-xl transition-all duration-300 ease-in-out transform hover:scale-110 focus:outline-none z-50">
+      <i class="fas fa-robot fa-lg"></i>
+      <span class="sr-only">Dev_Oxx.orcus AI Chat</span>
+    </button>
+    -->
+    <!-- Buy Me a Coffee Widget -->
+    <div id="bmc-widget-container"></div>
+    <!-- WhatsApp Widget -->
+    <a href="https://wa.me/5511986001998" target="_blank" rel="noopener noreferrer" title="Contact me on WhatsApp"
+      style="display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%; background: #25D366; box-shadow: 0 4px 16px rgba(37,211,102,0.25); transition: transform 0.2s; margin-left: 0;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="white">
+        <path
+          d="M16 3C9.373 3 4 8.373 4 15c0 2.646.86 5.09 2.32 7.09L4 29l7.18-2.28A12.93 12.93 0 0 0 16 27c6.627 0 12-5.373 12-12S22.627 3 16 3zm0 22.917c-2.13 0-4.19-.62-5.93-1.79l-.42-.27-4.23 1.35 1.36-4.12-.27-.43A9.93 9.93 0 0 1 6 15c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10zm5.29-7.38c-.29-.15-1.7-.84-1.96-.94-.26-.1-.45-.15-.64.15-.19.29-.74.94-.91 1.13-.17.19-.34.22-.63.07-.29-.15-1.22-.45-2.33-1.43-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.07-.15-.64-1.54-.88-2.11-.23-.56-.47-.48-.64-.49-.17-.01-.36-.01-.56-.01-.19 0-.51.07-.78.36-.27.29-1.03 1.01-1.03 2.46 0 1.45 1.05 2.85 1.2 3.05.15.19 2.07 3.17 5.02 4.32.7.3 1.25.48 1.68.61.71.23 1.36.2 1.87.12.57-.09 1.7-.69 1.94-1.36.24-.67.24-1.25.17-1.36-.07-.11-.26-.18-.55-.33z" />
+      </svg>
+    </a>
+  </div>
+  <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+    data-id="OxxOrcusPBROCCO" data-description="Support me on Buy me a coffee!" data-message="" data-color="#BD5FFF"
+    data-position="Right" data-x_margin="90" data-y_margin="18"></script>
 
   <!-- AI Chat Window -->
   <div id="ai-chat-window"
