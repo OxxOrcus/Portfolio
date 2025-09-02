@@ -1,3 +1,59 @@
+/* Typing effect cursor */
+.typing-cursor {
+  color: #22ff22;
+  animation: blink-cursor 0.9s steps(1) infinite;
+}
+@keyframes blink-cursor {
+  0%,
+  60% {
+    opacity: 1;
+  }
+  61%,
+  100% {
+    opacity: 0;
+  }
+}
+/* Explosion effect for Buy Me a Coffee widget */
+
+.explosion-particle {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.92;
+  z-index: 9999;
+  font-weight: bold;
+  color: #111;
+  text-shadow: 0 0 6px #ffb300, 0 0 16px #ff9800, 0 0 24px #ff5722,
+    0 2px 8px #ffb300;
+  will-change: transform, opacity;
+  animation: explosion-move 1.4s cubic-bezier(0.2, 0.7, 0.4, 1.1) forwards;
+}
+
+.explosion-dollar {
+  font-family: "Inter", "Arial", sans-serif;
+  filter: drop-shadow(0 0 2px #ff9800);
+}
+
+@keyframes explosion-move {
+  0% {
+    opacity: 1;
+    filter: brightness(1.2) drop-shadow(0 0 12px #ffb300)
+      drop-shadow(0 0 24px #ff9800);
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+  60% {
+    opacity: 0.85;
+    filter: brightness(1.1) drop-shadow(0 0 8px #ff9800)
+      drop-shadow(0 0 16px #ff5722);
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)))
+      scale(1.25) rotate(10deg);
+  }
+  100% {
+    opacity: 0;
+    filter: brightness(0.7);
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy)))
+      scale(0.7) rotate(30deg);
+  }
+}
 /* ===== Circle Portal Effect for About Photo ===== */
 .portal-photo-wrapper {
   position: relative;
@@ -146,12 +202,21 @@
   bottom: -2px;
   height: 6px;
   pointer-events: none;
-  background: linear-gradient(90deg, #ffb347 0%, #ff6961 40%, #ffb347 100%);
+  background: linear-gradient(
+    90deg,
+    #ffb347 0%,
+    #ff6961 25%,
+    #4fc3f7 50%,
+    #a259ff 75%,
+    #43ea7f 100%
+  );
+  background-size: 300% 100%;
   opacity: 0;
   filter: blur(2px) brightness(1.2);
   border-radius: 50%;
   transition: opacity 0.2s;
   z-index: -1;
+  animation: fire-gradient-move 2s linear infinite;
 }
 .fire-link:hover {
   color: #ffb347;
@@ -177,6 +242,14 @@
   100% {
     transform: scaleY(1.1) translateY(-1px) scaleX(1.03);
     filter: blur(2.5px) brightness(1.3);
+  }
+}
+@keyframes fire-gradient-move {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
   }
 }
 /* Extra contrast for experience card */
