@@ -29,12 +29,10 @@ module.exports = async (req, res) => {
 
   // Ensure the API client is configured
   if (!genAI) {
-    return res
-      .status(500)
-      .json({
-        success: false,
-        message: "Server not configured. Missing GEMINI_API_KEY.",
-      });
+    return res.status(500).json({
+      success: false,
+      message: "Server not configured. Missing GEMINI_API_KEY.",
+    });
   }
 
   try {
@@ -79,7 +77,23 @@ module.exports = async (req, res) => {
 
     const result = await chat.sendMessage(message);
     const response = await result.response;
-    const text = response.text();
+    // response.text may be async; await if it's a Promise or function
+    let text = "";
+    try {
+      if (typeof response.text === "function") {
+        text = await response.text();
+      } else if (typeof response === "string") {
+        text = response;
+      } else if (response && response.outputText) {
+        text = response.outputText;
+      }
+    } catch (e) {
+      console.error(
+        "Error extracting text from Gemini response:",
+        e && e.message ? e.message : e
+      );
+      text = "";
+    }
 
     // Note: avoid logging user messages or AI outputs in production logs.
     res.status(200).json({ success: true, message: text });
@@ -88,12 +102,10 @@ module.exports = async (req, res) => {
       "Error in Gemini API call:",
       error && error.message ? error.message : error
     );
-    res
-      .status(500)
-      .json({
-        success: false,
-        message:
-          "An error occurred while communicating with the AI. Please try again later.",
-      });
+    res.status(500).json({
+      success: false,
+      message:
+        "An error occurred while communicating with the AI. Please try again later.",
+    });
   }
 };
