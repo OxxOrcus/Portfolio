@@ -2,6 +2,7 @@
 // Creates an explosion effect around a target element
 
 function createExplosion(x, y, parent, particleCount = 40) {
+  const fragment = document.createDocumentFragment();
   for (let i = 0; i < particleCount; i++) {
     const particle = document.createElement("span");
     particle.className = "explosion-particle explosion-dollar";
@@ -21,11 +22,12 @@ function createExplosion(x, y, parent, particleCount = 40) {
     const rot = Math.floor(Math.random() * 360);
     particle.style.fontSize = `${18 + Math.random() * 10}px`;
     particle.style.transform = `translate(-50%, -50%) scale(${scale}) rotate(${rot}deg)`;
-    parent.appendChild(particle);
+    fragment.appendChild(particle);
     setTimeout(() => {
       particle.remove();
     }, 1400);
   }
+  parent.appendChild(fragment);
 }
 
 // Attach explosion to Buy Me a Coffee widget and inline button, even if loaded late
