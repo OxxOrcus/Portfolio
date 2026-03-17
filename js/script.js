@@ -10,6 +10,7 @@ function triggerStarConfetti() {
     "#0ea5e9", // cyan
     "#fff", // white
   ];
+  const fragment = document.createDocumentFragment();
   for (let i = 0; i < confettiCount; i++) {
     const el = document.createElement("div");
     el.className = "star-confetti-piece";
@@ -24,9 +25,10 @@ function triggerStarConfetti() {
     el.style.transform = `rotate(${Math.random() * 360}deg)`;
     el.style.animation = `star-fall 1.8s cubic-bezier(.6,.2,.4,1) forwards`;
     el.style.animationDelay = `${Math.random() * 0.5}s`;
-    document.body.appendChild(el);
+    fragment.appendChild(el);
     el.addEventListener("animationend", () => el.remove());
   }
+  document.body.appendChild(fragment);
 }
 
 // Comet animation
@@ -532,6 +534,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "#facc15",
       "#ffffff",
     ];
+    const fragment = document.createDocumentFragment();
     for (let i = 0; i < confettiCount; i++) {
       const el = document.createElement("div");
       el.className = "confetti-piece";
@@ -544,9 +547,10 @@ document.addEventListener("DOMContentLoaded", () => {
       el.style.top = `${Math.random() * -30 - 5}vh`;
       el.style.animationDuration = `${Math.random() * 2 + 2.5}s`;
       el.style.animationDelay = `${Math.random() * 0.7}s`;
-      document.body.appendChild(el);
+      fragment.appendChild(el);
       el.addEventListener("animationend", () => el.remove());
     }
+    document.body.appendChild(fragment);
   }
 
   // ---------------------------------------------------------------------------
