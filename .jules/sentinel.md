@@ -1,0 +1,4 @@
+## 2026-03-18 - [HIGH] Fix tabnabbing vulnerability in window.open
+ **Vulnerability:** The script previously opened external links using `window.open(url, "_blank", "noopener")`. This is insecure because omitting `noreferrer` allows the opened page to potentially access the `window.opener` object and change its location.
+ **Learning:** I learned that while `rel="noopener noreferrer"` is consistently applied in anchor tags in this codebase, the same protection was not applied to JavaScript-initiated `window.open` calls.
+ **Prevention:** For `window.open` calls, always pass `"noopener,noreferrer"` as the third parameter to ensure that `window.opener` is set to null, providing the necessary defense in depth against tabnabbing.
