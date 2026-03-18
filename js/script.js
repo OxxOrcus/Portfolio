@@ -665,11 +665,24 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------------------------------------------------------------------------
   // CURSOR BALL EFFECT
   // ---------------------------------------------------------------------------
+  // ⚡ Bolt: Throttled mousemove with requestAnimationFrame to batch style updates
+  // and prevent main-thread layout thrashing on high-frequency events.
   const cursorBall = document.getElementById("cursor-ball");
   if (cursorBall) {
+    let cursorRafId = null;
+    let cursorX = 0;
+    let cursorY = 0;
+
     document.addEventListener("mousemove", (e) => {
-      cursorBall.style.left = e.clientX + "px";
-      cursorBall.style.top = e.clientY + "px";
+      cursorX = e.clientX;
+      cursorY = e.clientY;
+      if (!cursorRafId) {
+        cursorRafId = requestAnimationFrame(() => {
+          cursorBall.style.left = cursorX + "px";
+          cursorBall.style.top = cursorY + "px";
+          cursorRafId = null;
+        });
+      }
     });
   }
 
@@ -707,27 +720,39 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+    // ⚡ Bolt: Throttled mousemove with requestAnimationFrame to prevent
+    // getBoundingClientRect() and style updates from executing on every mouse movement.
+    // Expected impact: smoother scroll and interaction, reduced CPU usage.
+    let eyesRafId = null;
+    let mouseX = 0;
+    let mouseY = 0;
+
     function movePupils(event) {
-      const mouseX = event.clientX;
-      const mouseY = event.clientY;
-      eyes.forEach((eye, i) => {
-        const rect = eye.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        let dx = mouseX - centerX;
-        let dy = mouseY - centerY;
-        // Normalize and clamp
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist > 0.1) {
-          dx = (dx / dist) * centers[i].rx;
-          dy = (dy / dist) * centers[i].ry;
-        }
-        // Animate pupil movement for smoothness
-        if (pupils[i]) {
-          pupils[i].setAttribute("cx", (centers[i].x + dx).toFixed(2));
-          pupils[i].setAttribute("cy", (centers[i].y + dy).toFixed(2));
-        }
-      });
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+      if (!eyesRafId) {
+        eyesRafId = requestAnimationFrame(() => {
+          eyes.forEach((eye, i) => {
+            const rect = eye.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            let dx = mouseX - centerX;
+            let dy = mouseY - centerY;
+            // Normalize and clamp
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist > 0.1) {
+              dx = (dx / dist) * centers[i].rx;
+              dy = (dy / dist) * centers[i].ry;
+            }
+            // Animate pupil movement for smoothness
+            if (pupils[i]) {
+              pupils[i].setAttribute("cx", (centers[i].x + dx).toFixed(2));
+              pupils[i].setAttribute("cy", (centers[i].y + dy).toFixed(2));
+            }
+          });
+          eyesRafId = null;
+        });
+      }
     }
 
     document.addEventListener("mousemove", movePupils);
