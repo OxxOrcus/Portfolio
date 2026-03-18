@@ -94,7 +94,7 @@ function triggerComet() {
     {
       duration: 2000,
       easing: "cubic-bezier(.7,.1,.3,1)",
-    }
+    },
   );
   setTimeout(() => comet.remove(), 2100);
 }
@@ -110,7 +110,8 @@ document.querySelectorAll("a,button").forEach((el) => {
       triggerComet();
       el.dataset.confettiHandled = "1";
       setTimeout(() => {
-        window.open(el.href, "_blank", "noopener");
+        // Security enhancement: Add noreferrer to prevent tabnabbing vulnerability
+        window.open(el.href, "_blank", "noopener,noreferrer");
         el.dataset.confettiHandled = "";
       }, 2000);
     });
@@ -194,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ctx.fillStyle = "rgba(0,255,65,0.7)";
       for (let i = 0; i < drops.length; i++) {
         const text = matrixChars.charAt(
-          Math.floor(Math.random() * matrixChars.length)
+          Math.floor(Math.random() * matrixChars.length),
         );
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
         if (drops[i] * fontSize > h && Math.random() > 0.975) {
@@ -365,7 +366,7 @@ document.addEventListener("DOMContentLoaded", () => {
     pageNewsletterForm.addEventListener("submit", async (event) => {
       event.preventDefault();
       const emailInput = pageNewsletterForm.querySelector(
-        'input[type="email"]'
+        'input[type="email"]',
       );
       if (emailInput && emailInput.value.trim() && emailInput.checkValidity()) {
         try {
@@ -571,7 +572,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (aiChatMessages.children.length === 0)
           addMessageToChat(
             "Hello! I'm your AI assistant. How can I help you today?",
-            "ai"
+            "ai",
           );
       }
     };
@@ -601,7 +602,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (thinking.parentNode) thinking.remove();
         addMessageToChat(
           "Sorry, I couldn't connect to the AI. Please check your connection and try again.",
-          "ai"
+          "ai",
         );
       } finally {
         aiChatInput.disabled = false;
@@ -652,7 +653,7 @@ document.addEventListener("DOMContentLoaded", () => {
           if (entry.isIntersecting) playTyping();
         });
       },
-      { root: null, threshold: 0.4 }
+      { root: null, threshold: 0.4 },
     );
 
     observer.observe(triggerSection);
@@ -692,7 +693,7 @@ document.addEventListener("DOMContentLoaded", () => {
         pupils.push(pupil);
         // Get the white eyeball circle (center)
         const main = svg.querySelector(
-          "circle:not(.eye-pupil):not(.eye-highlight)"
+          "circle:not(.eye-pupil):not(.eye-highlight)",
         );
         if (main) {
           centers.push({
