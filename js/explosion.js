@@ -32,6 +32,8 @@ function createExplosion(x, y, parent, particleCount = 40) {
 
 // Attach explosion to Buy Me a Coffee widget and inline button, even if loaded late
 function attachExplosionToBMC() {
+  let attachedWidget = false;
+
   // Inline button
   const inlineBtn = document.querySelector('img[alt="Buy Me A Coffee"]');
   if (inlineBtn && !inlineBtn._explosionAttached) {
@@ -62,14 +64,30 @@ function attachExplosionToBMC() {
       createExplosion(x, y, parent);
     });
     widgetBtn._explosionAttached = true;
+    attachedWidget = true;
+  } else if (widgetBtn && widgetBtn._explosionAttached) {
+    attachedWidget = true;
   }
+
+  return attachedWidget;
 }
 
 // Observe DOM for late-injected BMC widget
 const observer = new MutationObserver(() => {
-  attachExplosionToBMC();
+  if (attachExplosionToBMC()) {
+    observer.disconnect();
+  }
 });
 observer.observe(document.body, { childList: true, subtree: true });
 
 // Also try on DOMContentLoaded
-window.addEventListener("DOMContentLoaded", attachExplosionToBMC);
+window.addEventListener("DOMContentLoaded", () => {
+  if (attachExplosionToBMC()) {
+    observer.disconnect();
+  }
+
+  // Failsafe: disconnect observer after 10s if widget never loads (e.g. adblocker)
+  setTimeout(() => {
+    observer.disconnect();
+  }, 10000);
+});
