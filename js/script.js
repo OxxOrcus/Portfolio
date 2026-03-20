@@ -698,6 +698,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Each eye SVG: get the pupil (the large dark circle with class 'eye-pupil')
     const pupils = [];
     const centers = [];
+
     eyes.forEach((eye) => {
       const svg = eye.querySelector("svg");
       if (!svg) return;
@@ -722,7 +723,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ⚡ Bolt: Throttled mousemove with requestAnimationFrame to prevent
-    // getBoundingClientRect() and style updates from executing on every mouse movement.
+    // style updates from executing on every mouse movement.
+    // DOM reads and writes are separated into two loops to avoid layout thrashing.
     // Expected impact: smoother scroll and interaction, reduced CPU usage.
     let eyesRafId = null;
     let mouseX = 0;
@@ -733,30 +735,39 @@ document.addEventListener("DOMContentLoaded", () => {
       mouseY = event.clientY;
       if (!eyesRafId) {
         eyesRafId = requestAnimationFrame(() => {
+          // Loop 1: DOM Reads
+          const targetPositions = [];
           eyes.forEach((eye, i) => {
             const rect = eye.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
             let dx = mouseX - centerX;
             let dy = mouseY - centerY;
+
             // Normalize and clamp
             const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist > 0.1) {
               dx = (dx / dist) * centers[i].rx;
               dy = (dy / dist) * centers[i].ry;
             }
-            // Animate pupil movement for smoothness
-            if (pupils[i]) {
+            targetPositions.push({ dx, dy });
+          });
+
+          // Loop 2: DOM Writes
+          eyes.forEach((_, i) => {
+            if (pupils[i] && targetPositions[i]) {
+              const { dx, dy } = targetPositions[i];
               pupils[i].setAttribute("cx", (centers[i].x + dx).toFixed(2));
               pupils[i].setAttribute("cy", (centers[i].y + dy).toFixed(2));
             }
           });
+
           eyesRafId = null;
         });
       }
     }
 
-    document.addEventListener("mousemove", movePupils);
+    document.addEventListener("mousemove", movePupils, { passive: true });
   }
   initEyesFollowCursor();
 });
