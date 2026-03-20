@@ -324,6 +324,15 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       const emailInput = popupForm.querySelector('input[type="email"]');
       if (emailInput && emailInput.value.trim() && emailInput.checkValidity()) {
+        const submitBtn = popupForm.querySelector('button[type="submit"]');
+        let originalText = "";
+        if (submitBtn) {
+          originalText = submitBtn.innerHTML;
+          submitBtn.disabled = true;
+          submitBtn.innerHTML =
+            '<i class="fas fa-spinner fa-spin mr-2"></i> Subscribing...';
+          submitBtn.classList.add("opacity-75", "cursor-not-allowed");
+        }
         // Send to backend
         try {
           await fetch("/api/newsletter", {
@@ -333,6 +342,11 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         } catch (err) {
           // Optionally show error
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+            submitBtn.classList.remove("opacity-75", "cursor-not-allowed");
+          }
         }
         triggerConfetti();
         if (popupContent) {
@@ -369,6 +383,17 @@ document.addEventListener("DOMContentLoaded", () => {
         'input[type="email"]',
       );
       if (emailInput && emailInput.value.trim() && emailInput.checkValidity()) {
+        const submitBtn = pageNewsletterForm.querySelector(
+          'button[type="submit"]',
+        );
+        let originalText = "";
+        if (submitBtn) {
+          originalText = submitBtn.innerHTML;
+          submitBtn.disabled = true;
+          submitBtn.innerHTML =
+            '<i class="fas fa-spinner fa-spin mr-2"></i> Subscribing...';
+          submitBtn.classList.add("opacity-75", "cursor-not-allowed");
+        }
         try {
           await fetch("/api/newsletter", {
             method: "POST",
@@ -377,6 +402,12 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         } catch (err) {
           // Optionally show error
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+            submitBtn.classList.remove("opacity-75", "cursor-not-allowed");
+          }
         }
         triggerConfetti();
         pageSubscribeMessage.textContent = "Thanks for subscribing! 🎉";
