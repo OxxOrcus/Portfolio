@@ -22,7 +22,10 @@
   z-index: 9999;
   font-weight: bold;
   color: #111;
-  text-shadow: 0 0 6px #ffb300, 0 0 16px #ff9800, 0 0 24px #ff5722,
+  text-shadow:
+    0 0 6px #ffb300,
+    0 0 16px #ff9800,
+    0 0 24px #ff5722,
     0 2px 8px #ffb300;
   will-change: transform, opacity;
   animation: explosion-move 1.4s cubic-bezier(0.2, 0.7, 0.4, 1.1) forwards;
@@ -77,7 +80,9 @@
   filter: blur(18px) brightness(1.2);
   z-index: 1;
   opacity: 0.7;
-  animation: portalPulse 2.5s infinite alternate, portalSpin 6s linear infinite;
+  animation:
+    portalPulse 2.5s infinite alternate,
+    portalSpin 6s linear infinite;
   overflow: visible;
 }
 .portal-effect::before {
@@ -172,17 +177,23 @@
   0% {
     filter: blur(18px) brightness(1.2);
     opacity: 0.7;
-    box-shadow: 0 0 32px 8px #a259ff44, 0 0 0 0 #6a11cb22;
+    box-shadow:
+      0 0 32px 8px #a259ff44,
+      0 0 0 0 #6a11cb22;
   }
   50% {
     filter: blur(24px) brightness(1.4);
     opacity: 1;
-    box-shadow: 0 0 48px 16px #a259ff66, 0 0 32px 8px #6a11cb44;
+    box-shadow:
+      0 0 48px 16px #a259ff66,
+      0 0 32px 8px #6a11cb44;
   }
   100% {
     filter: blur(18px) brightness(1.2);
     opacity: 0.7;
-    box-shadow: 0 0 32px 8px #a259ff44, 0 0 0 0 #6a11cb22;
+    box-shadow:
+      0 0 32px 8px #a259ff44,
+      0 0 0 0 #6a11cb22;
   }
 }
 /* Fire effect for github link */
@@ -220,7 +231,9 @@
 }
 .fire-link:hover {
   color: #ffb347;
-  text-shadow: 0 0 8px #ffb347, 0 0 16px #ff6961;
+  text-shadow:
+    0 0 8px #ffb347,
+    0 0 16px #ff6961;
 }
 .fire-link:hover::after {
   opacity: 1;
@@ -284,13 +297,17 @@
 #projects h2,
 #experience h2,
 #education h2 {
-  text-shadow: 0 2px 12px #fff, 0 0px 2px #fff;
+  text-shadow:
+    0 2px 12px #fff,
+    0 0px 2px #fff;
 }
 /* Improve contrast for section titles and card text on galaxy background */
 .galaxy-bg-wrapper h2,
 .galaxy-bg-wrapper .gradient-text {
   color: #fff !important;
-  text-shadow: 0 2px 12px #000, 0 0px 2px #4a00e0;
+  text-shadow:
+    0 2px 12px #000,
+    0 0px 2px #4a00e0;
 }
 
 .galaxy-bg-wrapper .glass-card {
@@ -301,7 +318,9 @@
 
 .galaxy-bg-wrapper .glass-card h3 {
   color: #fff;
-  text-shadow: 0 2px 8px #000, 0 0px 2px #8e2de2;
+  text-shadow:
+    0 2px 8px #000,
+    0 0px 2px #8e2de2;
 }
 
 .galaxy-bg-wrapper .glass-card p,
@@ -337,7 +356,9 @@ header:hover .menu-stars {
   align-items: center;
   justify-content: center;
   filter: drop-shadow(0 0 8px #fbbf24);
-  transition: transform 0.3s, filter 0.3s;
+  transition:
+    transform 0.3s,
+    filter 0.3s;
 }
 .star-styled:hover {
   transform: scale(1.18) rotate(-8deg);
@@ -457,7 +478,9 @@ header:hover .menu-eyes {
 #newsletterPopup {
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
 }
 
 #newsletterPopup.show {
@@ -467,7 +490,9 @@ header:hover .menu-eyes {
 
 #popupContent {
   transform: translateY(20px) scale(0.95);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease;
 }
 
 #newsletterPopup.show #popupContent {
@@ -845,8 +870,9 @@ nav a {
   display: inline-block;
   white-space: nowrap;
   color: #39ff14; /* Matrix green */
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono",
-    "Courier New", monospace;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New",
+    monospace;
   border-right: 2px solid #39ff14; /* caret */
   padding-right: 4px;
   min-width: 1ch; /* ensure caret visible when empty */
@@ -871,8 +897,12 @@ nav a {
   );
   filter: blur(60px);
   pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s ease-out;
+  transform: translate3d(
+    calc(-50% + var(--cx, 0px)),
+    calc(-50% + var(--cy, 0px)),
+    0
+  );
+  will-change: transform;
   z-index: 10;
   mix-blend-mode: lighten;
   opacity: 0.15;

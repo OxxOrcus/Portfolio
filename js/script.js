@@ -709,6 +709,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------------------------------------------------------------------------
   // ⚡ Bolt: Throttled mousemove with requestAnimationFrame to batch style updates
   // and prevent main-thread layout thrashing on high-frequency events.
+  // Using transform: translate3d (via CSS variables) instead of top/left to avoid
+  // layout thrashing and utilize the compositor thread for better performance.
   const cursorBall = document.getElementById("cursor-ball");
   if (cursorBall) {
     let cursorRafId = null;
@@ -720,8 +722,8 @@ document.addEventListener("DOMContentLoaded", () => {
       cursorY = e.clientY;
       if (!cursorRafId) {
         cursorRafId = requestAnimationFrame(() => {
-          cursorBall.style.left = cursorX + "px";
-          cursorBall.style.top = cursorY + "px";
+          cursorBall.style.setProperty("--cx", cursorX + "px");
+          cursorBall.style.setProperty("--cy", cursorY + "px");
           cursorRafId = null;
         });
       }
