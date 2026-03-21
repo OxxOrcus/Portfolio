@@ -618,6 +618,13 @@ document.addEventListener("DOMContentLoaded", () => {
       aiChatInput.value = "";
       aiChatInput.disabled = true;
 
+      const submitBtn = aiChatForm.querySelector('button[type="submit"]');
+      const originalBtnHtml = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML =
+        '<i class="fas fa-circle-notch fa-spin"></i><span class="sr-only">Sending</span>';
+      submitBtn.classList.add("opacity-75", "cursor-not-allowed");
+
       const thinking = document.createElement("div");
       thinking.className = "chat-message ai thinking";
       thinking.textContent = "…";
@@ -637,6 +644,9 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       } finally {
         aiChatInput.disabled = false;
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnHtml;
+        submitBtn.classList.remove("opacity-75", "cursor-not-allowed");
         aiChatInput.focus();
       }
     });
