@@ -17,3 +17,8 @@
 
 **Learning:** `requestAnimationFrame` alone does not prevent layout thrashing if DOM reads (e.g. `getBoundingClientRect()`) and DOM writes (e.g. `setAttribute()` or `style` updates) are interleaved inside the frame loop. When multiple elements query layout and then immediately write to the DOM within the same frame, the browser is forced to synchronously recalculate layout multiple times per frame. Caching `getBoundingClientRect()` outside the loop is also dangerous because viewport-relative coordinates become stale when the user scrolls or layout shifts.
 **Action:** When animating multiple elements on high-frequency events inside `requestAnimationFrame`, strictly separate DOM reads and DOM writes into two separate loops within the frame. First, loop through all elements to read their layout dimensions and calculate target states. Then, in a second loop, apply all the DOM writes.
+
+## 2025-05-24 - Layout Thrashing with Continuous `left`/`top` Updates
+
+**Learning:** Found that the custom cursor ball effect in the codebase was continually updating `style.left` and `style.top` inside `requestAnimationFrame` on every `mousemove`. Changing `left` and `top` properties forces the browser's rendering engine to recalculate layout and repaint on the main thread, resulting in layout thrashing.
+**Action:** For continuous, high-frequency position updates, always use `style.transform = "translate3d(...)"` instead of modifying `top` and `left`. The `transform` property can be handled by the compositor thread (hardware acceleration), avoiding main-thread layout and paint calculations entirely. Also, ensure the element's CSS includes `will-change: transform`.
