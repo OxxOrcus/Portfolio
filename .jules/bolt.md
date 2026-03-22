@@ -22,3 +22,8 @@
 
 **Learning:** Found that the custom cursor ball effect in the codebase was continually updating `style.left` and `style.top` inside `requestAnimationFrame` on every `mousemove`. Changing `left` and `top` properties forces the browser's rendering engine to recalculate layout and repaint on the main thread, resulting in layout thrashing.
 **Action:** For continuous, high-frequency position updates, always use `style.transform = "translate3d(...)"` instead of modifying `top` and `left`. The `transform` property can be handled by the compositor thread (hardware acceleration), avoiding main-thread layout and paint calculations entirely. Also, ensure the element's CSS includes `will-change: transform`.
+
+## 2025-05-24 - HTML Parsing Thrashing in Typing Animations
+
+**Learning:** Found a performance bottleneck in `js/animations.js` where a continuous typing animation was updating the DOM via `element.innerHTML = ...` on every keystroke (~every 30ms). This approach forced the browser to continually parse an HTML string and recalculate the DOM structure, causing significant main-thread overhead and CPU spikes during the animation.
+**Action:** When building custom typing or text-updating animations, avoid `innerHTML`. Instead, create a dedicated `TextNode` and update its `.nodeValue` directly. For visual elements like a blinking cursor, create a separate DOM element and append it once, ensuring updates only affect the text content without causing full DOM re-parsing.
