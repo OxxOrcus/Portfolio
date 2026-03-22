@@ -335,32 +335,50 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         // Send to backend
         try {
-          await fetch("/api/newsletter", {
+          const response = await fetch("/api/newsletter", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email: emailInput.value.trim() }),
           });
+
+          if (!response.ok) {
+            throw new Error("Failed to subscribe");
+          }
+
+          triggerConfetti();
+          if (popupContent) {
+            popupContent.innerHTML = `
+              <div class="text-center py-8">
+                <i class="fas fa-check-circle text-5xl text-green-500 mb-4"></i>
+                <h3 class="text-2xl font-bold text-white mb-2">Thank You!</h3>
+                <p class="text-gray-300 mb-6">You've been successfully subscribed to our newsletter.</p>
+                <button id="closePopupConfirm" class="btn-primary py-2 px-6">Close</button>
+              </div>
+            `;
+            const confirmBtn = document.getElementById("closePopupConfirm");
+            if (confirmBtn) confirmBtn.addEventListener("click", hidePopup);
+            setTimeout(hidePopup, 3000);
+          }
         } catch (err) {
-          // Optionally show error
+          // Show inline error
+          const existingError = popupForm.querySelector(".error-message");
+          if (existingError) existingError.remove();
+
+          const errorMsg = document.createElement("p");
+          errorMsg.className = "error-message text-red-500 text-sm mt-2";
+          errorMsg.textContent =
+            "Oops! Something went wrong. Please try again later.";
+
+          const emailInputContainer = emailInput.parentElement;
+          if (emailInputContainer) {
+            emailInputContainer.appendChild(errorMsg);
+          }
+        } finally {
           if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalText;
             submitBtn.classList.remove("opacity-75", "cursor-not-allowed");
           }
-        }
-        triggerConfetti();
-        if (popupContent) {
-          popupContent.innerHTML = `
-            <div class="text-center py-8">
-              <i class="fas fa-check-circle text-5xl text-green-500 mb-4"></i>
-              <h3 class="text-2xl font-bold text-white mb-2">Thank You!</h3>
-              <p class="text-gray-300 mb-6">You've been successfully subscribed to our newsletter.</p>
-              <button id="closePopupConfirm" class="btn-primary py-2 px-6">Close</button>
-            </div>
-          `;
-          const confirmBtn = document.getElementById("closePopupConfirm");
-          if (confirmBtn) confirmBtn.addEventListener("click", hidePopup);
-          setTimeout(hidePopup, 3000);
         }
       }
     });
@@ -395,13 +413,36 @@ document.addEventListener("DOMContentLoaded", () => {
           submitBtn.classList.add("opacity-75", "cursor-not-allowed");
         }
         try {
-          await fetch("/api/newsletter", {
+          const response = await fetch("/api/newsletter", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email: emailInput.value.trim() }),
           });
+
+          if (!response.ok) {
+            throw new Error("Failed to subscribe");
+          }
+
+          triggerConfetti();
+          pageSubscribeMessage.textContent = "Thanks for subscribing! 🎉";
+          pageSubscribeMessage.style.color = "#34d399";
+          pageSubscribeMessage.style.display = "block";
+          pageNewsletterForm.reset();
+          setTimeout(() => {
+            pageSubscribeMessage.textContent = "";
+            pageSubscribeMessage.style.display = "none";
+            pageSubscribeMessage.style.color = "";
+          }, 5000);
         } catch (err) {
-          // Optionally show error
+          pageSubscribeMessage.textContent =
+            "Oops! Something went wrong. Please try again.";
+          pageSubscribeMessage.style.color = "#ef4444"; // red-500
+          pageSubscribeMessage.style.display = "block";
+          setTimeout(() => {
+            pageSubscribeMessage.textContent = "";
+            pageSubscribeMessage.style.display = "none";
+            pageSubscribeMessage.style.color = "";
+          }, 5000);
         } finally {
           if (submitBtn) {
             submitBtn.disabled = false;
@@ -409,16 +450,6 @@ document.addEventListener("DOMContentLoaded", () => {
             submitBtn.classList.remove("opacity-75", "cursor-not-allowed");
           }
         }
-        triggerConfetti();
-        pageSubscribeMessage.textContent = "Thanks for subscribing! 🎉";
-        pageSubscribeMessage.style.color = "#34d399";
-        pageSubscribeMessage.style.display = "block";
-        pageNewsletterForm.reset();
-        setTimeout(() => {
-          pageSubscribeMessage.textContent = "";
-          pageSubscribeMessage.style.display = "none";
-          pageSubscribeMessage.style.color = "";
-        }, 5000);
       } else if (emailInput) {
         pageSubscribeMessage.textContent =
           "Please enter a valid email address.";
