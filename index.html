@@ -585,135 +585,162 @@
           >
             Projects
           </h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 project-grid">
+
             <!-- Project cards generated from CV projects list -->
-            <div class="glass-card p-6 flex flex-col">
-              <h3 class="text-xl font-semibold mb-2 text-white">Portfolio</h3>
-              <p class="text-gray-400 text-sm mb-4 flex-grow">
-                Personal portfolio & AI services site built with HTML, Tailwind
-                and vanilla JS.
-              </p>
-              <div class="mt-auto flex items-center gap-3">
-                <a
-                  href="https://portfolio-rose-zeta-llu88vdo68.vercel.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium"
-                  >Live demo</a
-                >
-                <a
-                  href="https://github.com/OxxOrcus/Portfolio"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-gray-400 hover:text-white transition duration-300 text-sm"
-                  >Repo</a
-                >
+            <!-- 1. Orbit Web App -->
+            <div class="glass-card project-card overflow-hidden flex flex-col group relative">
+              <div class="h-48 w-full bg-gradient-to-br from-indigo-900 to-purple-900 relative overflow-hidden flex items-center justify-center">
+                <div class="absolute inset-0 bg-black bg-opacity-40 transition-opacity duration-300 group-hover:bg-opacity-20"></div>
+                <!-- Abstract visual placeholder for orbit -->
+                <div class="absolute w-32 h-32 border-4 border-indigo-500 rounded-full opacity-50 blur-[2px] transform -rotate-12 group-hover:rotate-12 transition-transform duration-700"></div>
+                <div class="absolute w-24 h-24 border-2 border-purple-400 rounded-full opacity-70 transform rotate-45 group-hover:rotate-90 transition-transform duration-1000"></div>
+                <div class="absolute w-4 h-4 bg-white rounded-full shadow-[0_0_15px_#fff]"></div>
+                <div class="absolute top-4 right-4 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full z-10 shadow-lg">Featured</div>
+              </div>
+              <div class="p-6 flex flex-col flex-grow z-10 bg-gray-900 bg-opacity-80">
+                <h3 class="text-xl font-semibold mb-2 text-white group-hover:text-purple-400 transition-colors">Orbit</h3>
+                <p class="text-gray-400 text-sm mb-4 flex-grow">
+                  A dynamic web application designed to track and visualize data orbits in real-time. Built with modern web technologies for high performance and interactivity.
+                </p>
+                <div class="mt-auto flex items-center gap-3">
+                  <a href="https://orbitonapp.com" target="_blank" rel="noopener noreferrer" class="btn-primary flex items-center gap-2 py-1.5 px-4 text-sm w-full justify-center">
+                    <i class="fas fa-external-link-alt"></i> Live Demo
+                  </a>
+                </div>
               </div>
             </div>
-            <div class="glass-card p-6 flex flex-col">
-              <h3 class="text-xl font-semibold mb-2 text-white">
-                BroccoRealtors
-              </h3>
-              <p class="text-gray-400 text-sm mb-4 flex-grow">
-                Real estate prototype demonstrating responsive UI and dynamic
-                listings.
-              </p>
-              <div class="mt-auto flex items-center gap-3">
-                <!-- No public demo detected; link to repo -->
-                <a
-                  href="https://github.com/OxxOrcus/BroccoRealtors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium"
-                ></a>
+
+            <!-- 2. La Brisa Bar -->
+            <div class="glass-card project-card overflow-hidden flex flex-col group relative">
+              <div class="h-48 w-full bg-gradient-to-br from-yellow-900 to-red-900 relative overflow-hidden flex items-center justify-center">
+                <div class="absolute inset-0 bg-black bg-opacity-40 transition-opacity duration-300 group-hover:bg-opacity-20"></div>
+                <!-- Abstract visual placeholder for a bar/sunset -->
+                <div class="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-black to-transparent"></div>
+                <div class="absolute w-20 h-20 bg-yellow-500 rounded-full bottom-4 shadow-[0_0_30px_#f59e0b] group-hover:bottom-6 transition-all duration-500"></div>
+                <i class="fas fa-cocktail text-4xl text-white opacity-80 z-10 drop-shadow-md group-hover:scale-110 transition-transform duration-300"></i>
+              </div>
+              <div class="p-6 flex flex-col flex-grow z-10 bg-gray-900 bg-opacity-80">
+                <h3 class="text-xl font-semibold mb-2 text-white group-hover:text-yellow-400 transition-colors">La Brisa Bar</h3>
+                <p class="text-gray-400 text-sm mb-4 flex-grow">
+                  Modern and elegant website for a premium bar experience. Features a responsive menu, reservation system, and a warm, inviting visual design.
+                </p>
+                <div class="mt-auto flex items-center gap-3">
+                  <a href="https://la-brisa-bar.com" target="_blank" rel="noopener noreferrer" class="btn-primary flex items-center gap-2 py-1.5 px-4 text-sm w-full justify-center" style="background: linear-gradient(90deg, #d97706, #b45309); box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3);">
+                    <i class="fas fa-external-link-alt"></i> Visit Site
+                  </a>
+                </div>
               </div>
             </div>
-            <div class="glass-card p-6 flex flex-col">
-              <h3 class="text-xl font-semibold mb-2 text-white">
-                clone-tabnews
-              </h3>
-              <p class="text-gray-400 text-sm mb-4 flex-grow">
-                Front-end learning project: practice layout, styling and API
-                integration.
-              </p>
-              <div class="mt-auto flex items-center gap-3">
-                <a
-                  href="https://clone-tabnews-taupe-rho.vercel.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium"
-                  >Live demo</a
-                >
-                <a
-                  href="https://github.com/OxxOrcus/clone-tabnews"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-gray-400 hover:text-white transition duration-300 text-sm"
-                  >Repo</a
-                >
+
+            <!-- 3. Portfolio -->
+            <div class="glass-card project-card overflow-hidden flex flex-col group relative">
+              <div class="h-40 w-full bg-gradient-to-br from-gray-800 to-black relative overflow-hidden border-b border-gray-800">
+                <div class="absolute inset-0 bg-matrix-pattern opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                   <i class="fas fa-user-astronaut text-4xl text-gray-500 group-hover:text-purple-400 transition-colors duration-300"></i>
+                </div>
+              </div>
+              <div class="p-5 flex flex-col flex-grow z-10 bg-gray-900 bg-opacity-80">
+                <h3 class="text-lg font-semibold mb-2 text-white group-hover:text-purple-400 transition-colors">Portfolio</h3>
+                <p class="text-gray-400 text-sm mb-4 flex-grow">
+                  Personal portfolio & AI services site built with HTML, Tailwind and vanilla JS.
+                </p>
+                <div class="mt-auto flex items-center gap-3">
+                  <a href="https://portfolio-rose-zeta-llu88vdo68.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium flex items-center gap-1"><i class="fas fa-eye"></i> Demo</a>
+                  <a href="https://github.com/OxxOrcus/Portfolio" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition duration-300 text-sm flex items-center gap-1"><i class="fab fa-github"></i> Repo</a>
+                </div>
               </div>
             </div>
-            <div class="glass-card p-6 flex flex-col">
-              <h3 class="text-xl font-semibold mb-2 text-white">
-                machine-learning
-              </h3>
-              <p class="text-gray-400 text-sm mb-4 flex-grow">
-                Learning journey with Jupyter notebooks and small ML
-                experiments.
-              </p>
-              <div class="mt-auto flex items-center gap-3">
-                <a
-                  href="https://github.com/OxxOrcus/machine-learning"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-gray-400 hover:text-white transition duration-300 text-sm"
-                  >Repo</a
-                >
+
+            <!-- 4. BroccoRealtors -->
+            <div class="glass-card project-card overflow-hidden flex flex-col group relative">
+               <div class="h-40 w-full bg-gradient-to-br from-blue-900 to-gray-900 relative overflow-hidden border-b border-gray-800">
+                <div class="absolute inset-0 flex items-center justify-center">
+                   <i class="fas fa-home text-4xl text-blue-500 group-hover:scale-110 transition-transform duration-300"></i>
+                </div>
+              </div>
+              <div class="p-5 flex flex-col flex-grow z-10 bg-gray-900 bg-opacity-80">
+                <h3 class="text-lg font-semibold mb-2 text-white group-hover:text-blue-400 transition-colors">BroccoRealtors</h3>
+                <p class="text-gray-400 text-sm mb-4 flex-grow">
+                  Real estate prototype demonstrating responsive UI and dynamic listings.
+                </p>
+                <div class="mt-auto flex items-center gap-3">
+                  <a href="https://github.com/OxxOrcus/BroccoRealtors" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition duration-300 text-sm flex items-center gap-1"><i class="fab fa-github"></i> Repo</a>
+                </div>
               </div>
             </div>
-            <div class="glass-card p-6 flex flex-col">
-              <h3 class="text-xl font-semibold mb-2 text-white">
-                C-Sharp-challenges-sources-and-courses
-              </h3>
-              <p class="text-gray-400 text-sm mb-4 flex-grow">
-                Repositório de estudos e projetos em C# e .NET, incluindo:
-              </p>
-              <ul class="list-disc pl-5 text-gray-400 text-sm mb-4">
-                <li>Sistema de Celular com POO</li>
-                <li>Consultas Relacionais com SQL Server</li>
-                <li>API Mínima em ASP.NET</li>
-                <li>Sistema de Hospedagem em Hotel</li>
-              </ul>
-              <p class="text-gray-400 text-sm mb-4">
-                Projetos demonstram conceitos de POO, SQL, APIs modernas e
-                lógica de programação.
-              </p>
-              <div class="mt-auto flex items-center gap-3">
-                <a
-                  href="https://github.com/OxxOrcus/C-Sharp-challenges-sources-and-courses"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-gray-400 hover:text-white transition duration-300 text-sm"
-                  >Repo</a
-                >
+
+            <!-- 5. clone-tabnews -->
+            <div class="glass-card project-card overflow-hidden flex flex-col group relative">
+               <div class="h-40 w-full bg-gradient-to-br from-green-900 to-gray-900 relative overflow-hidden border-b border-gray-800">
+                <div class="absolute inset-0 flex items-center justify-center">
+                   <i class="far fa-newspaper text-4xl text-green-500 group-hover:scale-110 transition-transform duration-300"></i>
+                </div>
+              </div>
+              <div class="p-5 flex flex-col flex-grow z-10 bg-gray-900 bg-opacity-80">
+                <h3 class="text-lg font-semibold mb-2 text-white group-hover:text-green-400 transition-colors">clone-tabnews</h3>
+                <p class="text-gray-400 text-sm mb-4 flex-grow">
+                  Front-end learning project: practice layout, styling and API integration.
+                </p>
+                <div class="mt-auto flex items-center gap-3">
+                  <a href="https://clone-tabnews-taupe-rho.vercel.app/" target="_blank" rel="noopener noreferrer" class="text-purple-400 hover:text-purple-300 transition duration-300 text-sm font-medium flex items-center gap-1"><i class="fas fa-eye"></i> Demo</a>
+                  <a href="https://github.com/OxxOrcus/clone-tabnews" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition duration-300 text-sm flex items-center gap-1"><i class="fab fa-github"></i> Repo</a>
+                </div>
               </div>
             </div>
-            <div class="glass-card p-6 flex flex-col">
-              <h3 class="text-xl font-semibold mb-2 text-white">
-                piscine_42_london_pbrocco
-              </h3>
-              <p class="text-gray-400 text-sm mb-4 flex-grow">
-                Collection of exercises and projects from the 42 London C
-                Piscine (July 2024).
-              </p>
-              <div class="mt-auto flex items-center gap-3">
-                <a
-                  href="https://github.com/OxxOrcus/piscine_42_london_pbrocco"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-gray-400 hover:text-white transition duration-300 text-sm"
-                  >Repo</a
-                >
+
+             <!-- 6. machine-learning -->
+            <div class="glass-card project-card overflow-hidden flex flex-col group relative">
+               <div class="h-40 w-full bg-gradient-to-br from-purple-900 to-gray-900 relative overflow-hidden border-b border-gray-800">
+                <div class="absolute inset-0 flex items-center justify-center">
+                   <i class="fas fa-brain text-4xl text-purple-500 group-hover:scale-110 transition-transform duration-300"></i>
+                </div>
+              </div>
+              <div class="p-5 flex flex-col flex-grow z-10 bg-gray-900 bg-opacity-80">
+                <h3 class="text-lg font-semibold mb-2 text-white group-hover:text-purple-400 transition-colors">machine-learning</h3>
+                <p class="text-gray-400 text-sm mb-4 flex-grow">
+                  Learning journey with Jupyter notebooks and small ML experiments.
+                </p>
+                <div class="mt-auto flex items-center gap-3">
+                  <a href="https://github.com/OxxOrcus/machine-learning" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition duration-300 text-sm flex items-center gap-1"><i class="fab fa-github"></i> Repo</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 7. C-Sharp -->
+             <div class="glass-card project-card overflow-hidden flex flex-col group relative">
+               <div class="h-40 w-full bg-gradient-to-br from-sky-900 to-gray-900 relative overflow-hidden border-b border-gray-800">
+                <div class="absolute inset-0 flex items-center justify-center">
+                   <i class="fas fa-code text-4xl text-sky-500 group-hover:scale-110 transition-transform duration-300"></i>
+                </div>
+              </div>
+              <div class="p-5 flex flex-col flex-grow z-10 bg-gray-900 bg-opacity-80">
+                <h3 class="text-lg font-semibold mb-2 text-white group-hover:text-sky-400 transition-colors">C# Challenges</h3>
+                <p class="text-gray-400 text-sm mb-4 flex-grow">
+                  Repositório de estudos e projetos em C# e .NET, demonstrando conceitos de POO, SQL, APIs modernas e lógica.
+                </p>
+                <div class="mt-auto flex items-center gap-3">
+                  <a href="https://github.com/OxxOrcus/C-Sharp-challenges-sources-and-courses" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition duration-300 text-sm flex items-center gap-1"><i class="fab fa-github"></i> Repo</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- 8. piscine 42 -->
+            <div class="glass-card project-card overflow-hidden flex flex-col group relative">
+               <div class="h-40 w-full bg-gradient-to-br from-gray-700 to-gray-900 relative overflow-hidden border-b border-gray-800">
+                <div class="absolute inset-0 flex items-center justify-center">
+                   <i class="fas fa-terminal text-4xl text-gray-300 group-hover:scale-110 transition-transform duration-300"></i>
+                </div>
+              </div>
+              <div class="p-5 flex flex-col flex-grow z-10 bg-gray-900 bg-opacity-80">
+                <h3 class="text-lg font-semibold mb-2 text-white group-hover:text-gray-300 transition-colors">42 London C Piscine</h3>
+                <p class="text-gray-400 text-sm mb-4 flex-grow">
+                  Collection of exercises and projects from the 42 London C Piscine (July 2024).
+                </p>
+                <div class="mt-auto flex items-center gap-3">
+                  <a href="https://github.com/OxxOrcus/piscine_42_london_pbrocco" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition duration-300 text-sm flex items-center gap-1"><i class="fab fa-github"></i> Repo</a>
+                </div>
               </div>
             </div>
           </div>
