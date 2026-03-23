@@ -23,5 +23,10 @@
     "@vercel/edge-config": "^1.4.0",
     "nodemailer": "^7.0.6",
     "resend": "^6.0.2"
+  },
+  "devDependencies": {
+    "finalhandler": "^2.1.1",
+    "playwright": "^1.58.2",
+    "serve-static": "^2.2.1"
   }
 }
