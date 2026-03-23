@@ -22,7 +22,8 @@ module.exports = async function handler(req, res) {
   }
 
   const { name, email, message } = req.body || {};
-  if (!name || !email || !message || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+  // Security enhancement: Add input type and length validation to prevent ReDoS and memory exhaustion attacks (DoS risk)
+  if (!name || !email || typeof email !== "string" || email.length > 254 || !message || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     return res.status(400).json({ error: "Invalid form data" });
   }
 
