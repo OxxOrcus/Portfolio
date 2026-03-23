@@ -14,3 +14,7 @@
 
 **Learning:** In async JS form submissions, placing success state updates (like confetti or "success" messages) after the try/catch block will cause them to execute unconditionally, even if the API request fails and an error is logged. This provides a misleading success signal to the user when their data wasn't actually saved.
 **Action:** Always place success UI feedback strictly within the `try` block, immediately after verifying `response.ok`, and ensure error feedback is clearly provided in the `catch` block.
+
+## 2025-05-18 - Improve newsletter modal readability
+ **Learning:** Sometimes modals with high transparency on both the overlay and the content layer can hinder text legibility, specially against a complex background.
+ **Action:** Removed `bg-opacity` on the modal content to make it opaque and increased the opacity and blur of the backdrop to distinguish the modal from the background content.
