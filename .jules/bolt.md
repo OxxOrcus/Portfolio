@@ -27,3 +27,8 @@
 
 **Learning:** Found a performance bottleneck in `js/animations.js` where a continuous typing animation was updating the DOM via `element.innerHTML = ...` on every keystroke (~every 30ms). This approach forced the browser to continually parse an HTML string and recalculate the DOM structure, causing significant main-thread overhead and CPU spikes during the animation.
 **Action:** When building custom typing or text-updating animations, avoid `innerHTML`. Instead, create a dedicated `TextNode` and update its `.nodeValue` directly. For visual elements like a blinking cursor, create a separate DOM element and append it once, ensuring updates only affect the text content without causing full DOM re-parsing.
+
+## 2025-05-24 - Unnecessary Off-Screen Canvas Rendering
+
+**Learning:** Found a performance bottleneck in `js/constellation.js` where the background constellation canvas animation was continually rendering via `requestAnimationFrame` even when the user had scrolled past the `#hero` section. This kept the GPU and CPU unnecessarily active, draining battery and reducing page scroll performance. Additionally, the particle connection logic computed `Math.sqrt()` on every particle pair regardless of their distance, creating unnecessary mathematical overhead in an O(N²) loop.
+**Action:** When creating continuous canvas animations, always use an `IntersectionObserver` on the animation's container element to pause the `requestAnimationFrame` loop when the canvas is no longer visible in the viewport. Also, optimize distance calculations by comparing the squared distance (`distSq`) against the squared max distance before applying expensive operations like `Math.sqrt()`.
