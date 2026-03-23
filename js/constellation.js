@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let particles = [];
   const particleCount = 100; // Adjust for density
   const maxDistance = 150; // Distance to draw lines between particles
+  const maxDistanceSq = maxDistance * maxDistance; // Optimize distance checks
+  let animationId = null;
+  let isVisible = true;
 
   // Initialize canvas size
   function resize() {
@@ -61,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function animate() {
+    if (!isVisible) return; // Pause animation when off-screen
     ctx.clearRect(0, 0, width, height);
 
     // Update and draw particles
@@ -72,9 +76,11 @@ document.addEventListener("DOMContentLoaded", () => {
       for (let j = i + 1; j < particles.length; j++) {
         const dx = particles[i].x - particles[j].x;
         const dy = particles[i].y - particles[j].y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+        const distSq = dx * dx + dy * dy;
 
-        if (distance < maxDistance) {
+        // ⚡ Bolt: Only calculate expensive Math.sqrt if particles are close enough
+        if (distSq < maxDistanceSq) {
+          const distance = Math.sqrt(distSq);
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
@@ -87,11 +93,30 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    requestAnimationFrame(animate);
+    animationId = requestAnimationFrame(animate);
   }
 
   // Set initial size and start animation
   window.addEventListener("resize", resize);
   resize();
-  animate();
+
+  // ⚡ Bolt: Pause canvas animation when hero section is not visible
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (!isVisible) {
+            isVisible = true;
+            animate();
+          }
+        } else {
+          isVisible = false;
+          if (animationId) cancelAnimationFrame(animationId);
+        }
+      });
+    },
+    { threshold: 0 }
+  );
+
+  observer.observe(heroSection);
 });
