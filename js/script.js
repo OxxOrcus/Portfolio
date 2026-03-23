@@ -322,27 +322,38 @@ document.addEventListener("DOMContentLoaded", () => {
   if (popupForm) {
     popupForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const emailInput = popupForm.querySelector('input[type="email"]');
-      if (emailInput && emailInput.value.trim() && emailInput.checkValidity()) {
+      const nameInput = popupForm.querySelector('#contact-name');
+      const emailInput = popupForm.querySelector('#contact-email');
+      const messageInput = popupForm.querySelector('#contact-message');
+
+      if (
+        nameInput && nameInput.value.trim() &&
+        emailInput && emailInput.value.trim() && emailInput.checkValidity() &&
+        messageInput && messageInput.value.trim()
+      ) {
         const submitBtn = popupForm.querySelector('button[type="submit"]');
         let originalText = "";
         if (submitBtn) {
           originalText = submitBtn.innerHTML;
           submitBtn.disabled = true;
           submitBtn.innerHTML =
-            '<i class="fas fa-spinner fa-spin mr-2"></i> Subscribing...';
+            '<i class="fas fa-circle-notch fa-spin mr-2"></i> Sending...';
           submitBtn.classList.add("opacity-75", "cursor-not-allowed");
         }
         // Send to backend
         try {
-          const response = await fetch("/api/newsletter", {
+          const response = await fetch("/api/contact", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email: emailInput.value.trim() }),
+            body: JSON.stringify({
+              name: nameInput.value.trim(),
+              email: emailInput.value.trim(),
+              message: messageInput.value.trim()
+            }),
           });
 
           if (!response.ok) {
-            throw new Error("Failed to subscribe");
+            throw new Error("Failed to send message");
           }
 
           triggerConfetti();
@@ -350,8 +361,8 @@ document.addEventListener("DOMContentLoaded", () => {
             popupContent.innerHTML = `
               <div class="text-center py-8">
                 <i class="fas fa-check-circle text-5xl text-green-500 mb-4"></i>
-                <h3 class="text-2xl font-bold text-white mb-2">Thank You!</h3>
-                <p class="text-gray-300 mb-6">You've been successfully subscribed to our newsletter.</p>
+                <h3 class="text-2xl font-bold text-white mb-2">Message Sent!</h3>
+                <p class="text-gray-300 mb-6">Thank you for reaching out. I'll get back to you soon.</p>
                 <button id="closePopupConfirm" class="btn-primary py-2 px-6">Close</button>
               </div>
             `;
@@ -369,10 +380,7 @@ document.addEventListener("DOMContentLoaded", () => {
           errorMsg.textContent =
             "Oops! Something went wrong. Please try again later.";
 
-          const emailInputContainer = emailInput.parentElement;
-          if (emailInputContainer) {
-            emailInputContainer.appendChild(errorMsg);
-          }
+          popupForm.appendChild(errorMsg);
         } finally {
           if (submitBtn) {
             submitBtn.disabled = false;
