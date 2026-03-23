@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------------
-// STAR CONFETTI ON CONTRACT ME BUTTON
+// STAR CONFETTI ON HIRE ME BUTTON
 // ---------------------------------------------------------------------------
 function triggerStarConfetti() {
   const confettiCount = 36;
@@ -99,9 +99,9 @@ function triggerComet() {
   setTimeout(() => comet.remove(), 2100);
 }
 
-// Attach to Contract Me button
+// Attach to Hire Me button
 document.querySelectorAll("a,button").forEach((el) => {
-  if (el.textContent && el.textContent.match(/Contract Me/i)) {
+  if (el.textContent && el.textContent.match(/Hire Me/i)) {
     el.addEventListener("click", function (e) {
       // If already handled, do nothing
       if (el.dataset.confettiHandled) return;
