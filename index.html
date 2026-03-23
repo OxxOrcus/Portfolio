@@ -235,21 +235,19 @@
       </div>
     </header>
 
-    <!-- TODO: Improve the hero background image for better contrast or consider a dynamic WebGL background -->
+    <!-- Hero Section with dynamic Canvas constellation background -->
     <section
       id="hero"
-      class="min-h-screen flex items-center justify-center text-center px-4 relative overflow-hidden"
+      class="min-h-screen flex items-center justify-center text-center px-4 relative overflow-hidden bg-black"
     >
       <div
         class="absolute inset-0 flex items-center justify-center pointer-events-none select-none"
         style="z-index: 1"
       >
-        <img
-          src="./assets/images/hero_section.png"
-          alt="Hero section illustration"
-          class="w-full h-full object-cover opacity-40"
-          style="max-width: 100vw; max-height: 100vh"
-        />
+        <canvas
+          id="hero-canvas"
+          class="w-full h-full object-cover"
+        ></canvas>
       </div>
       <div
         class="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-700 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"
@@ -1274,6 +1272,7 @@
         data-y_margin="18"
       ></script>
       <script src="js/explosion.js"></script>
+      <script src="js/constellation.js"></script>
 
       <!-- AI Chat Window -->
       <div
