@@ -9,20 +9,38 @@ function startAboutTypingEffect() {
     "Experienced in web and backend development, with a passion for solving complex problems using modern technology.",
     "Over the past ~5 years I've focused on building systems and automation that reach and help thousands of users.",
   ];
+  aboutTyping.innerHTML = "";
   let line = 0,
     char = 0;
-  let html = "";
+
+  // Create a container for text to avoid innerHTML parsing on every keystroke
+  let currentTextNode = document.createTextNode("");
+  let cursorSpan = document.createElement("span");
+  cursorSpan.className = "typing-cursor";
+  cursorSpan.textContent = "█";
+
+  aboutTyping.appendChild(currentTextNode);
+  aboutTyping.appendChild(cursorSpan);
+
   function typeLine() {
-    if (line >= lines.length) return;
+    if (line >= lines.length) {
+      cursorSpan.remove();
+      return;
+    }
+
     if (char < lines[line].length) {
-      aboutTyping.innerHTML =
-        html +
-        lines[line].slice(0, char + 1) +
-        '<span class="typing-cursor">█</span>';
+      currentTextNode.nodeValue += lines[line].charAt(char);
       char++;
       setTimeout(typeLine, 28 + Math.random() * 40);
     } else {
-      html += lines[line] + "<br>";
+      // End of line, insert a <br>
+      const br = document.createElement("br");
+      aboutTyping.insertBefore(br, cursorSpan);
+
+      // Start a new text node for the next line
+      currentTextNode = document.createTextNode("");
+      aboutTyping.insertBefore(currentTextNode, cursorSpan);
+
       char = 0;
       line++;
       setTimeout(typeLine, 400);
@@ -49,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
           observer.disconnect();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     );
     obs.observe(aboutSection);
   }
@@ -140,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     },
-    { threshold: 0.1 }
+    { threshold: 0.1 },
   );
 
   // Observe all elements that have animation classes.
@@ -164,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Adds a staggered animation delay to the hero section buttons for a nice effect.
   const heroButtons = document.querySelectorAll(
-    "#hero .btn-primary, #hero .btn-secondary"
+    "#hero .btn-primary, #hero .btn-secondary",
   );
   heroButtons.forEach((btn, index) => {
     btn.style.animationDelay = `${0.3 + index * 0.1}s`;
