@@ -18,3 +18,7 @@
 ## 2025-05-18 - Improve newsletter modal readability
  **Learning:** Sometimes modals with high transparency on both the overlay and the content layer can hinder text legibility, specially against a complex background.
  **Action:** Removed `bg-opacity` on the modal content to make it opaque and increased the opacity and blur of the backdrop to distinguish the modal from the background content.
+
+## 2025-05-18 - Ensure keyboard focus visibility on custom stylized navigation elements
+ **Learning:** Standard browser focus outlines are often overridden or hidden when applying CSS reset frameworks like Tailwind, making keyboard navigation through links and buttons unreadable for users relying on visual focus.
+ **Action:** Always add explicit focus styles (e.g., `focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm`) to all interactive elements (`<a>`, `<button>`) to ensure clear visual feedback during keyboard navigation.
