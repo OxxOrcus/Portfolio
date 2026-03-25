@@ -32,3 +32,8 @@
 
 **Learning:** Found a performance bottleneck in `js/constellation.js` where the background constellation canvas animation was continually rendering via `requestAnimationFrame` even when the user had scrolled past the `#hero` section. This kept the GPU and CPU unnecessarily active, draining battery and reducing page scroll performance. Additionally, the particle connection logic computed `Math.sqrt()` on every particle pair regardless of their distance, creating unnecessary mathematical overhead in an O(N²) loop.
 **Action:** When creating continuous canvas animations, always use an `IntersectionObserver` on the animation's container element to pause the `requestAnimationFrame` loop when the canvas is no longer visible in the viewport. Also, optimize distance calculations by comparing the squared distance (`distSq`) against the squared max distance before applying expensive operations like `Math.sqrt()`.
+
+## 2025-05-24 - JS Animation Thrashing (setInterval)
+
+**Learning:** Found a performance bottleneck in `js/script.js` where the matrix rain fade-out effect was updating `element.style.opacity` via a `setInterval` every 30ms. Continuously running JavaScript on the main thread to animate opacity forces the browser to continually recalculate styles and repaints, draining CPU and increasing layout thrashing.
+**Action:** Always prefer CSS transitions (`element.style.transition = "opacity 3s linear"`) over JavaScript interval loops for simple style interpolations like fade-ins or fade-outs. CSS animations can be offloaded to the compositor thread, resulting in smoother frame rates and less main-thread blocking.

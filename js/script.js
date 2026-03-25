@@ -177,6 +177,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function runMatrixRain() {
+    matrixCanvas.style.transition = "";
+    matrixCanvas.style.opacity = "1";
     const ctx = matrixCanvas.getContext("2d");
     const w = matrixCanvas.width;
     const h = matrixCanvas.height;
@@ -222,20 +224,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // Trigger matrix rain automatically on page load
   startMatrixRain();
   // Fade out matrix effect over the last 3 seconds of a 5.2s total duration
-  let fadeTimeout, fadeInterval;
+  let fadeTimeout;
   fadeTimeout = setTimeout(() => {
-    let fadeDuration = 3000; // ms
-    let fadeStart = Date.now();
-    fadeInterval = setInterval(() => {
-      let elapsed = Date.now() - fadeStart;
-      let progress = Math.min(elapsed / fadeDuration, 1);
-      matrixCanvas.style.opacity = 1 - progress;
-      if (progress >= 1) {
-        clearInterval(fadeInterval);
-        stopMatrixRain();
-        matrixCanvas.style.opacity = 1;
-      }
-    }, 30);
+    // ⚡ Bolt: Using CSS transition instead of JS setInterval for smoother
+    // performance and to prevent layout thrashing on the main thread.
+    matrixCanvas.style.transition = "opacity 3s linear";
+    matrixCanvas.style.opacity = "0";
+
+    setTimeout(() => {
+      stopMatrixRain();
+      matrixCanvas.style.transition = "";
+      matrixCanvas.style.opacity = "1";
+    }, 3000);
   }, 2200);
   // ---------------------------------------------------------------------------
   // ELEMENT REFERENCES
@@ -322,14 +322,18 @@ document.addEventListener("DOMContentLoaded", () => {
   if (popupForm) {
     popupForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const nameInput = popupForm.querySelector('#contact-name');
-      const emailInput = popupForm.querySelector('#contact-email');
-      const messageInput = popupForm.querySelector('#contact-message');
+      const nameInput = popupForm.querySelector("#contact-name");
+      const emailInput = popupForm.querySelector("#contact-email");
+      const messageInput = popupForm.querySelector("#contact-message");
 
       if (
-        nameInput && nameInput.value.trim() &&
-        emailInput && emailInput.value.trim() && emailInput.checkValidity() &&
-        messageInput && messageInput.value.trim()
+        nameInput &&
+        nameInput.value.trim() &&
+        emailInput &&
+        emailInput.value.trim() &&
+        emailInput.checkValidity() &&
+        messageInput &&
+        messageInput.value.trim()
       ) {
         const submitBtn = popupForm.querySelector('button[type="submit"]');
         let originalText = "";
@@ -348,7 +352,7 @@ document.addEventListener("DOMContentLoaded", () => {
             body: JSON.stringify({
               name: nameInput.value.trim(),
               email: emailInput.value.trim(),
-              message: messageInput.value.trim()
+              message: messageInput.value.trim(),
             }),
           });
 
