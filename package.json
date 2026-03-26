@@ -4,7 +4,7 @@
   "description": "This project is a personal portfolio and AI services website for a developer with a passion for Artificial Intelligence and Space Exploration. It's a static website built with HTML, Tailwind CSS, and vanilla JavaScript.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test tests/*.test.js"
   },
   "repository": {
     "type": "git",
