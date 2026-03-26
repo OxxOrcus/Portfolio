@@ -91,6 +91,11 @@ function initConstellation() {
   }
 
   // Set initial size and start animation
+  const observer = new ResizeObserver(() => {
+    resize();
+  });
+  observer.observe(heroSection);
+
   window.addEventListener("resize", resize);
   resize();
   animate();
