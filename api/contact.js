@@ -5,7 +5,7 @@ module.exports = async function handler(req, res) {
   try {
     if (!process.env.RESEND_API_KEY) {
       console.warn(
-        "RESEND_API_KEY is not set. Contact emails will not be sent."
+        "RESEND_API_KEY is not set. Contact emails will not be sent.",
       );
     } else {
       resend = new Resend(process.env.RESEND_API_KEY);
@@ -13,7 +13,7 @@ module.exports = async function handler(req, res) {
   } catch (err) {
     console.error(
       "Failed to initialize Resend client:",
-      err && err.message ? err.message : err
+      err && err.message ? err.message : err,
     );
   }
 
@@ -23,7 +23,18 @@ module.exports = async function handler(req, res) {
 
   const { name, email, message } = req.body || {};
   // Security enhancement: Add input type and length validation to prevent ReDoS and memory exhaustion attacks (DoS risk)
-  if (!name || !email || typeof email !== "string" || email.length > 254 || !message || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+  if (
+    !name ||
+    typeof name !== "string" ||
+    name.length > 100 ||
+    !email ||
+    typeof email !== "string" ||
+    email.length > 254 ||
+    !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) ||
+    !message ||
+    typeof message !== "string" ||
+    message.length > 5000
+  ) {
     return res.status(400).json({ error: "Invalid form data" });
   }
 
@@ -43,7 +54,7 @@ module.exports = async function handler(req, res) {
   } catch (err) {
     console.error(
       "Error sending contact email:",
-      err && err.message ? err.message : err
+      err && err.message ? err.message : err,
     );
     return res.status(500).json({ error: "Erro ao enviar e-mail" });
   }
