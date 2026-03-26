@@ -1,22 +1,23 @@
 const { Resend } = require("resend");
 
-module.exports = async function handler(req, res) {
-  let resend = null;
-  try {
-    if (!process.env.RESEND_API_KEY) {
-      console.warn(
-        "RESEND_API_KEY is not set. Contact emails will not be sent.",
-      );
-    } else {
-      resend = new Resend(process.env.RESEND_API_KEY);
-    }
-  } catch (err) {
-    console.error(
-      "Failed to initialize Resend client:",
-      err && err.message ? err.message : err,
+let resend = null;
+try {
+  if (process.env.RESEND_API_KEY) {
+    resend = new Resend(process.env.RESEND_API_KEY);
+  } else {
+    // Log during startup; handler will log a warning when called.
+    console.warn(
+      "RESEND_API_KEY is not set during initialization. The Contact endpoint will skip sending emails."
     );
   }
+} catch (err) {
+  console.error(
+    "Failed to initialize Resend client:",
+    err && err.message ? err.message : err
+  );
+}
 
+module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
