@@ -32,3 +32,8 @@
 
 **Learning:** Found a performance bottleneck in `js/constellation.js` where the background constellation canvas animation was continually rendering via `requestAnimationFrame` even when the user had scrolled past the `#hero` section. This kept the GPU and CPU unnecessarily active, draining battery and reducing page scroll performance. Additionally, the particle connection logic computed `Math.sqrt()` on every particle pair regardless of their distance, creating unnecessary mathematical overhead in an O(N²) loop.
 **Action:** When creating continuous canvas animations, always use an `IntersectionObserver` on the animation's container element to pause the `requestAnimationFrame` loop when the canvas is no longer visible in the viewport. Also, optimize distance calculations by comparing the squared distance (`distSq`) against the squared max distance before applying expensive operations like `Math.sqrt()`.
+
+## 2025-05-24 - JS `setInterval` vs CSS `transition` for Continuous Style Updates
+
+**Learning:** The Matrix rain effect's initial fade-out animation was implemented using a JavaScript `setInterval` loop that executed every 30ms to manually update `matrixCanvas.style.opacity`. This approach forced the browser to continually recalculate styles and layout on the main thread, leading to potential layout thrashing and lower framerates.
+**Action:** Always prefer native CSS `transition` (e.g., `element.style.transition = 'opacity 3s linear'`) for smooth, continuous property updates like `opacity` or `transform`. CSS transitions offload the animation work to the GPU and compositor thread, completely bypassing the main thread and resulting in significantly smoother and more efficient animations.

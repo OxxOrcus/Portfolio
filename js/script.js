@@ -221,21 +221,26 @@ document.addEventListener("DOMContentLoaded", () => {
   // Trigger matrix rain on Learn More button click
   // Trigger matrix rain automatically on page load
   startMatrixRain();
-  // Fade out matrix effect over the last 3 seconds of a 5.2s total duration
-  let fadeTimeout, fadeInterval;
+  // ⚡ Bolt: Fade out matrix effect using CSS transition instead of JS setInterval
+  // to offload animation to the GPU and prevent main-thread layout thrashing.
+  // Fades out over the last 3 seconds of a 5.2s total duration.
+  let fadeTimeout, stopTimeout;
+
+  // Set initial transition state
+  matrixCanvas.style.transition = "opacity 3s linear";
+  matrixCanvas.style.opacity = "1";
+
   fadeTimeout = setTimeout(() => {
-    let fadeDuration = 3000; // ms
-    let fadeStart = Date.now();
-    fadeInterval = setInterval(() => {
-      let elapsed = Date.now() - fadeStart;
-      let progress = Math.min(elapsed / fadeDuration, 1);
-      matrixCanvas.style.opacity = 1 - progress;
-      if (progress >= 1) {
-        clearInterval(fadeInterval);
-        stopMatrixRain();
-        matrixCanvas.style.opacity = 1;
-      }
-    }, 30);
+    // Trigger CSS transition
+    matrixCanvas.style.opacity = "0";
+
+    // Stop the actual canvas rendering loop after the transition completes
+    stopTimeout = setTimeout(() => {
+      stopMatrixRain();
+      // Reset styles for potential re-runs
+      matrixCanvas.style.transition = "";
+      matrixCanvas.style.opacity = "1";
+    }, 3000);
   }, 2200);
   // ---------------------------------------------------------------------------
   // ELEMENT REFERENCES
