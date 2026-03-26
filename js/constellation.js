@@ -17,8 +17,9 @@ function initConstellation() {
 
   // Initialize canvas size
   function resize() {
-    width = heroSection.offsetWidth;
-    height = heroSection.offsetHeight;
+    // Fallback to window dimensions if hero section is temporarily 0 due to CDN loading
+    width = heroSection.offsetWidth || window.innerWidth;
+    height = heroSection.offsetHeight || window.innerHeight;
     canvas.width = width;
     canvas.height = height;
 
@@ -97,12 +98,14 @@ function initConstellation() {
   observer.observe(heroSection);
 
   window.addEventListener("resize", resize);
+
+  // Force a resize calculation immediately and then after a tiny delay
+  // to ensure CSS has fully applied (especially useful for CDN Tailwind)
   resize();
+  setTimeout(resize, 100);
+
   animate();
 }
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initConstellation);
-} else {
-  initConstellation();
-}
+// Since the script is loaded with defer, the DOM is ready when this runs.
+initConstellation();
