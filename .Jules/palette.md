@@ -18,3 +18,7 @@
 ## 2025-05-18 - Improve newsletter modal readability
  **Learning:** Sometimes modals with high transparency on both the overlay and the content layer can hinder text legibility, specially against a complex background.
  **Action:** Removed `bg-opacity` on the modal content to make it opaque and increased the opacity and blur of the backdrop to distinguish the modal from the background content.
+
+## 2025-05-19 - Ensure screen readers announce dynamic feedback
+**Learning:** Client-side form submissions (like newsletter signups) and dynamic content updates (like AI chat messages) that modify DOM text without a full page reload will be visually apparent to sighted users but completely missed by screen reader users, leading to confusion about whether an action succeeded or failed.
+**Action:** Always add `aria-live="polite"` (or `"assertive"` if critical) to the container elements (e.g., success message paragraphs or chat message containers) that will dynamically receive text updates to ensure assistive technologies announce the changes.
