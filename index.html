@@ -1288,7 +1288,7 @@
               Subscribe
             </button>
           </form>
-          <p id="subscribe-message" class="mt-4 text-sm h-5"></p>
+          <p id="subscribe-message" aria-live="polite" class="mt-4 text-sm h-5"></p>
           <!-- Added h-5 for consistent height -->
         </div>
       </section>
@@ -1514,6 +1514,7 @@
         </div>
         <div
           id="ai-chat-messages"
+          aria-live="polite"
           class="flex-grow p-3 space-y-3 overflow-y-auto text-sm"
         >
           <!-- Chat messages will appear here -->
