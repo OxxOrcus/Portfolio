@@ -1,7 +1,7 @@
 // ---------------------------------------------------------------------------
 // CONSTELLATION BACKGROUND EFFECT
 // ---------------------------------------------------------------------------
-document.addEventListener("DOMContentLoaded", () => {
+function initConstellation() {
   const canvas = document.getElementById("hero-canvas");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
@@ -94,4 +94,10 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", resize);
   resize();
   animate();
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initConstellation);
+} else {
+  initConstellation();
+}
