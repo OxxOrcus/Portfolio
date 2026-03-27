@@ -211,10 +211,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Responsive canvas
+  // ⚡ Bolt: Debounce resize event to prevent synchronous canvas buffer
+  // reallocation from thrashing the main thread on every layout shift.
+  let matrixResizeTimeout;
   window.addEventListener("resize", () => {
     if (matrixActive) {
-      matrixCanvas.width = window.innerWidth;
-      matrixCanvas.height = window.innerHeight;
+      clearTimeout(matrixResizeTimeout);
+      matrixResizeTimeout = setTimeout(() => {
+        matrixCanvas.width = window.innerWidth;
+        matrixCanvas.height = window.innerHeight;
+      }, 150);
     }
   });
 
