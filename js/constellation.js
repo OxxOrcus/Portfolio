@@ -97,7 +97,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Set initial size and start animation
-  window.addEventListener("resize", resize);
+  // ⚡ Bolt: Debounce canvas resize to prevent main-thread lockups and layout thrashing
+  let resizeTimeout;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(resize, 150);
+  });
   resize();
 
   // ⚡ Bolt: Pause canvas animation when hero section is not visible
@@ -115,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     },
-    { threshold: 0 }
+    { threshold: 0 },
   );
 
   observer.observe(heroSection);

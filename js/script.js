@@ -211,11 +211,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Responsive canvas
+  // ⚡ Bolt: Debounce canvas resize to prevent main-thread lockups and layout thrashing
+  let matrixResizeTimeout;
   window.addEventListener("resize", () => {
-    if (matrixActive) {
+    clearTimeout(matrixResizeTimeout);
+    matrixResizeTimeout = setTimeout(() => {
+      // Must not skip dimension updates even if not active,
+      // to ensure canvas scales properly when made active again
       matrixCanvas.width = window.innerWidth;
       matrixCanvas.height = window.innerHeight;
-    }
+    }, 150);
   });
 
   // Trigger matrix rain on Learn More button click
@@ -327,14 +332,18 @@ document.addEventListener("DOMContentLoaded", () => {
   if (popupForm) {
     popupForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const nameInput = popupForm.querySelector('#contact-name');
-      const emailInput = popupForm.querySelector('#contact-email');
-      const messageInput = popupForm.querySelector('#contact-message');
+      const nameInput = popupForm.querySelector("#contact-name");
+      const emailInput = popupForm.querySelector("#contact-email");
+      const messageInput = popupForm.querySelector("#contact-message");
 
       if (
-        nameInput && nameInput.value.trim() &&
-        emailInput && emailInput.value.trim() && emailInput.checkValidity() &&
-        messageInput && messageInput.value.trim()
+        nameInput &&
+        nameInput.value.trim() &&
+        emailInput &&
+        emailInput.value.trim() &&
+        emailInput.checkValidity() &&
+        messageInput &&
+        messageInput.value.trim()
       ) {
         const submitBtn = popupForm.querySelector('button[type="submit"]');
         let originalText = "";
@@ -353,7 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
             body: JSON.stringify({
               name: nameInput.value.trim(),
               email: emailInput.value.trim(),
-              message: messageInput.value.trim()
+              message: messageInput.value.trim(),
             }),
           });
 
