@@ -19,7 +19,33 @@ You are Dev_Oxx.orcus AI, a sophisticated and helpful assistant for Paulo Brocco
 Use the provided information about Paulo Brocco to answer user questions. If a question is outside the dataset, reply that you don't have that information.
 `;
 
+// Simple in-memory rate limiting to prevent abuse
+const rateLimitMap = new Map();
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
+const MAX_REQUESTS_PER_WINDOW = 5;
+
 module.exports = async (req, res) => {
+  // Rate limiting check
+  const ip = (req.headers && req.headers["x-forwarded-for"]) || req.connection?.remoteAddress || "unknown";
+  const now = Date.now();
+  const userRate = rateLimitMap.get(ip) || { count: 0, firstRequest: now };
+
+  if (now - userRate.firstRequest > RATE_LIMIT_WINDOW_MS) {
+    userRate.count = 1;
+    userRate.firstRequest = now;
+  } else {
+    userRate.count += 1;
+  }
+
+  rateLimitMap.set(ip, userRate);
+
+  // Cleanup to prevent memory leaks in long-running instances
+  if (rateLimitMap.size > 1000) rateLimitMap.clear();
+
+  if (userRate.count > MAX_REQUESTS_PER_WINDOW) {
+    return res.status(429).json({ success: false, message: "Too many requests. Please try again later." });
+  }
+
   // Only allow POST requests
   if (req.method !== "POST") {
     return res

@@ -17,7 +17,33 @@ try {
   );
 }
 
+// Simple in-memory rate limiting to prevent email spam/abuse
+const rateLimitMap = new Map();
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
+const MAX_REQUESTS_PER_WINDOW = 3;
+
 module.exports = async function handler(req, res) {
+  // Rate limiting check
+  const ip = (req.headers && req.headers["x-forwarded-for"]) || req.connection?.remoteAddress || "unknown";
+  const now = Date.now();
+  const userRate = rateLimitMap.get(ip) || { count: 0, firstRequest: now };
+
+  if (now - userRate.firstRequest > RATE_LIMIT_WINDOW_MS) {
+    userRate.count = 1;
+    userRate.firstRequest = now;
+  } else {
+    userRate.count += 1;
+  }
+
+  rateLimitMap.set(ip, userRate);
+
+  // Cleanup map to prevent memory leaks over time
+  if (rateLimitMap.size > 1000) rateLimitMap.clear();
+
+  if (userRate.count > MAX_REQUESTS_PER_WINDOW) {
+    return res.status(429).json({ error: "Too many requests. Please try again later." });
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
