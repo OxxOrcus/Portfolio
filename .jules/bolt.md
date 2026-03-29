@@ -37,3 +37,8 @@
 
 **Learning:** Initializing service clients (like Resend) inside a Vercel/Lambda handler forces the client to be recreated on every request, which is inefficient. Client SDKs often perform expensive setup (parsing configs, establishing connection pools) that should be reused across "warm" invocations.
 **Action:** Always move service client initialization (e.g., `new Resend(apiKey)`) outside the exported handler function to the module level. This allows the execution environment to cache the instance, significantly reducing per-request overhead and cold start impact.
+
+## 2025-05-24 - Canvas Buffer Reallocation Thrashing on Resize
+
+**Learning:** Found a performance bottleneck where window `resize` event listeners were synchronously updating canvas dimensions (`canvas.width` and `canvas.height`) in `js/constellation.js` and `js/script.js`. Changing a canvas's dimensions forces the browser to synchronously clear its drawing buffer and reallocate memory. During a resize drag, these events fire dozens of times per second, causing severe main thread lockups, layout thrashing, and garbage collection pressure.
+**Action:** When a canvas must automatically adjust to its container or the window size, always wrap the dimension assignment in a debounced timeout (e.g., 150ms). This ensures the expensive buffer reallocation and particle re-initialization logic only fires once the user has finished or paused resizing the window. For canvases sized to a DOM element, use a debounced `ResizeObserver` on the parent container instead of the `window` resize event.
