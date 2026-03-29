@@ -100,7 +100,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const fadeInUpObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("animate-fadeInUp");
+        entry.target.style.opacity = "1";
+        entry.target.style.transform = "translateY(0)";
         observer.unobserve(entry.target);
       }
     });
@@ -108,11 +109,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- OBSERVER FOR SLIDE-IN ANIMATIONS ---
 
-  // Creates an observer for elements that slide in from the sides.
-  const slideInObserver = new IntersectionObserver((entries, observer) => {
+  // Creates separate observers for left and right slide-in elements.
+  const slideInLeftObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add("animate-slideIn");
+        entry.target.style.opacity = "1";
+        entry.target.style.transform = "translateX(0)";
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  const slideInRightObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = "1";
+        entry.target.style.transform = "translateX(0)";
         observer.unobserve(entry.target);
       }
     });
@@ -134,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
     el.style.opacity = "0";
     el.style.transform = "translateX(-30px)";
     el.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
-    slideInObserver.observe(el);
+    slideInLeftObserver.observe(el);
   });
 
   // Find all elements with the '.slide-in-right' class and prepare them for animation.
@@ -142,31 +154,8 @@ document.addEventListener("DOMContentLoaded", () => {
     el.style.opacity = "0";
     el.style.transform = "translateX(30px)";
     el.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
-    slideInObserver.observe(el);
+    slideInRightObserver.observe(el);
   });
-
-  // --- GENERAL ANIMATION OBSERVER ---
-
-  // This observer adds a 'animate-visible' class, which can be used for more generic
-  // animations or for CSS to handle the transition.
-  const animateOnScroll = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("animate-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1 },
-  );
-
-  // Observe all elements that have animation classes.
-  document
-    .querySelectorAll(".fade-in-up, .slide-in-left, .slide-in-right")
-    .forEach((el) => {
-      animateOnScroll.observe(el);
-    });
 });
 
 // -----------------------------------------------------------------------------

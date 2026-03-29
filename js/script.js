@@ -684,10 +684,21 @@ document.addEventListener("DOMContentLoaded", () => {
       aiChatMessages.appendChild(thinking);
 
       try {
-        await new Promise((r) => setTimeout(r, 800));
-        const responseText = `Got it — "${userMessage}". I can help with that.`;
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: userMessage }),
+        });
+        const data = await res.json();
         thinking.remove();
-        addMessageToChat(responseText, "ai");
+        if (data.success && data.message) {
+          addMessageToChat(data.message, "ai");
+        } else {
+          addMessageToChat(
+            data.message || "Sorry, I couldn't process that. Please try again.",
+            "ai",
+          );
+        }
       } catch (err) {
         console.error(err);
         if (thinking.parentNode) thinking.remove();
@@ -866,4 +877,153 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("mousemove", movePupils, { passive: true });
   }
   initEyesFollowCursor();
+
+  // ---------------------------------------------------------------------------
+  // SCROLL PROGRESS BAR
+  // ---------------------------------------------------------------------------
+  const scrollProgress = document.getElementById("scroll-progress");
+  const siteHeader = document.getElementById("site-header");
+
+  function updateScrollProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    if (scrollProgress) scrollProgress.style.width = progress + "%";
+  }
+
+  // ---------------------------------------------------------------------------
+  // HEADER BACKGROUND ON SCROLL
+  // ---------------------------------------------------------------------------
+  function updateHeaderOnScroll() {
+    if (!siteHeader) return;
+    if (window.scrollY > 50) {
+      siteHeader.style.background = "rgba(10,10,10,0.95)";
+      siteHeader.style.boxShadow = "0 4px 20px rgba(0,0,0,0.4)";
+      siteHeader.style.paddingTop = "0.75rem";
+      siteHeader.style.paddingBottom = "0.75rem";
+    } else {
+      siteHeader.style.background = "rgba(10,10,10,0.8)";
+      siteHeader.style.boxShadow = "none";
+      siteHeader.style.paddingTop = "";
+      siteHeader.style.paddingBottom = "";
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // ACTIVE NAV HIGHLIGHTING ON SCROLL
+  // ---------------------------------------------------------------------------
+  const navLinks = document.querySelectorAll('header nav a[href^="#"]');
+  const sections = [];
+  navLinks.forEach((link) => {
+    const id = link.getAttribute("href");
+    if (id && id !== "#") {
+      const sec = document.querySelector(id);
+      if (sec) sections.push({ el: sec, link: link, id: id });
+    }
+  });
+
+  function updateActiveNav() {
+    const scrollPos = window.scrollY + 120;
+    let currentSection = null;
+    for (let i = sections.length - 1; i >= 0; i--) {
+      if (sections[i].el.offsetTop <= scrollPos) {
+        currentSection = sections[i];
+        break;
+      }
+    }
+    navLinks.forEach((l) => {
+      l.classList.remove("text-white", "font-semibold");
+      l.style.borderBottom = "";
+    });
+    if (currentSection) {
+      currentSection.link.classList.add("text-white", "font-semibold");
+      currentSection.link.style.borderBottom = "2px solid #8e2de2";
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // BACK TO TOP BUTTON
+  // ---------------------------------------------------------------------------
+  const backToTop = document.getElementById("back-to-top");
+
+  function updateBackToTop() {
+    if (!backToTop) return;
+    if (window.scrollY > 400) {
+      backToTop.style.opacity = "1";
+      backToTop.style.pointerEvents = "auto";
+      backToTop.style.transform = "translateY(0)";
+    } else {
+      backToTop.style.opacity = "0";
+      backToTop.style.pointerEvents = "none";
+      backToTop.style.transform = "translateY(16px)";
+    }
+  }
+
+  if (backToTop) {
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  // Unified scroll handler (throttled with rAF)
+  let scrollRafId = null;
+  window.addEventListener("scroll", () => {
+    if (!scrollRafId) {
+      scrollRafId = requestAnimationFrame(() => {
+        updateScrollProgress();
+        updateHeaderOnScroll();
+        updateActiveNav();
+        updateBackToTop();
+        scrollRafId = null;
+      });
+    }
+  }, { passive: true });
+
+  // Initial calls
+  updateScrollProgress();
+  updateHeaderOnScroll();
+  updateActiveNav();
+  updateBackToTop();
+
+  // ---------------------------------------------------------------------------
+  // SKILL BAR ANIMATION ON SCROLL
+  // ---------------------------------------------------------------------------
+  const skillBars = document.querySelectorAll(".skill-bar");
+  if (skillBars.length) {
+    const skillObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const bars = entry.target.querySelectorAll(".skill-bar");
+          bars.forEach((bar, i) => {
+            setTimeout(() => {
+              bar.style.width = bar.dataset.width + "%";
+            }, i * 100);
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    const skillsSection = document.getElementById("skills");
+    if (skillsSection) skillObserver.observe(skillsSection);
+  }
+
+  // ---------------------------------------------------------------------------
+  // TILT EFFECT ON PROJECT CARDS
+  // ---------------------------------------------------------------------------
+  document.querySelectorAll(".project-card").forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -6;
+      const rotateY = ((x - centerX) / centerX) * 6;
+      card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
+    });
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+    });
+  });
 });
