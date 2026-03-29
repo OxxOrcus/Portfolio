@@ -989,13 +989,29 @@ document.addEventListener("DOMContentLoaded", () => {
   // MAGNETIC BUTTON EFFECT
   // ---------------------------------------------------------------------------
   document.querySelectorAll(".magnetic-btn").forEach((btn) => {
+    let rafId = null;
+    let targetX = 0;
+    let targetY = 0;
     btn.addEventListener("mousemove", (e) => {
-      const rect = btn.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      btn.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px) scale(1.05)`;
+      // ⚡ Bolt: Cache latest mouse position and throttle DOM reads/writes with requestAnimationFrame
+      targetX = e.clientX;
+      targetY = e.clientY;
+
+      if (!rafId) {
+        rafId = requestAnimationFrame(() => {
+          const rect = btn.getBoundingClientRect();
+          const x = targetX - rect.left - rect.width / 2;
+          const y = targetY - rect.top - rect.height / 2;
+          btn.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px) scale(1.05)`;
+          rafId = null;
+        });
+      }
     });
     btn.addEventListener("mouseleave", () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
       btn.style.transform = "";
     });
   });
@@ -1077,17 +1093,33 @@ document.addEventListener("DOMContentLoaded", () => {
   // TILT EFFECT ON PROJECT CARDS
   // ---------------------------------------------------------------------------
   document.querySelectorAll(".project-card").forEach((card) => {
+    let rafId = null;
+    let targetX = 0;
+    let targetY = 0;
     card.addEventListener("mousemove", (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const rotateX = ((y - centerY) / centerY) * -6;
-      const rotateY = ((x - centerX) / centerX) * 6;
-      card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
+      // ⚡ Bolt: Cache latest mouse position and throttle DOM reads/writes with requestAnimationFrame
+      targetX = e.clientX;
+      targetY = e.clientY;
+
+      if (!rafId) {
+        rafId = requestAnimationFrame(() => {
+          const rect = card.getBoundingClientRect();
+          const x = targetX - rect.left;
+          const y = targetY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -6;
+          const rotateY = ((x - centerX) / centerX) * 6;
+          card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
+          rafId = null;
+        });
+      }
     });
     card.addEventListener("mouseleave", () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
       card.style.transform = "";
     });
   });
