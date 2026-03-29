@@ -75,7 +75,7 @@
             href="https://wa.me/5511986001998"
             target="_blank"
             rel="noopener noreferrer"
-            class="btn-primary px-5 py-2 rounded-md text-lg flex items-center gap-2 transition duration-300 fire-link"
+            class="btn-primary magnetic-btn px-5 py-2 rounded-md text-lg flex items-center gap-2 transition duration-300 fire-link"
             title="Hire Me"
           >
             <i class="fas fa-briefcase"></i>
@@ -276,7 +276,7 @@
           Full Stack Engineer — Cork, Ireland
         </p>
         <div class="flex flex-wrap justify-center gap-4">
-          <a href="#about" class="btn-primary fire-link"
+          <a href="#about" class="btn-primary fire-link magnetic-btn"
             >Learn More <i class="fas fa-arrow-down"></i
           ></a>
         </div>
@@ -318,6 +318,26 @@
             Languages: Portuguese (Native) • English (B2) • Availability: Open
             to opportunities and collaborations.
           </p>
+          <!-- Stats Row -->
+          <div class="stats-row my-8" id="stats-row">
+            <div class="stat-item">
+              <div class="stat-number" data-target="5">0</div>
+              <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" data-target="15">0</div>
+              <div class="stat-label">Projects Built</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" data-target="8">0</div>
+              <div class="stat-label">Technologies</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" data-target="5">0</div>
+              <div class="stat-label">Certifications</div>
+            </div>
+          </div>
+
           <div class="flex flex-wrap justify-center gap-3 text-sm">
             <a
               class="inline-block bg-gray-800 text-purple-300 px-3 py-1 rounded-full"
@@ -628,6 +648,7 @@
             <div
               class="glass-card project-card overflow-hidden flex flex-col group relative"
             >
+              <div class="card-shimmer"></div>
               <div
                 class="h-48 w-full bg-gradient-to-br from-indigo-900 to-purple-900 relative overflow-hidden flex items-center justify-center"
               >
@@ -680,6 +701,7 @@
             <div
               class="glass-card project-card overflow-hidden flex flex-col group relative"
             >
+              <div class="card-shimmer"></div>
               <div
                 class="h-48 w-full bg-gradient-to-br from-yellow-900 to-red-900 relative overflow-hidden flex items-center justify-center"
               >
@@ -731,6 +753,7 @@
             <div
               class="glass-card project-card overflow-hidden flex flex-col group relative"
             >
+              <div class="card-shimmer"></div>
               <div
                 class="h-40 w-full bg-gradient-to-br from-gray-800 to-black relative overflow-hidden border-b border-gray-800"
               >
@@ -778,6 +801,7 @@
             <div
               class="glass-card project-card overflow-hidden flex flex-col group relative"
             >
+              <div class="card-shimmer"></div>
               <div
                 class="h-40 w-full bg-gradient-to-br from-blue-900 to-gray-900 relative overflow-hidden border-b border-gray-800"
               >
@@ -815,6 +839,7 @@
             <div
               class="glass-card project-card overflow-hidden flex flex-col group relative"
             >
+              <div class="card-shimmer"></div>
               <div
                 class="h-40 w-full bg-gradient-to-br from-green-900 to-gray-900 relative overflow-hidden border-b border-gray-800"
               >
@@ -859,6 +884,7 @@
             <div
               class="glass-card project-card overflow-hidden flex flex-col group relative"
             >
+              <div class="card-shimmer"></div>
               <div
                 class="h-40 w-full bg-gradient-to-br from-purple-900 to-gray-900 relative overflow-hidden border-b border-gray-800"
               >
@@ -896,6 +922,7 @@
             <div
               class="glass-card project-card overflow-hidden flex flex-col group relative"
             >
+              <div class="card-shimmer"></div>
               <div
                 class="h-40 w-full bg-gradient-to-br from-sky-900 to-gray-900 relative overflow-hidden border-b border-gray-800"
               >
@@ -933,6 +960,7 @@
             <div
               class="glass-card project-card overflow-hidden flex flex-col group relative"
             >
+              <div class="card-shimmer"></div>
               <div
                 class="h-40 w-full bg-gradient-to-br from-gray-700 to-gray-900 relative overflow-hidden border-b border-gray-800"
               >
@@ -992,9 +1020,7 @@
           </h2>
           <div class="relative border-l-2 border-purple-600 pl-8 space-y-8">
             <div class="relative experience-contrast-card">
-              <div
-                class="absolute -left-10 top-1 w-4 h-4 bg-purple-400 rounded-full border-2 border-gray-900"
-              ></div>
+              <div class="timeline-dot"></div>
               <h3 class="text-xl font-semibold text-white mb-1">
                 Full Stack Developer Intern
               </h3>
@@ -1067,7 +1093,7 @@
         </div>
       </section>
 
-      <section id="education" class="py-16 px-4 md:px-8 bg-black bg-opacity-10">
+      <section id="education" class="py-16 px-4 md:px-8 bg-black bg-opacity-10 section-reveal">
         <div class="container mx-auto max-w-4xl">
           <h2
             class="text-3xl md:text-4xl font-bold mb-6 text-center gradient-text"
@@ -1247,7 +1273,7 @@
 
       <section
         id="newsletter"
-        class="py-20 px-4 md:px-8 bg-black bg-opacity-20"
+        class="py-20 px-4 md:px-8 bg-black bg-opacity-20 section-reveal"
       >
         <!-- Newsletter Subscription -->
         <div class="max-w-xl mx-auto mt-16 text-center glass-card p-8">
@@ -1275,7 +1301,7 @@
         </div>
       </section>
 
-      <section id="contact" class="py-20 px-4 md:px-8 bg-black bg-opacity-20">
+      <section id="contact" class="py-20 px-4 md:px-8 bg-black bg-opacity-20 section-reveal">
         <div class="container mx-auto text-center max-w-2xl">
           <h2 class="text-3xl md:text-4xl font-bold mb-6 gradient-text">
             Get In Touch
@@ -1291,7 +1317,7 @@
               rel="noopener noreferrer"
               aria-label="GitHub"
               title="GitHub"
-              class="text-gray-400 hover:text-purple-400 transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
+              class="social-glow text-gray-400 transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
             >
               <i class="fab fa-github fa-2x"></i>
             </a>
@@ -1301,7 +1327,7 @@
               rel="noopener noreferrer"
               aria-label="LinkedIn"
               title="LinkedIn"
-              class="text-gray-400 hover:text-purple-400 transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
+              class="social-glow text-gray-400 transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
             >
               <i class="fab fa-linkedin fa-2x"></i>
             </a>
@@ -1310,7 +1336,7 @@
               target="_blank"
               rel="noopener noreferrer"
               aria-label="X (formerly Twitter)"
-              class="text-gray-400 hover:text-purple-400 transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
+              class="social-glow text-gray-400 transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
               title="X (formerly Twitter)"
             >
               <!-- X logo SVG -->

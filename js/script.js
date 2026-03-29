@@ -986,6 +986,71 @@ document.addEventListener("DOMContentLoaded", () => {
   updateBackToTop();
 
   // ---------------------------------------------------------------------------
+  // MAGNETIC BUTTON EFFECT
+  // ---------------------------------------------------------------------------
+  document.querySelectorAll(".magnetic-btn").forEach((btn) => {
+    btn.addEventListener("mousemove", (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px) scale(1.05)`;
+    });
+    btn.addEventListener("mouseleave", () => {
+      btn.style.transform = "";
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // COUNTER ANIMATION (Stats Row)
+  // ---------------------------------------------------------------------------
+  function animateCounters() {
+    const counters = document.querySelectorAll(".stat-number[data-target]");
+    counters.forEach((counter) => {
+      const target = parseInt(counter.dataset.target, 10);
+      const duration = 1800;
+      const start = performance.now();
+      function step(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        // easeOutQuart
+        const ease = 1 - Math.pow(1 - progress, 4);
+        counter.textContent = Math.round(target * ease) + "+";
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  const statsRow = document.getElementById("stats-row");
+  if (statsRow) {
+    const statsObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounters();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    statsObserver.observe(statsRow);
+  }
+
+  // ---------------------------------------------------------------------------
+  // SECTION REVEAL ON SCROLL
+  // ---------------------------------------------------------------------------
+  const revealSections = document.querySelectorAll(".section-reveal");
+  if (revealSections.length) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("revealed");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+    revealSections.forEach((s) => revealObserver.observe(s));
+  }
+
+  // ---------------------------------------------------------------------------
   // SKILL BAR ANIMATION ON SCROLL
   // ---------------------------------------------------------------------------
   const skillBars = document.querySelectorAll(".skill-bar");
