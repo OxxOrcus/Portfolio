@@ -22,3 +22,7 @@
 ## 2025-05-19 - Ensure screen readers announce dynamic feedback
 **Learning:** Client-side form submissions (like newsletter signups) and dynamic content updates (like AI chat messages) that modify DOM text without a full page reload will be visually apparent to sighted users but completely missed by screen reader users, leading to confusion about whether an action succeeded or failed.
 **Action:** Always add `aria-live="polite"` (or `"assertive"` if critical) to the container elements (e.g., success message paragraphs or chat message containers) that will dynamically receive text updates to ensure assistive technologies announce the changes.
+
+## 2025-05-20 - Set user expectations for mailto forms
+**Learning:** Client-side forms that trigger `mailto:` links often appear to do nothing when the submit button is clicked, especially if the user's default mail client takes a few seconds to load or if it fails entirely. This lack of feedback causes confusion and multiple clicks.
+**Action:** Always provide clear visual feedback (e.g., changing the button text to 'Opening Mail Client...' and disabling it) immediately upon submission of a `mailto:` form to properly set expectations, and restore the button state after a short delay so the user can try again if needed.

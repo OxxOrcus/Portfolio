@@ -433,7 +433,7 @@
                 <label
                   for="name"
                   class="block text-sm font-medium text-gray-300 mb-2"
-                  >Full Name</label
+                  >Full Name <span class="text-red-500">*</span></label
                 >
                 <input
                   type="text"
@@ -448,7 +448,7 @@
                 <label
                   for="email"
                   class="block text-sm font-medium text-gray-300 mb-2"
-                  >Email Address</label
+                  >Email Address <span class="text-red-500">*</span></label
                 >
                 <input
                   type="email"
@@ -464,7 +464,7 @@
               <label
                 for="message"
                 class="block text-sm font-medium text-gray-300 mb-2"
-                >Your Message</label
+                >Your Message <span class="text-red-500">*</span></label
               >
               <textarea
                 id="message"
@@ -477,8 +477,9 @@
             </div>
             <div>
               <button type="submit" class="btn-primary w-full py-4 text-lg">
-                Send Message
+                <i class="fas fa-envelope mr-2"></i> Send via Email Client
               </button>
+              <p class="text-xs text-gray-400 text-center mt-3"><i class="fas fa-info-circle mr-1"></i> This will open your default email client to send the message.</p>
             </div>
           </form>
         </div>
@@ -578,8 +579,44 @@
             `Name: ${decodeURIComponent(name)}\nEmail: ${decodeURIComponent(email)}\n\nMessage:\n${decodeURIComponent(message)}`,
           );
           const mailto = `mailto:paulobroccooxx@gmail.com?subject=${subject}&body=${body}`;
+
+          const submitBtn = contactForm.querySelector('button[type="submit"]');
+          let originalText = "";
+          if (submitBtn) {
+            originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML =
+              '<i class="fas fa-envelope mr-2"></i> Opening Mail Client...';
+            submitBtn.classList.add("opacity-75", "cursor-not-allowed");
+          }
+
           // Open user's default mail client
           window.location.href = mailto;
+
+          // Restore button state after a short delay to allow retry if mail client fails to open
+          setTimeout(() => {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalText;
+              submitBtn.classList.remove("opacity-75", "cursor-not-allowed");
+            }
+          }, 2000);
+          // Provide visual feedback and prevent multiple clicks
+          const submitBtn = contactForm.querySelector('button[type="submit"]');
+          if (submitBtn) {
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-2"></i> Opening Mail Client...';
+            submitBtn.classList.add("opacity-75", "cursor-not-allowed");
+
+            // Reset after 3 seconds
+            setTimeout(() => {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalText;
+              submitBtn.classList.remove("opacity-75", "cursor-not-allowed");
+              contactForm.reset();
+            }, 3000);
+          }
         });
       }
     </script>
