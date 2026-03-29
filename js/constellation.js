@@ -1,7 +1,7 @@
 // ---------------------------------------------------------------------------
 // CONSTELLATION BACKGROUND EFFECT
 // ---------------------------------------------------------------------------
-document.addEventListener("DOMContentLoaded", () => {
+function initConstellation() {
   const canvas = document.getElementById("hero-canvas");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
@@ -10,13 +10,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const heroSection = document.getElementById("hero");
   if (!heroSection) return;
 
-  let width, height;
+  let width = window.innerWidth, height = window.innerHeight;
   let particles = [];
   const particleCount = 100; // Adjust for density
   const maxDistance = 150; // Distance to draw lines between particles
   const maxDistanceSq = maxDistance * maxDistance; // Optimize distance checks
   let animationId = null;
   let isVisible = true;
+  let resizeTimeout = null;
+
+  // Set initial canvas dimensions
+  canvas.width = width;
+  canvas.height = height;
 
   // Initialize canvas size
   function resize() {
@@ -104,6 +109,10 @@ document.addEventListener("DOMContentLoaded", () => {
     resizeTimeout = setTimeout(resize, 150);
   });
   resize();
+  setTimeout(resize, 100);
+
+  // Start animation immediately
+  animate();
 
   // ⚡ Bolt: Pause canvas animation when hero section is not visible
   const observer = new IntersectionObserver(
@@ -124,4 +133,10 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   observer.observe(heroSection);
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener("DOMContentLoaded", initConstellation);
+} else {
+  initConstellation();
+}
