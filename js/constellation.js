@@ -101,16 +101,13 @@ function initConstellation() {
     animationId = requestAnimationFrame(animate);
   }
 
-  // ⚡ Bolt: Use ResizeObserver to handle async layout changes and debounce resize
-  const resizeObserver = new ResizeObserver(() => {
+  // Set initial size and start animation
+  // ⚡ Bolt: Debounce canvas resize to prevent main-thread lockups and layout thrashing
+  let resizeTimeout;
+  window.addEventListener("resize", () => {
     clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      resize();
-    }, 150);
+    resizeTimeout = setTimeout(resize, 150);
   });
-  resizeObserver.observe(heroSection);
-
-  // Set initial size and fallback resize
   resize();
   setTimeout(resize, 100);
 
@@ -132,7 +129,7 @@ function initConstellation() {
         }
       });
     },
-    { threshold: 0 }
+    { threshold: 0 },
   );
 
   observer.observe(heroSection);

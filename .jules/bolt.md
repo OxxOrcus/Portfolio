@@ -37,3 +37,8 @@
 
 **Learning:** Initializing service clients (like Resend) inside a Vercel/Lambda handler forces the client to be recreated on every request, which is inefficient. Client SDKs often perform expensive setup (parsing configs, establishing connection pools) that should be reused across "warm" invocations.
 **Action:** Always move service client initialization (e.g., `new Resend(apiKey)`) outside the exported handler function to the module level. This allows the execution environment to cache the instance, significantly reducing per-request overhead and cold start impact.
+
+## 2026-03-26 - Canvas Resize Thrashing and Lockups
+
+**Learning:** Found a performance bottleneck where canvas dimensions were updated synchronously inside `window.addEventListener("resize", ...)` (for `matrixCanvas` and `hero-canvas`). Because `resize` events fire continuously during browser resize, directly updating `canvas.width` and `canvas.height` forces the browser to re-allocate GPU buffers and synchronously recalculate layout on every tick, causing severe layout thrashing, main thread lockups, and garbage collection thrashing.
+**Action:** Always wrap canvas dimension assignments (`canvas.width`, `canvas.height`) inside a debounced timeout (e.g., 150ms). This delays the dimension recalculation until the user finishes resizing the window, vastly reducing the number of expensive buffer allocations. Also, note that dimension updates must not be skipped conditionally (e.g. `if (active)`) to ensure the canvas is sized correctly when made visible again.

@@ -10,3 +10,7 @@
 **Vulnerability:** Numerous external links across `index.html` and `digital-service.html` utilized `target="_blank"` without the corresponding `rel="noopener noreferrer"` attributes.
 **Learning:** Omission of `rel="noopener noreferrer"` exposes users to reverse tabnabbing attacks, where the newly opened tab can manipulate the original tab's location object to redirect the user to a malicious site.
 **Prevention:** Establish a project-wide convention to ensure all newly created anchor tags with `target="_blank"` include `rel="noopener noreferrer"`.
+## 2026-03-29 - [HIGH] Missing rate limiting on sensitive endpoints
+ **Vulnerability:** Unauthenticated serverless API endpoints (`api/contact.js` and `api/chat.js`) lacked rate limiting. Without rate limiting, these endpoints were susceptible to denial-of-service (DoS) attacks and abuse, which could quickly exhaust third-party service quotas (Resend and Gemini API limits) and increase billing costs.
+ **Learning:** In serverless environments, it is easy to forget rate limiting because the infrastructure scales automatically. However, scaling automatically against malicious traffic can be very expensive and quickly exceed external API quotas.
+ **Prevention:** Implement rate-limiting logic on all sensitive endpoints. For simple applications, a basic in-memory map scoped to the function's execution lifecycle (with proper cleanup) can deter basic abuse, though more robust solutions (like Upstash/KV) should be used for distributed rate limiting across serverless invocations.
