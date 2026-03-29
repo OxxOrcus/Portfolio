@@ -579,9 +579,28 @@
             `Name: ${decodeURIComponent(name)}\nEmail: ${decodeURIComponent(email)}\n\nMessage:\n${decodeURIComponent(message)}`,
           );
           const mailto = `mailto:paulobroccooxx@gmail.com?subject=${subject}&body=${body}`;
+
+          const submitBtn = contactForm.querySelector('button[type="submit"]');
+          let originalText = "";
+          if (submitBtn) {
+            originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML =
+              '<i class="fas fa-envelope mr-2"></i> Opening Mail Client...';
+            submitBtn.classList.add("opacity-75", "cursor-not-allowed");
+          }
+
           // Open user's default mail client
           window.location.href = mailto;
 
+          // Restore button state after a short delay to allow retry if mail client fails to open
+          setTimeout(() => {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalText;
+              submitBtn.classList.remove("opacity-75", "cursor-not-allowed");
+            }
+          }, 2000);
           // Provide visual feedback and prevent multiple clicks
           const submitBtn = contactForm.querySelector('button[type="submit"]');
           if (submitBtn) {

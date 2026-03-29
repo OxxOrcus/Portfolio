@@ -23,6 +23,6 @@
 **Learning:** Client-side form submissions (like newsletter signups) and dynamic content updates (like AI chat messages) that modify DOM text without a full page reload will be visually apparent to sighted users but completely missed by screen reader users, leading to confusion about whether an action succeeded or failed.
 **Action:** Always add `aria-live="polite"` (or `"assertive"` if critical) to the container elements (e.g., success message paragraphs or chat message containers) that will dynamically receive text updates to ensure assistive technologies announce the changes.
 
-## 2024-05-19 - Setting Expectations for Mailto Forms
-**Learning:** Forms disguised as backend submissions that actually trigger `mailto:` links cause severe user friction if they lack visual cues and interaction feedback. Users expect a simple submission, but are jolted when their email client opens, often leading to multiple clicks and abandoned drafts.
-**Action:** Always include helper text explaining that a default email client will open, add an appropriate icon (like an envelope) to the submit button, and temporarily update the button's state to "Opening Mail Client..." after a click to prevent duplicate actions.
+## 2025-05-20 - Set user expectations for mailto forms
+**Learning:** Client-side forms that trigger `mailto:` links often appear to do nothing when the submit button is clicked, especially if the user's default mail client takes a few seconds to load or if it fails entirely. This lack of feedback causes confusion and multiple clicks.
+**Action:** Always provide clear visual feedback (e.g., changing the button text to 'Opening Mail Client...' and disabling it) immediately upon submission of a `mailto:` form to properly set expectations, and restore the button state after a short delay so the user can try again if needed.
