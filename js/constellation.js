@@ -97,8 +97,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Set initial size and start animation
-  window.addEventListener("resize", resize);
-  resize();
+  // ⚡ Bolt: Debounce resize event to prevent synchronous canvas buffer
+  // reallocation from thrashing the main thread on every layout shift.
+  let constellationResizeTimeout;
+  window.addEventListener("resize", () => {
+    clearTimeout(constellationResizeTimeout);
+    constellationResizeTimeout = setTimeout(() => {
+        resize();
+    }, 150);
+  });
+
+  resize(); // Initial call
 
   // ⚡ Bolt: Pause canvas animation when hero section is not visible
   const observer = new IntersectionObserver(
