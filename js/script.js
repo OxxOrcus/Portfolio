@@ -879,41 +879,14 @@ document.addEventListener("DOMContentLoaded", () => {
   initEyesFollowCursor();
 
   // ---------------------------------------------------------------------------
-  // SCROLL PROGRESS BAR
+  // SCROLL PROGRESS BAR, HEADER BACKGROUND, ACTIVE NAV, & BACK TO TOP
   // ---------------------------------------------------------------------------
   const scrollProgress = document.getElementById("scroll-progress");
   const siteHeader = document.getElementById("site-header");
-
-  function updateScrollProgress() {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    if (scrollProgress) scrollProgress.style.width = progress + "%";
-  }
-
-  // ---------------------------------------------------------------------------
-  // HEADER BACKGROUND ON SCROLL
-  // ---------------------------------------------------------------------------
-  function updateHeaderOnScroll() {
-    if (!siteHeader) return;
-    if (window.scrollY > 50) {
-      siteHeader.style.background = "rgba(10,10,10,0.95)";
-      siteHeader.style.boxShadow = "0 4px 20px rgba(0,0,0,0.4)";
-      siteHeader.style.paddingTop = "0.75rem";
-      siteHeader.style.paddingBottom = "0.75rem";
-    } else {
-      siteHeader.style.background = "rgba(10,10,10,0.8)";
-      siteHeader.style.boxShadow = "none";
-      siteHeader.style.paddingTop = "";
-      siteHeader.style.paddingBottom = "";
-    }
-  }
-
-  // ---------------------------------------------------------------------------
-  // ACTIVE NAV HIGHLIGHTING ON SCROLL
-  // ---------------------------------------------------------------------------
+  const backToTop = document.getElementById("back-to-top");
   const navLinks = document.querySelectorAll('header nav a[href^="#"]');
   const sections = [];
+
   navLinks.forEach((link) => {
     const id = link.getAttribute("href");
     if (id && id !== "#") {
@@ -922,15 +895,54 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  function updateActiveNav() {
-    const scrollPos = window.scrollY + 120;
+  if (backToTop) {
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  // ⚡ Bolt: Consolidated scroll updates into a single function, cleanly separating
+  // DOM reads and DOM writes to prevent layout thrashing inside the requestAnimationFrame loop.
+  function processScrollUpdates() {
+    // --- Loop 1: DOM Reads ---
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight;
+    const winHeight = window.innerHeight;
+
+    // Calculate progress
+    const scrollableHeight = docHeight - winHeight;
+    const progress = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
+
+    // Calculate active nav section
+    const scrollPos = scrollTop + 120;
     let currentSection = null;
     for (let i = sections.length - 1; i >= 0; i--) {
+      // Accessing offsetTop is a layout read
       if (sections[i].el.offsetTop <= scrollPos) {
         currentSection = sections[i];
         break;
       }
     }
+
+    // --- Loop 2: DOM Writes ---
+    if (scrollProgress) {
+      scrollProgress.style.width = progress + "%";
+    }
+
+    if (siteHeader) {
+      if (scrollTop > 50) {
+        siteHeader.style.background = "rgba(10,10,10,0.95)";
+        siteHeader.style.boxShadow = "0 4px 20px rgba(0,0,0,0.4)";
+        siteHeader.style.paddingTop = "0.75rem";
+        siteHeader.style.paddingBottom = "0.75rem";
+      } else {
+        siteHeader.style.background = "rgba(10,10,10,0.8)";
+        siteHeader.style.boxShadow = "none";
+        siteHeader.style.paddingTop = "";
+        siteHeader.style.paddingBottom = "";
+      }
+    }
+
     navLinks.forEach((l) => {
       l.classList.remove("text-white", "font-semibold");
       l.style.borderBottom = "";
@@ -939,30 +951,18 @@ document.addEventListener("DOMContentLoaded", () => {
       currentSection.link.classList.add("text-white", "font-semibold");
       currentSection.link.style.borderBottom = "2px solid #8e2de2";
     }
-  }
 
-  // ---------------------------------------------------------------------------
-  // BACK TO TOP BUTTON
-  // ---------------------------------------------------------------------------
-  const backToTop = document.getElementById("back-to-top");
-
-  function updateBackToTop() {
-    if (!backToTop) return;
-    if (window.scrollY > 400) {
-      backToTop.style.opacity = "1";
-      backToTop.style.pointerEvents = "auto";
-      backToTop.style.transform = "translateY(0)";
-    } else {
-      backToTop.style.opacity = "0";
-      backToTop.style.pointerEvents = "none";
-      backToTop.style.transform = "translateY(16px)";
+    if (backToTop) {
+      if (scrollTop > 400) {
+        backToTop.style.opacity = "1";
+        backToTop.style.pointerEvents = "auto";
+        backToTop.style.transform = "translateY(0)";
+      } else {
+        backToTop.style.opacity = "0";
+        backToTop.style.pointerEvents = "none";
+        backToTop.style.transform = "translateY(16px)";
+      }
     }
-  }
-
-  if (backToTop) {
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
   }
 
   // Unified scroll handler (throttled with rAF)
@@ -970,20 +970,14 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("scroll", () => {
     if (!scrollRafId) {
       scrollRafId = requestAnimationFrame(() => {
-        updateScrollProgress();
-        updateHeaderOnScroll();
-        updateActiveNav();
-        updateBackToTop();
+        processScrollUpdates();
         scrollRafId = null;
       });
     }
   }, { passive: true });
 
-  // Initial calls
-  updateScrollProgress();
-  updateHeaderOnScroll();
-  updateActiveNav();
-  updateBackToTop();
+  // Initial call
+  processScrollUpdates();
 
   // ---------------------------------------------------------------------------
   // MAGNETIC BUTTON EFFECT
