@@ -97,7 +97,10 @@
         <button
           id="mobile-menu-button"
           class="md:hidden text-gray-300 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-md"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
           aria-label="Toggle mobile menu"
+          title="Toggle mobile menu"
         >
           <svg
             class="w-6 h-6"
@@ -114,6 +117,36 @@
             ></path>
           </svg>
         </button>
+      </div>
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden absolute top-full left-0 right-0 py-4 px-4 z-40 bg-gray-900"
+      >
+        <nav class="flex flex-col space-y-3 text-gray-300">
+          <a
+            href="index.html"
+            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md"
+            >Portfolio</a
+          >
+          <a
+            href="#features"
+            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md"
+            >Services</a
+          >
+          <a
+            href="#pricing"
+            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md"
+            >Pricing</a
+          >
+          <a
+            href="https://wa.me/5511986001998"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary w-full text-center mt-2 flex items-center gap-2 justify-center"
+            ><i class="fas fa-briefcase"></i> Hire Me</a
+          >
+        </nav>
       </div>
     </header>
 
@@ -533,30 +566,6 @@
     </footer>
 
     <script>
-      // Mobile menu toggle
-      const mobileMenuButton = document.getElementById("mobile-menu-button");
-      const mobileMenu = document.createElement("div");
-      mobileMenu.id = "mobile-menu";
-      mobileMenu.className =
-        "hidden md:hidden absolute top-full left-0 right-0 bg-gray-900 py-4 px-4 z-40";
-      mobileMenu.innerHTML = `
-      <nav class="flex flex-col space-y-3 text-gray-300">
-        <a href="index.html" class="hover:text-white transition duration-300 block px-3 py-2 rounded-md">Portfolio</a>
-        <a href="#features" class="hover:text-white transition duration-300 block px-3 py-2 rounded-md">Services</a>
-        <a href="#pricing" class="hover:text-white transition duration-300 block px-3 py-2 rounded-md">Pricing</a>
-        <a href="https://wa.me/5511986001998" target="_blank" rel="noopener noreferrer" class="btn-primary w-full text-center mt-2 flex items-center gap-2 justify-center"><i class="fas fa-briefcase"></i> Hire Me</a>
-      </nav>
-    `;
-      document.body.appendChild(mobileMenu);
-
-      mobileMenuButton.addEventListener("click", () => {
-        mobileMenu.classList.toggle("hidden");
-        mobileMenuButton.setAttribute(
-          "aria-expanded",
-          !mobileMenu.classList.contains("hidden"),
-        );
-      });
-
       // Form submission
       const contactForm = document.getElementById("contactForm");
       if (contactForm) {
@@ -620,5 +629,6 @@
         });
       }
     </script>
+    <script src="js/script.js"></script>
   </body>
 </html>

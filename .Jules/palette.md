@@ -26,3 +26,6 @@
 ## 2025-05-20 - Set user expectations for mailto forms
 **Learning:** Client-side forms that trigger `mailto:` links often appear to do nothing when the submit button is clicked, especially if the user's default mail client takes a few seconds to load or if it fails entirely. This lack of feedback causes confusion and multiple clicks.
 **Action:** Always provide clear visual feedback (e.g., changing the button text to 'Opening Mail Client...' and disabling it) immediately upon submission of a `mailto:` form to properly set expectations, and restore the button state after a short delay so the user can try again if needed.
+## 2024-05-23 - Avoid redundant inline scripts for dynamic UI state
+**Learning:** Hardcoded, stripped-down inline scripts intended to recreate simple UI functionality (like the mobile menu in `digital-service.html`) often silently fall out of sync with the global JS (like `js/script.js`), resulting in missing ARIA states and inconsistent behaviors across pages.
+**Action:** Always verify if a site-wide script can be refactored to handle a shared component across multiple routes, instead of re-implementing isolated and brittle inline logic. Injected components should exist in raw HTML whenever possible to improve initial load accessibility and CLS.
