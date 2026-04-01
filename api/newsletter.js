@@ -23,7 +23,7 @@ const MAX_REQUESTS_PER_WINDOW = 3;
 
 module.exports = async function handler(req, res) {
   const ip =
-    (req.headers && req.headers["x-forwarded-for"]) ||
+    (req.headers && req.headers["x-real-ip"]) ||
     req.connection?.remoteAddress ||
     "unknown";
   const now = Date.now();
