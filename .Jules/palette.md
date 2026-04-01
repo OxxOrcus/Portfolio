@@ -29,3 +29,7 @@
 ## 2024-05-23 - Avoid redundant inline scripts for dynamic UI state
 **Learning:** Hardcoded, stripped-down inline scripts intended to recreate simple UI functionality (like the mobile menu in `digital-service.html`) often silently fall out of sync with the global JS (like `js/script.js`), resulting in missing ARIA states and inconsistent behaviors across pages.
 **Action:** Always verify if a site-wide script can be refactored to handle a shared component across multiple routes, instead of re-implementing isolated and brittle inline logic. Injected components should exist in raw HTML whenever possible to improve initial load accessibility and CLS.
+
+## 2025-05-25 - Add focus visible styles for keyboard navigation
+**Learning:** Because Tailwind CSS resets default browser focus outlines, interactive elements (like navigation links and buttons) lack visible focus states. This makes keyboard navigation almost impossible for accessibility users, as they cannot see which element is currently focused.
+**Action:** Always add explicit focus styles (e.g., `focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm`) to all interactive elements (`<a>`, `<button>`, `.btn-primary`, `.btn-secondary`) to maintain keyboard navigation accessibility and provide a clear visual indicator.
