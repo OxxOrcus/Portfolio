@@ -29,3 +29,7 @@
 ## 2024-05-23 - Avoid redundant inline scripts for dynamic UI state
 **Learning:** Hardcoded, stripped-down inline scripts intended to recreate simple UI functionality (like the mobile menu in `digital-service.html`) often silently fall out of sync with the global JS (like `js/script.js`), resulting in missing ARIA states and inconsistent behaviors across pages.
 **Action:** Always verify if a site-wide script can be refactored to handle a shared component across multiple routes, instead of re-implementing isolated and brittle inline logic. Injected components should exist in raw HTML whenever possible to improve initial load accessibility and CLS.
+
+## 2025-05-23 - Add required attribute to inputs
+**Learning:** For single-input forms like AI chat boxes or search bars, intercepting the form submission with JavaScript to check if the input is empty (e.g., `if (!userMessage) return;`) prevents errors but fails to provide native browser validation feedback to the user, resulting in a confusing experience where nothing happens.
+**Action:** Always add the `required` attribute to mandatory `<input>` or `<textarea>` elements, even when handling submissions via JavaScript, to leverage the browser's built-in validation tooltips and prevent silent failures.
