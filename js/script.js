@@ -903,23 +903,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ⚡ Bolt: Consolidated scroll updates into a single function, cleanly separating
   // DOM reads and DOM writes to prevent layout thrashing inside the requestAnimationFrame loop.
+  // We use a layout cache updated passively by ResizeObserver to eliminate all synchronous DOM reads
+  // from the high-frequency scroll loop, preventing reflows when the DOM is dirtied by other animations.
+  const layoutCache = {
+    docHeight: document.documentElement.scrollHeight,
+    winHeight: window.innerHeight,
+    sectionOffsets: sections.map((sec) => ({
+      sec,
+      offsetTop: sec.el.offsetTop,
+    })),
+  };
+
+  function updateLayoutCache() {
+    layoutCache.docHeight = document.documentElement.scrollHeight;
+    layoutCache.winHeight = window.innerHeight;
+    layoutCache.sectionOffsets = sections.map((sec) => ({
+      sec,
+      offsetTop: sec.el.offsetTop,
+    }));
+  }
+
+  // Update cache on window resize
+  window.addEventListener("resize", updateLayoutCache, { passive: true });
+  // Update cache on body height changes (e.g. late loaded content)
+  new ResizeObserver(updateLayoutCache).observe(document.body);
+
   function processScrollUpdates() {
     // --- Loop 1: DOM Reads ---
     const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight;
-    const winHeight = window.innerHeight;
 
-    // Calculate progress
-    const scrollableHeight = docHeight - winHeight;
-    const progress = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
+    // Calculate progress using cached dimensions
+    const scrollableHeight = layoutCache.docHeight - layoutCache.winHeight;
+    const progress =
+      scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
 
-    // Calculate active nav section
+    // Calculate active nav section using cached offsetTops
     const scrollPos = scrollTop + 120;
     let currentSection = null;
-    for (let i = sections.length - 1; i >= 0; i--) {
-      // Accessing offsetTop is a layout read
-      if (sections[i].el.offsetTop <= scrollPos) {
-        currentSection = sections[i];
+    for (let i = layoutCache.sectionOffsets.length - 1; i >= 0; i--) {
+      if (layoutCache.sectionOffsets[i].offsetTop <= scrollPos) {
+        currentSection = layoutCache.sectionOffsets[i].sec;
         break;
       }
     }
@@ -967,14 +990,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Unified scroll handler (throttled with rAF)
   let scrollRafId = null;
-  window.addEventListener("scroll", () => {
-    if (!scrollRafId) {
-      scrollRafId = requestAnimationFrame(() => {
-        processScrollUpdates();
-        scrollRafId = null;
-      });
-    }
-  }, { passive: true });
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!scrollRafId) {
+        scrollRafId = requestAnimationFrame(() => {
+          processScrollUpdates();
+          scrollRafId = null;
+        });
+      }
+    },
+    { passive: true },
+  );
 
   // Initial call
   processScrollUpdates();
@@ -1033,14 +1060,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const statsRow = document.getElementById("stats-row");
   if (statsRow) {
-    const statsObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animateCounters();
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
+    const statsObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounters();
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 },
+    );
     statsObserver.observe(statsRow);
   }
 
@@ -1049,14 +1079,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------------------------------------------------------------------------
   const revealSections = document.querySelectorAll(".section-reveal");
   if (revealSections.length) {
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("revealed");
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+    );
     revealSections.forEach((s) => revealObserver.observe(s));
   }
 
@@ -1065,19 +1098,22 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------------------------------------------------------------------------
   const skillBars = document.querySelectorAll(".skill-bar");
   if (skillBars.length) {
-    const skillObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const bars = entry.target.querySelectorAll(".skill-bar");
-          bars.forEach((bar, i) => {
-            setTimeout(() => {
-              bar.style.width = bar.dataset.width + "%";
-            }, i * 100);
-          });
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
+    const skillObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const bars = entry.target.querySelectorAll(".skill-bar");
+            bars.forEach((bar, i) => {
+              setTimeout(() => {
+                bar.style.width = bar.dataset.width + "%";
+              }, i * 100);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 },
+    );
 
     const skillsSection = document.getElementById("skills");
     if (skillsSection) skillObserver.observe(skillsSection);
