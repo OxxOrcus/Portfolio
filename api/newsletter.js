@@ -22,8 +22,9 @@ const RATE_LIMIT_WINDOW_MS = 60 * 1000;
 const MAX_REQUESTS_PER_WINDOW = 3;
 
 module.exports = async function handler(req, res) {
+  // Security enhancement: Use x-real-ip instead of x-forwarded-for to prevent IP spoofing
   const ip =
-    (req.headers && req.headers["x-forwarded-for"]) ||
+    (req.headers && req.headers["x-real-ip"]) ||
     req.connection?.remoteAddress ||
     "unknown";
   const now = Date.now();
