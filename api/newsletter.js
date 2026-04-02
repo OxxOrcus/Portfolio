@@ -6,13 +6,13 @@ try {
     resend = new Resend(process.env.RESEND_API_KEY);
   } else {
     console.warn(
-      "RESEND_API_KEY is not set. Newsletter endpoint will skip sending emails."
+      "RESEND_API_KEY is not set. Newsletter endpoint will skip sending emails.",
     );
   }
 } catch (err) {
   console.error(
     "Failed to initialize Resend client:",
-    err && err.message ? err.message : err
+    err && err.message ? err.message : err,
   );
 }
 
@@ -78,7 +78,7 @@ module.exports = async function handler(req, res) {
   } catch (err) {
     console.error(
       "Error sending newsletter notification:",
-      err && err.message ? err.message : err
+      err && err.message ? err.message : err,
     );
     return res.status(500).json({ error: "Failed to subscribe" });
   }

@@ -2,10 +2,25 @@ const test = require('node:test');
 const assert = require('node:assert');
 const path = require('node:path');
 
-// The tests/setup.js or similar could be used for global mocks if needed.
-// For now, we assume @google/generative-ai is available or mocked in node_modules for the test environment.
+function mockModule(moduleName, exports) {
+  const absolutePath = path.resolve(__dirname, "../node_modules", moduleName, "index.js");
+  require.cache[absolutePath] = {
+    id: absolutePath,
+    filename: absolutePath,
+    loaded: true,
+    exports: exports,
+  };
+}
 
 test('Chat API returns 500 when GEMINI_API_KEY is missing', async (t) => {
+  // Mock @google/generative-ai
+  mockModule("@google/generative-ai", {
+    GoogleGenerativeAI: class {
+        constructor() {}
+        getGenerativeModel() { return { startChat: () => ({ sendMessage: async () => ({ response: { text: () => "mock" } }) }) }; }
+    }
+  });
+
   // Save original env
   const originalApiKey = process.env.GEMINI_API_KEY;
   delete process.env.GEMINI_API_KEY;
@@ -53,6 +68,13 @@ test('Chat API returns 500 when GEMINI_API_KEY is missing', async (t) => {
 });
 
 test('Chat API returns 405 for non-POST methods', async (t) => {
+    // Mock @google/generative-ai
+    mockModule("@google/generative-ai", {
+        GoogleGenerativeAI: class {
+            constructor() {}
+        }
+    });
+
     const chatPath = path.resolve(__dirname, '../api/chat.js');
     delete require.cache[chatPath];
     const handler = require('../api/chat.js');
