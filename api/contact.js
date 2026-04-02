@@ -24,7 +24,6 @@ const MAX_REQUESTS_PER_WINDOW = 3;
 
 module.exports = async function handler(req, res) {
   // Rate limiting check
-  const ip = (req.headers && req.headers["x-real-ip"]) || req.connection?.remoteAddress || "unknown";
   // Security fix: Use x-real-ip instead of spoofable x-forwarded-for to prevent IP spoofing
   const ip =
     (req.headers && req.headers["x-real-ip"]) ||

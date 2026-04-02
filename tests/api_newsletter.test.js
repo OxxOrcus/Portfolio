@@ -108,10 +108,7 @@ test("Newsletter API handles missing x-real-ip gracefully", async (t) => {
   // We expect it not to crash and proceed to validation/processing
   assert.ok(res.statusCode === 200 || res.statusCode === undefined);
 
-  delete require.cache[newsletterPath];
-const test = require('node:test');
-const assert = require('node:assert');
-const path = require('node:path');
+});
 
 const newsletterPath = path.resolve(__dirname, '../api/newsletter.js');
 
