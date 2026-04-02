@@ -7,13 +7,13 @@ try {
   } else {
     // Log during startup; handler will log a warning when called.
     console.warn(
-      "RESEND_API_KEY is not set during initialization. The Contact endpoint will skip sending emails."
+      "RESEND_API_KEY is not set during initialization. The Contact endpoint will skip sending emails.",
     );
   }
 } catch (err) {
   console.error(
     "Failed to initialize Resend client:",
-    err && err.message ? err.message : err
+    err && err.message ? err.message : err,
   );
 }
 
@@ -25,6 +25,11 @@ const MAX_REQUESTS_PER_WINDOW = 3;
 module.exports = async function handler(req, res) {
   // Rate limiting check
   const ip = (req.headers && req.headers["x-real-ip"]) || req.connection?.remoteAddress || "unknown";
+  // Security fix: Use x-real-ip instead of spoofable x-forwarded-for to prevent IP spoofing
+  const ip =
+    (req.headers && req.headers["x-real-ip"]) ||
+    req.connection?.remoteAddress ||
+    "unknown";
   const now = Date.now();
   const userRate = rateLimitMap.get(ip) || { count: 0, firstRequest: now };
 
@@ -41,14 +46,21 @@ module.exports = async function handler(req, res) {
   if (rateLimitMap.size > 1000) rateLimitMap.clear();
 
   if (userRate.count > MAX_REQUESTS_PER_WINDOW) {
-    return res.status(429).json({ error: "Too many requests. Please try again later." });
+    return res
+      .status(429)
+      .json({ error: "Too many requests. Please try again later." });
   }
 
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { name, email, message } = req.body || {};
+  let { name, email, message } = req.body || {};
+
+  // Security enhancement: Prevent Email Header Injection (CRLF) by removing newlines
+  if (typeof name === "string") name = name.replace(/[\r\n]/g, " ").trim();
+  if (typeof email === "string") email = email.replace(/[\r\n]/g, "").trim();
+
   // Security enhancement: Add input type and length validation to prevent ReDoS and memory exhaustion attacks (DoS risk)
   if (
     !name ||

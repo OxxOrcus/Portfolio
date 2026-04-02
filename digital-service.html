@@ -77,18 +77,24 @@
           >Paulo Brocco</a
         >
         <nav class="hidden md:flex space-x-6">
-          <a href="index.html" class="hover:text-white transition duration-300"
+          <a
+            href="index.html"
+            class="hover:text-white transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
             >Portfolio</a
           >
-          <a href="#features" class="hover:text-white transition duration-300"
+          <a
+            href="#features"
+            class="hover:text-white transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
             >Services</a
           >
-          <a href="#pricing" class="hover:text-white transition duration-300"
+          <a
+            href="#pricing"
+            class="hover:text-white transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
             >Pricing</a
           >
           <a
             href="#contact"
-            class="btn-primary px-5 py-2 rounded-md text-lg flex items-center gap-2"
+            class="btn-primary px-5 py-2 rounded-md text-lg flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
           >
             <i class="fas fa-briefcase"></i>
             Hire Me
@@ -126,24 +132,24 @@
         <nav class="flex flex-col space-y-3 text-gray-300">
           <a
             href="index.html"
-            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md"
+            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             >Portfolio</a
           >
           <a
             href="#features"
-            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md"
+            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             >Services</a
           >
           <a
             href="#pricing"
-            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md"
+            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             >Pricing</a
           >
           <a
             href="https://wa.me/5511986001998"
             target="_blank"
             rel="noopener noreferrer"
-            class="btn-primary w-full text-center mt-2 flex items-center gap-2 justify-center"
+            class="btn-primary w-full text-center mt-2 flex items-center gap-2 justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             ><i class="fas fa-briefcase"></i> Hire Me</a
           >
         </nav>
@@ -176,10 +182,14 @@
             projects, long-term contracts and retained engagements.
           </p>
           <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="#pricing" class="btn-primary text-lg px-8 py-4"
+            <a
+              href="#pricing"
+              class="btn-primary text-lg px-8 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
               >See Rates</a
             >
-            <a href="#features" class="btn-secondary text-lg px-8 py-4"
+            <a
+              href="#features"
+              class="btn-secondary text-lg px-8 py-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
               >Learn More</a
             >
           </div>
@@ -283,7 +293,7 @@
             </ul>
             <a
               href="https://wa.me/5511986001998"
-              class="btn-secondary w-full text-center block"
+              class="btn-secondary w-full text-center block focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Learn more about Fixed Project pricing"
@@ -320,7 +330,7 @@
             </ul>
             <a
               href="https://wa.me/5511986001998"
-              class="btn-primary w-full text-center block"
+              class="btn-primary w-full text-center block focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Learn more about Hourly or Contract pricing"
@@ -352,7 +362,7 @@
             </ul>
             <a
               href="https://wa.me/5511986001998"
-              class="btn-secondary w-full text-center block"
+              class="btn-secondary w-full text-center block focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Learn more about Retainer pricing"
@@ -446,7 +456,9 @@
         <p class="text-xl text-gray-300 mb-10 max-w-3xl mx-auto">
           Schedule a free consultation with our AI experts today.
         </p>
-        <a href="#contact" class="btn-primary text-lg px-8 py-4 inline-block"
+        <a
+          href="#contact"
+          class="btn-primary text-lg px-8 py-4 inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
           >Get Started Today</a
         >
       </div>
@@ -475,6 +487,7 @@
                   type="text"
                   id="name"
                   name="name"
+                  autocomplete="name"
                   required
                   class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="John Doe"
@@ -490,6 +503,7 @@
                   type="email"
                   id="email"
                   name="email"
+                  autocomplete="email"
                   required
                   class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="john@example.com"
@@ -512,10 +526,16 @@
               ></textarea>
             </div>
             <div>
-              <button type="submit" class="btn-primary w-full py-4 text-lg">
+              <button
+                type="submit"
+                class="btn-primary w-full py-4 text-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+              >
                 <i class="fas fa-envelope mr-2"></i> Send via Email Client
               </button>
-              <p class="text-xs text-gray-400 text-center mt-3"><i class="fas fa-info-circle mr-1"></i> This will open your default email client to send the message.</p>
+              <p class="text-xs text-gray-400 text-center mt-3">
+                <i class="fas fa-info-circle mr-1"></i> This will open your
+                default email client to send the message.
+              </p>
             </div>
           </form>
         </div>
@@ -618,7 +638,8 @@
           if (submitBtn) {
             const originalText = submitBtn.innerHTML;
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-2"></i> Opening Mail Client...';
+            submitBtn.innerHTML =
+              '<i class="fas fa-circle-notch fa-spin mr-2"></i> Opening Mail Client...';
             submitBtn.classList.add("opacity-75", "cursor-not-allowed");
 
             // Reset after 3 seconds

@@ -26,6 +26,7 @@ const MAX_REQUESTS_PER_WINDOW = 5;
 
 module.exports = async (req, res) => {
   // Rate limiting check
+  // Security fix: Use x-real-ip instead of spoofable x-forwarded-for to prevent IP spoofing
   const ip = (req.headers && req.headers["x-real-ip"]) || req.connection?.remoteAddress || "unknown";
   const now = Date.now();
   const userRate = rateLimitMap.get(ip) || { count: 0, firstRequest: now };
