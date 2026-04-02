@@ -33,3 +33,7 @@
 ## 2025-05-25 - Add focus visible styles for keyboard navigation
 **Learning:** Because Tailwind CSS resets default browser focus outlines, interactive elements (like navigation links and buttons) lack visible focus states. This makes keyboard navigation almost impossible for accessibility users, as they cannot see which element is currently focused.
 **Action:** Always add explicit focus styles (e.g., `focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm`) to all interactive elements (`<a>`, `<button>`, `.btn-primary`, `.btn-secondary`) to maintain keyboard navigation accessibility and provide a clear visual indicator.
+
+## 2025-05-26 - Enable form auto-fill with autocomplete attributes
+**Learning:** Form inputs like 'name' and 'email' frequently cause friction for users typing out the same information repeatedly. A lack of `autocomplete` attributes prevents browsers and password managers from suggesting auto-fill data, decreasing accessibility for users with motor impairments.
+**Action:** Always add appropriate `autocomplete` attributes (e.g., `autocomplete="name"`, `autocomplete="email"`) to standard form fields, and use `autocomplete="off"` for specialized fields (like the AI Chat input) where browser suggestions are intrusive.
