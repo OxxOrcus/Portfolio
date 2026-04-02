@@ -27,3 +27,8 @@
  **Vulnerability:** The `api/contact.js` endpoint accepted `name` input without filtering newline characters (`\r`, `\n`) and directly injected it into the email `subject`. This introduced a risk of Email Header Injection (CRLF Injection) allowing attackers to manipulate email headers.
  **Learning:** I learned that user input that becomes part of an email structure (like Subject, To, From) requires strict sanitization beyond format or length checks, as newlines can act as control sequences.
  **Prevention:** For variables used within email structures, always sanitize them by stripping or replacing `\r` and `\n` prior to usage or validation.
+
+## 2026-04-02 - [MEDIUM] Cross-Site Scripting (XSS) via innerHTML in Popup
+ **Vulnerability:** The newsletter/contact popup success message was being rendered by directly assigning a string of HTML to the `innerHTML` property of the `popupContent` element. While the content was largely static in the current implementation, using `innerHTML` is a dangerous practice that can lead to DOM-based XSS if user-controlled data is ever interpolated into the string.
+ **Learning:** I learned that even for seemingly safe, static UI updates, `innerHTML` should be avoided in favor of more explicit and secure DOM APIs. This "defense in depth" approach prevents future vulnerabilities if the code is later modified to include dynamic content.
+ **Prevention:** Strictly avoid `innerHTML` for dynamic UI updates. Instead, use `document.createElement`, `textContent` for text, and `replaceChildren()` or `append()` to update the DOM tree safely.

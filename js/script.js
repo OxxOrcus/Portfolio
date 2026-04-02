@@ -372,16 +372,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
           triggerConfetti();
           if (popupContent) {
-            popupContent.innerHTML = `
-              <div class="text-center py-8">
-                <i class="fas fa-check-circle text-5xl text-green-500 mb-4"></i>
-                <h3 class="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-                <p class="text-gray-300 mb-6">Thank you for reaching out. I'll get back to you soon.</p>
-                <button id="closePopupConfirm" class="btn-primary py-2 px-6">Close</button>
-              </div>
-            `;
-            const confirmBtn = document.getElementById("closePopupConfirm");
-            if (confirmBtn) confirmBtn.addEventListener("click", hidePopup);
+            // Security enhancement: Use safer DOM APIs instead of innerHTML to prevent XSS
+            const wrapper = document.createElement("div");
+            wrapper.className = "text-center py-8";
+
+            const icon = document.createElement("i");
+            icon.className = "fas fa-check-circle text-5xl text-green-500 mb-4";
+
+            const title = document.createElement("h3");
+            title.className = "text-2xl font-bold text-white mb-2";
+            title.textContent = "Message Sent!";
+
+            const text = document.createElement("p");
+            text.className = "text-gray-300 mb-6";
+            text.textContent =
+              "Thank you for reaching out. I'll get back to you soon.";
+
+            const confirmBtn = document.createElement("button");
+            confirmBtn.id = "closePopupConfirm";
+            confirmBtn.className = "btn-primary py-2 px-6";
+            confirmBtn.textContent = "Close";
+            confirmBtn.addEventListener("click", hidePopup);
+
+            wrapper.append(icon, title, text, confirmBtn);
+            popupContent.replaceChildren(wrapper);
+
             setTimeout(hidePopup, 3000);
           }
         } catch (err) {
