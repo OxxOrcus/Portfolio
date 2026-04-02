@@ -21,7 +21,7 @@
 ## 2026-03-29 - [HIGH] IP spoofing vulnerability in rate limiting logic
  **Vulnerability:** The serverless API endpoints (`api/chat.js`, `api/newsletter.js`, `api/contact.js`) were using the `x-forwarded-for` header to identify client IP addresses for rate limiting. This header can be easily spoofed by a malicious client, allowing them to bypass rate limits and exhaust API quotas.
  **Learning:** In serverless environments behind reverse proxies (like Vercel), `x-forwarded-for` can contain a comma-separated list of IPs, including client-provided spoofed values. Trusting this header blindly for security controls like rate limiting is dangerous.
- **Prevention:** Always use `x-real-ip` (or the provider-specific equivalent that is guaranteed to be overwritten by the edge proxy) instead of `x-forwarded-for` when identifying the true client IP for rate limiting or other security measures.
+ **Prevention:** Always use `x-real-ip` (or the provider-specific equivalent that is guaranteed to be overwritten by the edge proxy) instead of `x-forwarded-for` when identifying the true client IP for rate limiting or other security measures. Verified and enforced in `api/newsletter.js` with automated tests in `tests/api_newsletter.test.js`.
 
 ## 2026-03-24 - [MEDIUM] Fix Email Header Injection vulnerability
  **Vulnerability:** The `api/contact.js` endpoint accepted `name` input without filtering newline characters (`\r`, `\n`) and directly injected it into the email `subject`. This introduced a risk of Email Header Injection (CRLF Injection) allowing attackers to manipulate email headers.
