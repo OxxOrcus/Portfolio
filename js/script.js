@@ -940,9 +940,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // Calculate active nav section using cached offsetTops
     const scrollPos = scrollTop + 120;
     let currentSection = null;
-    for (let i = layoutCache.sectionOffsets.length - 1; i >= 0; i--) {
-      if (layoutCache.sectionOffsets[i].offsetTop <= scrollPos) {
-        currentSection = layoutCache.sectionOffsets[i].sec;
+    // ⚡ Bolt: Cache array length and elements to reduce property lookups in a high-frequency loop.
+    const offsets = layoutCache.sectionOffsets;
+    for (let i = offsets.length - 1; i >= 0; i--) {
+      const entry = offsets[i];
+      if (entry.offsetTop <= scrollPos) {
+        currentSection = entry.sec;
         break;
       }
     }
