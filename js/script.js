@@ -943,6 +943,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // Update cache on body height changes (e.g. late loaded content)
   new ResizeObserver(updateLayoutCache).observe(document.body);
 
+  // ⚡ Bolt: Cache DOM states to prevent redundant style/class updates
+  // in the high-frequency scroll loop.
+  const domWriteCache = {
+    progress: -1,
+    isHeaderScrolled: null,
+    activeSectionId: null,
+    isBackToTopVisible: null
+  };
+
   function processScrollUpdates() {
     // --- Loop 1: DOM Reads ---
     const scrollTop = window.scrollY;
@@ -966,42 +975,55 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // --- Loop 2: DOM Writes ---
-    if (scrollProgress) {
+    if (scrollProgress && Math.abs(domWriteCache.progress - progress) > 0.1) {
       scrollProgress.style.width = progress + "%";
+      domWriteCache.progress = progress;
     }
 
     if (siteHeader) {
-      if (scrollTop > 50) {
-        siteHeader.style.background = "rgba(10,10,10,0.95)";
-        siteHeader.style.boxShadow = "0 4px 20px rgba(0,0,0,0.4)";
-        siteHeader.style.paddingTop = "0.75rem";
-        siteHeader.style.paddingBottom = "0.75rem";
-      } else {
-        siteHeader.style.background = "rgba(10,10,10,0.8)";
-        siteHeader.style.boxShadow = "none";
-        siteHeader.style.paddingTop = "";
-        siteHeader.style.paddingBottom = "";
+      const isHeaderScrolled = scrollTop > 50;
+      if (domWriteCache.isHeaderScrolled !== isHeaderScrolled) {
+        if (isHeaderScrolled) {
+          siteHeader.style.background = "rgba(10,10,10,0.95)";
+          siteHeader.style.boxShadow = "0 4px 20px rgba(0,0,0,0.4)";
+          siteHeader.style.paddingTop = "0.75rem";
+          siteHeader.style.paddingBottom = "0.75rem";
+        } else {
+          siteHeader.style.background = "rgba(10,10,10,0.8)";
+          siteHeader.style.boxShadow = "none";
+          siteHeader.style.paddingTop = "";
+          siteHeader.style.paddingBottom = "";
+        }
+        domWriteCache.isHeaderScrolled = isHeaderScrolled;
       }
     }
 
-    navLinks.forEach((l) => {
-      l.classList.remove("text-white", "font-semibold");
-      l.style.borderBottom = "";
-    });
-    if (currentSection) {
-      currentSection.link.classList.add("text-white", "font-semibold");
-      currentSection.link.style.borderBottom = "2px solid #8e2de2";
+    const currentSectionId = currentSection ? currentSection.id : null;
+    if (domWriteCache.activeSectionId !== currentSectionId) {
+      navLinks.forEach((l) => {
+        l.classList.remove("text-white", "font-semibold");
+        l.style.borderBottom = "";
+      });
+      if (currentSection) {
+        currentSection.link.classList.add("text-white", "font-semibold");
+        currentSection.link.style.borderBottom = "2px solid #8e2de2";
+      }
+      domWriteCache.activeSectionId = currentSectionId;
     }
 
     if (backToTop) {
-      if (scrollTop > 400) {
-        backToTop.style.opacity = "1";
-        backToTop.style.pointerEvents = "auto";
-        backToTop.style.transform = "translateY(0)";
-      } else {
-        backToTop.style.opacity = "0";
-        backToTop.style.pointerEvents = "none";
-        backToTop.style.transform = "translateY(16px)";
+      const isBackToTopVisible = scrollTop > 400;
+      if (domWriteCache.isBackToTopVisible !== isBackToTopVisible) {
+        if (isBackToTopVisible) {
+          backToTop.style.opacity = "1";
+          backToTop.style.pointerEvents = "auto";
+          backToTop.style.transform = "translateY(0)";
+        } else {
+          backToTop.style.opacity = "0";
+          backToTop.style.pointerEvents = "none";
+          backToTop.style.transform = "translateY(16px)";
+        }
+        domWriteCache.isBackToTopVisible = isBackToTopVisible;
       }
     }
   }

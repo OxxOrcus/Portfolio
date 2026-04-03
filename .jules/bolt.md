@@ -66,3 +66,7 @@
 ## 2026-04-02 - Optimize High-Frequency Scroll Loop with Local Variable Caching
 **Learning:** Nested property lookups (like `layoutCache.sectionOffsets[i]`) in high-frequency loops (e.g. scroll handlers) introduce unnecessary JavaScript engine overhead per cycle. While modern JIT engines optimize this, manual caching into local variables ensures consistent performance across different browsers and reduces the work required by the engine in every animation frame.
 **Action:** When iterating through arrays in a high-frequency event loop (like `scroll` or `mousemove`), always cache the array reference and the specific array element into local variables. This minimizes the number of property lookups and ensures the loop body is as lean as possible.
+
+## 2026-06-14 - Redundant DOM Writes in Animation Frames
+**Learning:** Found that unconditionally applying style/class updates in high-frequency event loops (like `processScrollUpdates` inside `requestAnimationFrame`) causes unnecessary style recalculations and layout overhead, even if DOM reads are separated from DOM writes. If the new value is identical to the current DOM state, the browser still performs work when the assignment occurs.
+**Action:** Always maintain a `domWriteCache` object for properties updated in a high-frequency loop. Before applying any DOM write (like `element.style.width = '...'` or `element.classList.add(...)`), compare the new computed state against the cached state. Only execute the DOM mutation if the state has genuinely changed.
