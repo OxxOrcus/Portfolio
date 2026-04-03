@@ -37,3 +37,7 @@
 ## 2025-05-26 - Enable form auto-fill with autocomplete attributes
 **Learning:** Form inputs like 'name' and 'email' frequently cause friction for users typing out the same information repeatedly. A lack of `autocomplete` attributes prevents browsers and password managers from suggesting auto-fill data, decreasing accessibility for users with motor impairments.
 **Action:** Always add appropriate `autocomplete` attributes (e.g., `autocomplete="name"`, `autocomplete="email"`) to standard form fields, and use `autocomplete="off"` for specialized fields (like the AI Chat input) where browser suggestions are intrusive.
+
+## 2025-05-27 - Make CSS dropdowns keyboard accessible
+**Learning:** CSS-only hover dropdowns using `opacity-0` and `pointer-events-none` hide content visually but not from the accessibility tree. Keyboard users tabbing through the page will focus on these hidden links without seeing them, causing confusion.
+**Action:** Always add `group-focus-within` (e.g., `group-focus-within:opacity-100`) to the dropdown container. This ensures that when a keyboard user focuses on the parent button or the hidden child links, the dropdown becomes visible, making the navigation fully keyboard accessible.
