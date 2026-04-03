@@ -346,12 +346,13 @@ document.addEventListener("DOMContentLoaded", () => {
         messageInput.value.trim()
       ) {
         const submitBtn = popupForm.querySelector('button[type="submit"]');
-        let originalText = "";
+        let originalNodes = [];
         if (submitBtn) {
-          originalText = submitBtn.innerHTML;
+          originalNodes = Array.from(submitBtn.childNodes);
           submitBtn.disabled = true;
-          submitBtn.innerHTML =
-            '<i class="fas fa-circle-notch fa-spin mr-2"></i> Sending...';
+          const icon = document.createElement("i");
+          icon.className = "fas fa-circle-notch fa-spin mr-2";
+          submitBtn.replaceChildren(icon, document.createTextNode(" Sending..."));
           submitBtn.classList.add("opacity-75", "cursor-not-allowed");
         }
         // Send to backend
@@ -413,7 +414,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } finally {
           if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.innerHTML = originalText;
+            submitBtn.replaceChildren(...originalNodes);
             submitBtn.classList.remove("opacity-75", "cursor-not-allowed");
           }
         }
@@ -441,12 +442,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const submitBtn = pageNewsletterForm.querySelector(
           'button[type="submit"]',
         );
-        let originalText = "";
+        let originalNodes = [];
         if (submitBtn) {
-          originalText = submitBtn.innerHTML;
+          originalNodes = Array.from(submitBtn.childNodes);
           submitBtn.disabled = true;
-          submitBtn.innerHTML =
-            '<i class="fas fa-spinner fa-spin mr-2"></i> Subscribing...';
+          const icon = document.createElement("i");
+          icon.className = "fas fa-spinner fa-spin mr-2";
+          submitBtn.replaceChildren(icon, document.createTextNode(" Subscribing..."));
           submitBtn.classList.add("opacity-75", "cursor-not-allowed");
         }
         try {
@@ -483,7 +485,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } finally {
           if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.innerHTML = originalText;
+            submitBtn.replaceChildren(...originalNodes);
             submitBtn.classList.remove("opacity-75", "cursor-not-allowed");
           }
         }
@@ -687,10 +689,14 @@ document.addEventListener("DOMContentLoaded", () => {
       aiChatInput.disabled = true;
 
       const submitBtn = aiChatForm.querySelector('button[type="submit"]');
-      const originalBtnHtml = submitBtn.innerHTML;
+      const originalBtnNodes = Array.from(submitBtn.childNodes);
       submitBtn.disabled = true;
-      submitBtn.innerHTML =
-        '<i class="fas fa-circle-notch fa-spin"></i><span class="sr-only">Sending</span>';
+      const icon = document.createElement("i");
+      icon.className = "fas fa-circle-notch fa-spin";
+      const srSpan = document.createElement("span");
+      srSpan.className = "sr-only";
+      srSpan.textContent = "Sending";
+      submitBtn.replaceChildren(icon, srSpan);
       submitBtn.classList.add("opacity-75", "cursor-not-allowed");
 
       const thinking = document.createElement("div");
@@ -724,7 +730,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } finally {
         aiChatInput.disabled = false;
         submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnHtml;
+        submitBtn.replaceChildren(...originalBtnNodes);
         submitBtn.classList.remove("opacity-75", "cursor-not-allowed");
         aiChatInput.focus();
       }
