@@ -613,12 +613,13 @@
           const mailto = `mailto:paulobroccooxx@gmail.com?subject=${subject}&body=${body}`;
 
           const submitBtn = contactForm.querySelector('button[type="submit"]');
-          let originalText = "";
+          let originalNodes = [];
           if (submitBtn) {
-            originalText = submitBtn.innerHTML;
+            originalNodes = Array.from(submitBtn.childNodes);
             submitBtn.disabled = true;
-            submitBtn.innerHTML =
-              '<i class="fas fa-envelope mr-2"></i> Opening Mail Client...';
+            const icon = document.createElement("i");
+            icon.className = "fas fa-envelope mr-2";
+            submitBtn.replaceChildren(icon, document.createTextNode(" Opening Mail Client..."));
             submitBtn.classList.add("opacity-75", "cursor-not-allowed");
           }
 
@@ -629,23 +630,24 @@
           setTimeout(() => {
             if (submitBtn) {
               submitBtn.disabled = false;
-              submitBtn.innerHTML = originalText;
+              submitBtn.replaceChildren(...originalNodes);
               submitBtn.classList.remove("opacity-75", "cursor-not-allowed");
             }
           }, 2000);
           // Provide visual feedback and prevent multiple clicks
           const submitBtn = contactForm.querySelector('button[type="submit"]');
           if (submitBtn) {
-            const originalText = submitBtn.innerHTML;
+            const originalNodes = Array.from(submitBtn.childNodes);
             submitBtn.disabled = true;
-            submitBtn.innerHTML =
-              '<i class="fas fa-circle-notch fa-spin mr-2"></i> Opening Mail Client...';
+            const icon = document.createElement("i");
+            icon.className = "fas fa-circle-notch fa-spin mr-2";
+            submitBtn.replaceChildren(icon, document.createTextNode(" Opening Mail Client..."));
             submitBtn.classList.add("opacity-75", "cursor-not-allowed");
 
             // Reset after 3 seconds
             setTimeout(() => {
               submitBtn.disabled = false;
-              submitBtn.innerHTML = originalText;
+              submitBtn.replaceChildren(...originalNodes);
               submitBtn.classList.remove("opacity-75", "cursor-not-allowed");
               contactForm.reset();
             }, 3000);
