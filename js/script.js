@@ -346,12 +346,13 @@ document.addEventListener("DOMContentLoaded", () => {
         messageInput.value.trim()
       ) {
         const submitBtn = popupForm.querySelector('button[type="submit"]');
-        let originalText = "";
+        let originalNodes = [];
         if (submitBtn) {
-          originalText = submitBtn.innerHTML;
+          originalNodes = Array.from(submitBtn.childNodes);
           submitBtn.disabled = true;
-          submitBtn.innerHTML =
-            '<i class="fas fa-circle-notch fa-spin mr-2"></i> Sending...';
+          const icon = document.createElement("i");
+          icon.className = "fas fa-circle-notch fa-spin mr-2";
+          submitBtn.replaceChildren(icon, document.createTextNode(" Sending..."));
           submitBtn.classList.add("opacity-75", "cursor-not-allowed");
         }
         // Send to backend
@@ -372,16 +373,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
           triggerConfetti();
           if (popupContent) {
-            popupContent.innerHTML = `
-              <div class="text-center py-8">
-                <i class="fas fa-check-circle text-5xl text-green-500 mb-4"></i>
-                <h3 class="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-                <p class="text-gray-300 mb-6">Thank you for reaching out. I'll get back to you soon.</p>
-                <button id="closePopupConfirm" class="btn-primary py-2 px-6">Close</button>
-              </div>
-            `;
-            const confirmBtn = document.getElementById("closePopupConfirm");
-            if (confirmBtn) confirmBtn.addEventListener("click", hidePopup);
+            // Security enhancement: Use safer DOM APIs instead of innerHTML to prevent XSS
+            const wrapper = document.createElement("div");
+            wrapper.className = "text-center py-8";
+
+            const icon = document.createElement("i");
+            icon.className = "fas fa-check-circle text-5xl text-green-500 mb-4";
+
+            const title = document.createElement("h3");
+            title.className = "text-2xl font-bold text-white mb-2";
+            title.textContent = "Message Sent!";
+
+            const text = document.createElement("p");
+            text.className = "text-gray-300 mb-6";
+            text.textContent =
+              "Thank you for reaching out. I'll get back to you soon.";
+
+            const confirmBtn = document.createElement("button");
+            confirmBtn.id = "closePopupConfirm";
+            confirmBtn.className = "btn-primary py-2 px-6";
+            confirmBtn.textContent = "Close";
+            confirmBtn.addEventListener("click", hidePopup);
+
+            wrapper.append(icon, title, text, confirmBtn);
+            popupContent.replaceChildren(wrapper);
+
             setTimeout(hidePopup, 3000);
           }
         } catch (err) {
@@ -398,7 +414,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } finally {
           if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.innerHTML = originalText;
+            submitBtn.replaceChildren(...originalNodes);
             submitBtn.classList.remove("opacity-75", "cursor-not-allowed");
           }
         }
@@ -426,12 +442,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const submitBtn = pageNewsletterForm.querySelector(
           'button[type="submit"]',
         );
-        let originalText = "";
+        let originalNodes = [];
         if (submitBtn) {
-          originalText = submitBtn.innerHTML;
+          originalNodes = Array.from(submitBtn.childNodes);
           submitBtn.disabled = true;
-          submitBtn.innerHTML =
-            '<i class="fas fa-spinner fa-spin mr-2"></i> Subscribing...';
+          const icon = document.createElement("i");
+          icon.className = "fas fa-spinner fa-spin mr-2";
+          submitBtn.replaceChildren(icon, document.createTextNode(" Subscribing..."));
           submitBtn.classList.add("opacity-75", "cursor-not-allowed");
         }
         try {
@@ -468,7 +485,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } finally {
           if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.innerHTML = originalText;
+            submitBtn.replaceChildren(...originalNodes);
             submitBtn.classList.remove("opacity-75", "cursor-not-allowed");
           }
         }
@@ -672,10 +689,14 @@ document.addEventListener("DOMContentLoaded", () => {
       aiChatInput.disabled = true;
 
       const submitBtn = aiChatForm.querySelector('button[type="submit"]');
-      const originalBtnHtml = submitBtn.innerHTML;
+      const originalBtnNodes = Array.from(submitBtn.childNodes);
       submitBtn.disabled = true;
-      submitBtn.innerHTML =
-        '<i class="fas fa-circle-notch fa-spin"></i><span class="sr-only">Sending</span>';
+      const icon = document.createElement("i");
+      icon.className = "fas fa-circle-notch fa-spin";
+      const srSpan = document.createElement("span");
+      srSpan.className = "sr-only";
+      srSpan.textContent = "Sending";
+      submitBtn.replaceChildren(icon, srSpan);
       submitBtn.classList.add("opacity-75", "cursor-not-allowed");
 
       const thinking = document.createElement("div");
@@ -709,7 +730,7 @@ document.addEventListener("DOMContentLoaded", () => {
       } finally {
         aiChatInput.disabled = false;
         submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnHtml;
+        submitBtn.replaceChildren(...originalBtnNodes);
         submitBtn.classList.remove("opacity-75", "cursor-not-allowed");
         aiChatInput.focus();
       }
@@ -829,10 +850,36 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+    // ⚡ Bolt: Cache DOM coordinates outside of the mousemove loop to completely
+    // eliminate layout thrashing and forced synchronous layouts during interaction.
+    // Expected impact: Smoother CPU performance and no forced reflows on hover.
+    let cachedEyeCenters = [];
+
+    function updateEyeCenters() {
+      cachedEyeCenters = Array.from(eyes).map((eye) => {
+        const rect = eye.getBoundingClientRect();
+        return {
+          centerX: rect.left + rect.width / 2,
+          centerY: rect.top + rect.height / 2,
+        };
+      });
+    }
+
+    // Initialize cache
+    updateEyeCenters();
+
+    // Update cache passively on layout changes
+    window.addEventListener("resize", updateEyeCenters, { passive: true });
+
+    // The eyes are in the header, which might change padding on scroll. Update on header transition end.
+    const header = document.querySelector("header");
+    if (header) {
+      header.addEventListener("transitionend", updateEyeCenters, { passive: true });
+    }
+
     // ⚡ Bolt: Throttled mousemove with requestAnimationFrame to prevent
     // style updates from executing on every mouse movement.
-    // DOM reads and writes are separated into two loops to avoid layout thrashing.
-    // Expected impact: smoother scroll and interaction, reduced CPU usage.
+    // DOM reads are now fully cached and eliminated from the frame loop.
     let eyesRafId = null;
     let mouseX = 0;
     let mouseY = 0;
@@ -842,12 +889,11 @@ document.addEventListener("DOMContentLoaded", () => {
       mouseY = event.clientY;
       if (!eyesRafId) {
         eyesRafId = requestAnimationFrame(() => {
-          // Loop 1: DOM Reads
+          // Loop 1: DOM Reads (Now using cache)
           const targetPositions = [];
-          eyes.forEach((eye, i) => {
-            const rect = eye.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
+          eyes.forEach((_, i) => {
+            if (!cachedEyeCenters[i]) return;
+            const { centerX, centerY } = cachedEyeCenters[i];
             let dx = mouseX - centerX;
             let dy = mouseY - centerY;
 
@@ -903,78 +949,130 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ⚡ Bolt: Consolidated scroll updates into a single function, cleanly separating
   // DOM reads and DOM writes to prevent layout thrashing inside the requestAnimationFrame loop.
+  // We use a layout cache updated passively by ResizeObserver to eliminate all synchronous DOM reads
+  // from the high-frequency scroll loop, preventing reflows when the DOM is dirtied by other animations.
+  const layoutCache = {
+    docHeight: document.documentElement.scrollHeight,
+    winHeight: window.innerHeight,
+    sectionOffsets: sections.map((sec) => ({
+      sec,
+      offsetTop: sec.el.offsetTop,
+    })),
+  };
+
+  function updateLayoutCache() {
+    layoutCache.docHeight = document.documentElement.scrollHeight;
+    layoutCache.winHeight = window.innerHeight;
+    layoutCache.sectionOffsets = sections.map((sec) => ({
+      sec,
+      offsetTop: sec.el.offsetTop,
+    }));
+  }
+
+  // Update cache on window resize
+  window.addEventListener("resize", updateLayoutCache, { passive: true });
+  // Update cache on body height changes (e.g. late loaded content)
+  new ResizeObserver(updateLayoutCache).observe(document.body);
+
+  // ⚡ Bolt: Cache DOM states to prevent redundant style/class updates
+  // in the high-frequency scroll loop.
+  const domWriteCache = {
+    progress: -1,
+    isHeaderScrolled: null,
+    activeSectionId: null,
+    isBackToTopVisible: null
+  };
+
   function processScrollUpdates() {
     // --- Loop 1: DOM Reads ---
     const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight;
-    const winHeight = window.innerHeight;
 
-    // Calculate progress
-    const scrollableHeight = docHeight - winHeight;
-    const progress = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
+    // Calculate progress using cached dimensions
+    const scrollableHeight = layoutCache.docHeight - layoutCache.winHeight;
+    const progress =
+      scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
 
-    // Calculate active nav section
+    // Calculate active nav section using cached offsetTops
     const scrollPos = scrollTop + 120;
     let currentSection = null;
-    for (let i = sections.length - 1; i >= 0; i--) {
-      // Accessing offsetTop is a layout read
-      if (sections[i].el.offsetTop <= scrollPos) {
-        currentSection = sections[i];
+    // ⚡ Bolt: Cache array length and elements to reduce property lookups in a high-frequency loop.
+    const offsets = layoutCache.sectionOffsets;
+    for (let i = offsets.length - 1; i >= 0; i--) {
+      const entry = offsets[i];
+      if (entry.offsetTop <= scrollPos) {
+        currentSection = entry.sec;
         break;
       }
     }
 
     // --- Loop 2: DOM Writes ---
-    if (scrollProgress) {
+    if (scrollProgress && Math.abs(domWriteCache.progress - progress) > 0.1) {
       scrollProgress.style.width = progress + "%";
+      domWriteCache.progress = progress;
     }
 
     if (siteHeader) {
-      if (scrollTop > 50) {
-        siteHeader.style.background = "rgba(10,10,10,0.95)";
-        siteHeader.style.boxShadow = "0 4px 20px rgba(0,0,0,0.4)";
-        siteHeader.style.paddingTop = "0.75rem";
-        siteHeader.style.paddingBottom = "0.75rem";
-      } else {
-        siteHeader.style.background = "rgba(10,10,10,0.8)";
-        siteHeader.style.boxShadow = "none";
-        siteHeader.style.paddingTop = "";
-        siteHeader.style.paddingBottom = "";
+      const isHeaderScrolled = scrollTop > 50;
+      if (domWriteCache.isHeaderScrolled !== isHeaderScrolled) {
+        if (isHeaderScrolled) {
+          siteHeader.style.background = "rgba(10,10,10,0.95)";
+          siteHeader.style.boxShadow = "0 4px 20px rgba(0,0,0,0.4)";
+          siteHeader.style.paddingTop = "0.75rem";
+          siteHeader.style.paddingBottom = "0.75rem";
+        } else {
+          siteHeader.style.background = "rgba(10,10,10,0.8)";
+          siteHeader.style.boxShadow = "none";
+          siteHeader.style.paddingTop = "";
+          siteHeader.style.paddingBottom = "";
+        }
+        domWriteCache.isHeaderScrolled = isHeaderScrolled;
       }
     }
 
-    navLinks.forEach((l) => {
-      l.classList.remove("text-white", "font-semibold");
-      l.style.borderBottom = "";
-    });
-    if (currentSection) {
-      currentSection.link.classList.add("text-white", "font-semibold");
-      currentSection.link.style.borderBottom = "2px solid #8e2de2";
+    const currentSectionId = currentSection ? currentSection.id : null;
+    if (domWriteCache.activeSectionId !== currentSectionId) {
+      navLinks.forEach((l) => {
+        l.classList.remove("text-white", "font-semibold");
+        l.style.borderBottom = "";
+      });
+      if (currentSection) {
+        currentSection.link.classList.add("text-white", "font-semibold");
+        currentSection.link.style.borderBottom = "2px solid #8e2de2";
+      }
+      domWriteCache.activeSectionId = currentSectionId;
     }
 
     if (backToTop) {
-      if (scrollTop > 400) {
-        backToTop.style.opacity = "1";
-        backToTop.style.pointerEvents = "auto";
-        backToTop.style.transform = "translateY(0)";
-      } else {
-        backToTop.style.opacity = "0";
-        backToTop.style.pointerEvents = "none";
-        backToTop.style.transform = "translateY(16px)";
+      const isBackToTopVisible = scrollTop > 400;
+      if (domWriteCache.isBackToTopVisible !== isBackToTopVisible) {
+        if (isBackToTopVisible) {
+          backToTop.style.opacity = "1";
+          backToTop.style.pointerEvents = "auto";
+          backToTop.style.transform = "translateY(0)";
+        } else {
+          backToTop.style.opacity = "0";
+          backToTop.style.pointerEvents = "none";
+          backToTop.style.transform = "translateY(16px)";
+        }
+        domWriteCache.isBackToTopVisible = isBackToTopVisible;
       }
     }
   }
 
   // Unified scroll handler (throttled with rAF)
   let scrollRafId = null;
-  window.addEventListener("scroll", () => {
-    if (!scrollRafId) {
-      scrollRafId = requestAnimationFrame(() => {
-        processScrollUpdates();
-        scrollRafId = null;
-      });
-    }
-  }, { passive: true });
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!scrollRafId) {
+        scrollRafId = requestAnimationFrame(() => {
+          processScrollUpdates();
+          scrollRafId = null;
+        });
+      }
+    },
+    { passive: true },
+  );
 
   // Initial call
   processScrollUpdates();
@@ -986,16 +1084,29 @@ document.addEventListener("DOMContentLoaded", () => {
     let rafId = null;
     let targetX = 0;
     let targetY = 0;
+    let cachedRect = null;
+
+    btn.addEventListener("mouseenter", () => {
+      const rect = btn.getBoundingClientRect();
+      cachedRect = {
+        left: rect.left + window.scrollX,
+        top: rect.top + window.scrollY,
+        width: rect.width,
+        height: rect.height,
+      };
+    });
+
     btn.addEventListener("mousemove", (e) => {
       // ⚡ Bolt: Cache latest mouse position and throttle DOM reads/writes with requestAnimationFrame
-      targetX = e.clientX;
-      targetY = e.clientY;
+      targetX = e.pageX;
+      targetY = e.pageY;
 
-      if (!rafId) {
+      if (!rafId && cachedRect) {
         rafId = requestAnimationFrame(() => {
-          const rect = btn.getBoundingClientRect();
-          const x = targetX - rect.left - rect.width / 2;
-          const y = targetY - rect.top - rect.height / 2;
+          // ⚡ Bolt: Use cached, document-relative untransformed rect to avoid
+          // transform-induced jitter and forced synchronous layouts.
+          const x = targetX - cachedRect.left - cachedRect.width / 2;
+          const y = targetY - cachedRect.top - cachedRect.height / 2;
           btn.style.transform = `translate(${x * 0.25}px, ${y * 0.25}px) scale(1.05)`;
           rafId = null;
         });
@@ -1007,6 +1118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         rafId = null;
       }
       btn.style.transform = "";
+      cachedRect = null;
     });
   });
 
@@ -1033,14 +1145,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const statsRow = document.getElementById("stats-row");
   if (statsRow) {
-    const statsObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animateCounters();
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
+    const statsObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounters();
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 },
+    );
     statsObserver.observe(statsRow);
   }
 
@@ -1049,14 +1164,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------------------------------------------------------------------------
   const revealSections = document.querySelectorAll(".section-reveal");
   if (revealSections.length) {
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("revealed");
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+    );
     revealSections.forEach((s) => revealObserver.observe(s));
   }
 
@@ -1065,19 +1183,22 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------------------------------------------------------------------------
   const skillBars = document.querySelectorAll(".skill-bar");
   if (skillBars.length) {
-    const skillObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const bars = entry.target.querySelectorAll(".skill-bar");
-          bars.forEach((bar, i) => {
-            setTimeout(() => {
-              bar.style.width = bar.dataset.width + "%";
-            }, i * 100);
-          });
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
+    const skillObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const bars = entry.target.querySelectorAll(".skill-bar");
+            bars.forEach((bar, i) => {
+              setTimeout(() => {
+                bar.style.width = bar.dataset.width + "%";
+              }, i * 100);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 },
+    );
 
     const skillsSection = document.getElementById("skills");
     if (skillsSection) skillObserver.observe(skillsSection);
@@ -1090,18 +1211,31 @@ document.addEventListener("DOMContentLoaded", () => {
     let rafId = null;
     let targetX = 0;
     let targetY = 0;
+    let cachedRect = null;
+
+    card.addEventListener("mouseenter", () => {
+      const rect = card.getBoundingClientRect();
+      cachedRect = {
+        left: rect.left + window.scrollX,
+        top: rect.top + window.scrollY,
+        width: rect.width,
+        height: rect.height,
+      };
+    });
+
     card.addEventListener("mousemove", (e) => {
       // ⚡ Bolt: Cache latest mouse position and throttle DOM reads/writes with requestAnimationFrame
-      targetX = e.clientX;
-      targetY = e.clientY;
+      targetX = e.pageX;
+      targetY = e.pageY;
 
-      if (!rafId) {
+      if (!rafId && cachedRect) {
         rafId = requestAnimationFrame(() => {
-          const rect = card.getBoundingClientRect();
-          const x = targetX - rect.left;
-          const y = targetY - rect.top;
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
+          // ⚡ Bolt: Use cached, document-relative untransformed rect to avoid
+          // transform-induced jitter and forced synchronous layouts.
+          const x = targetX - cachedRect.left;
+          const y = targetY - cachedRect.top;
+          const centerX = cachedRect.width / 2;
+          const centerY = cachedRect.height / 2;
           const rotateX = ((y - centerY) / centerY) * -6;
           const rotateY = ((x - centerX) / centerX) * 6;
           card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px) scale(1.02)`;
@@ -1115,6 +1249,7 @@ document.addEventListener("DOMContentLoaded", () => {
         rafId = null;
       }
       card.style.transform = "";
+      cachedRect = null;
     });
   });
 });

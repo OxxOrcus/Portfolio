@@ -30,6 +30,14 @@
 **Learning:** Hardcoded, stripped-down inline scripts intended to recreate simple UI functionality (like the mobile menu in `digital-service.html`) often silently fall out of sync with the global JS (like `js/script.js`), resulting in missing ARIA states and inconsistent behaviors across pages.
 **Action:** Always verify if a site-wide script can be refactored to handle a shared component across multiple routes, instead of re-implementing isolated and brittle inline logic. Injected components should exist in raw HTML whenever possible to improve initial load accessibility and CLS.
 
-## 2025-05-23 - Add required attribute to inputs
-**Learning:** For single-input forms like AI chat boxes or search bars, intercepting the form submission with JavaScript to check if the input is empty (e.g., `if (!userMessage) return;`) prevents errors but fails to provide native browser validation feedback to the user, resulting in a confusing experience where nothing happens.
-**Action:** Always add the `required` attribute to mandatory `<input>` or `<textarea>` elements, even when handling submissions via JavaScript, to leverage the browser's built-in validation tooltips and prevent silent failures.
+## 2025-05-25 - Add focus visible styles for keyboard navigation
+**Learning:** Because Tailwind CSS resets default browser focus outlines, interactive elements (like navigation links and buttons) lack visible focus states. This makes keyboard navigation almost impossible for accessibility users, as they cannot see which element is currently focused.
+**Action:** Always add explicit focus styles (e.g., `focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm`) to all interactive elements (`<a>`, `<button>`, `.btn-primary`, `.btn-secondary`) to maintain keyboard navigation accessibility and provide a clear visual indicator.
+
+## 2025-05-26 - Enable form auto-fill with autocomplete attributes
+**Learning:** Form inputs like 'name' and 'email' frequently cause friction for users typing out the same information repeatedly. A lack of `autocomplete` attributes prevents browsers and password managers from suggesting auto-fill data, decreasing accessibility for users with motor impairments.
+**Action:** Always add appropriate `autocomplete` attributes (e.g., `autocomplete="name"`, `autocomplete="email"`) to standard form fields, and use `autocomplete="off"` for specialized fields (like the AI Chat input) where browser suggestions are intrusive.
+
+## 2025-05-27 - Make CSS dropdowns keyboard accessible
+**Learning:** CSS-only hover dropdowns using `opacity-0` and `pointer-events-none` hide content visually but not from the accessibility tree. Keyboard users tabbing through the page will focus on these hidden links without seeing them, causing confusion.
+**Action:** Always add `group-focus-within` (e.g., `group-focus-within:opacity-100`) to the dropdown container. This ensures that when a keyboard user focuses on the parent button or the hidden child links, the dropdown becomes visible, making the navigation fully keyboard accessible.
