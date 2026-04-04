@@ -22,3 +22,17 @@
  **Vulnerability:** The project was using an outdated version of `nodemailer` (<8.0.4) which contains a known SMTP command injection vulnerability due to an unsanitized `envelope.size` parameter (GHSA-c7w3-x93f-qmm8).
  **Learning:** I learned that even widely used and trusted libraries can harbor serious security vulnerabilities like command injection. It is crucial to regularly audit dependencies, as these vulnerabilities can be exploited if malicious payloads are crafted.
  **Prevention:** Implement routine automated dependency scanning (e.g., using `pnpm audit` or tools like Dependabot/Snyk) in the CI pipeline. Keep dependencies up-to-date, prioritizing patches for known CVEs to minimize the application's attack surface.
+## 2026-03-29 - [HIGH] IP spoofing vulnerability in rate limiting logic
+ **Vulnerability:** The serverless API endpoints (`api/chat.js`, `api/newsletter.js`, `api/contact.js`) were using the `x-forwarded-for` header to identify client IP addresses for rate limiting. This header can be easily spoofed by a malicious client, allowing them to bypass rate limits and exhaust API quotas.
+ **Learning:** In serverless environments behind reverse proxies (like Vercel), `x-forwarded-for` can contain a comma-separated list of IPs, including client-provided spoofed values. Trusting this header blindly for security controls like rate limiting is dangerous.
+ **Prevention:** Always use `x-real-ip` (or the provider-specific equivalent that is guaranteed to be overwritten by the edge proxy) instead of `x-forwarded-for` when identifying the true client IP for rate limiting or other security measures. Verified and enforced in `api/newsletter.js` with automated tests in `tests/api_newsletter.test.js`.
+
+## 2026-03-24 - [MEDIUM] Fix Email Header Injection vulnerability
+ **Vulnerability:** The `api/contact.js` endpoint accepted `name` input without filtering newline characters (`\r`, `\n`) and directly injected it into the email `subject`. This introduced a risk of Email Header Injection (CRLF Injection) allowing attackers to manipulate email headers.
+ **Learning:** I learned that user input that becomes part of an email structure (like Subject, To, From) requires strict sanitization beyond format or length checks, as newlines can act as control sequences.
+ **Prevention:** For variables used within email structures, always sanitize them by stripping or replacing `\r` and `\n` prior to usage or validation.
+
+## 2026-04-02 - [MEDIUM] Cross-Site Scripting (XSS) via innerHTML in Popup
+ **Vulnerability:** The newsletter/contact popup success message was being rendered by directly assigning a string of HTML to the `innerHTML` property of the `popupContent` element. While the content was largely static in the current implementation, using `innerHTML` is a dangerous practice that can lead to DOM-based XSS if user-controlled data is ever interpolated into the string.
+ **Learning:** I learned that even for seemingly safe, static UI updates, `innerHTML` should be avoided in favor of more explicit and secure DOM APIs. This "defense in depth" approach prevents future vulnerabilities if the code is later modified to include dynamic content.
+ **Prevention:** Strictly avoid `innerHTML` for dynamic UI updates. Instead, use `document.createElement`, `textContent` for text, and `replaceChildren()` or `append()` to update the DOM tree safely.

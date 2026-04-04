@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Paulo Brocco — Full Stack Engineer</title>
-    <meta name="description" content="Paulo Brocco — Full Stack Engineer based in Cork, Ireland. Specializing in web development, backend systems, AI integration, and automation. Open to opportunities and collaborations." />
+    <meta
+      name="description"
+      content="Paulo Brocco — Full Stack Engineer based in Cork, Ireland. Specializing in web development, backend systems, AI integration, and automation. Open to opportunities and collaborations."
+    />
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
@@ -24,64 +27,92 @@
     <div id="cursor-ball"></div>
 
     <!-- Scroll Progress Bar -->
-    <div id="scroll-progress" style="position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#8e2de2,#4a00e0,#a259ff);z-index:9999;transition:width 0.1s linear;"></div>
+    <div
+      id="scroll-progress"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        width: 0%;
+        background: linear-gradient(90deg, #8e2de2, #4a00e0, #a259ff);
+        z-index: 9999;
+        transition: width 0.1s linear;
+      "
+    ></div>
 
     <header
       id="site-header"
       class="py-6 px-4 md:px-8 sticky top-0 z-50 backdrop-filter backdrop-blur-lg border-b border-gray-800"
-      style="background:rgba(10,10,10,0.8);transition:background 0.3s,box-shadow 0.3s,padding 0.3s;"
+      style="
+        background: rgba(10, 10, 10, 0.8);
+        transition:
+          background 0.3s,
+          box-shadow 0.3s,
+          padding 0.3s;
+      "
     >
       <div class="container mx-auto flex justify-between items-center">
         <h1 class="text-2xl md:text-3xl font-bold gradient-text">
           Paulo Brocco
         </h1>
         <nav class="hidden md:flex space-x-6 text-gray-300 items-center">
-          <a href="#about" class="hover:text-white transition duration-300"
+          <a
+            href="#about"
+            class="hover:text-white transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
             >About</a
           >
           <div class="relative group">
             <button
               aria-haspopup="true"
               aria-expanded="false"
-              class="hover:text-white transition duration-300 flex items-center gap-2"
+              class="hover:text-white transition duration-300 flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
             >
               Skills <i class="fas fa-caret-down text-sm"></i>
             </button>
             <div
-              class="absolute left-0 mt-2 w-48 bg-gray-900 rounded-md shadow-lg border border-gray-800 py-2 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity"
+              class="absolute left-0 mt-2 w-48 bg-gray-900 rounded-md shadow-lg border border-gray-800 py-2 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto transition-opacity"
             >
               <a
                 href="#skills"
-                class="block px-4 py-2 text-gray-300 hover:bg-gray-800"
+                class="block px-4 py-2 text-gray-300 hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:bg-gray-800"
                 >Technical Skills</a
               >
               <a
                 href="#soft-skills"
-                class="block px-4 py-2 text-gray-300 hover:bg-gray-800"
+                class="block px-4 py-2 text-gray-300 hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:bg-gray-800"
                 >Soft Skills</a
               >
             </div>
           </div>
-          <a href="#projects" class="hover:text-white transition duration-300"
+          <a
+            href="#projects"
+            class="hover:text-white transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
             >Projects</a
           >
-          <a href="#experience" class="hover:text-white transition duration-300"
+          <a
+            href="#experience"
+            class="hover:text-white transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
             >Experience</a
           >
-          <a href="#education" class="hover:text-white transition duration-300"
+          <a
+            href="#education"
+            class="hover:text-white transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
             >Education</a
           >
           <a
             href="https://wa.me/5511986001998"
             target="_blank"
             rel="noopener noreferrer"
-            class="btn-primary magnetic-btn px-5 py-2 rounded-md text-lg flex items-center gap-2 transition duration-300 fire-link"
+            class="btn-primary magnetic-btn px-5 py-2 rounded-md text-lg flex items-center gap-2 transition duration-300 fire-link focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             title="Hire Me"
           >
             <i class="fas fa-briefcase"></i>
             Hire Me
           </a>
-          <a href="#contact" class="hover:text-white transition duration-300"
+          <a
+            href="#contact"
+            class="hover:text-white transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
             >Contact</a
           >
           <!-- Hidden Eyes -->
@@ -200,44 +231,44 @@
         <nav class="flex flex-col space-y-3 text-gray-300">
           <a
             href="#about"
-            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium"
+            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             >About</a
           >
           <a
             href="#skills"
-            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium"
+            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             >Skills</a
           >
           <a
             href="#soft-skills"
-            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium"
+            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             >Soft Skills</a
           >
           <a
             href="#projects"
-            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium"
+            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             >Projects</a
           >
           <a
             href="#experience"
-            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium"
+            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             >Experience</a
           >
           <a
             href="#education"
-            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium"
+            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             >Education</a
           >
           <a
             href="digital-service.html"
-            class="btn-primary w-full text-center mt-2 flex items-center gap-2 justify-center px-5 py-2 rounded-md text-lg fire-link"
+            class="btn-primary w-full text-center mt-2 flex items-center gap-2 justify-center px-5 py-2 rounded-md text-lg fire-link focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
           >
             <i class="fas fa-briefcase"></i>
             Hire Me
           </a>
           <a
             href="#contact"
-            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium"
+            class="hover:text-white transition duration-300 block px-3 py-2 rounded-md text-base font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             >Contact</a
           >
         </nav>
@@ -276,7 +307,9 @@
           Full Stack Engineer — Cork, Ireland
         </p>
         <div class="flex flex-wrap justify-center gap-4">
-          <a href="#about" class="btn-primary fire-link magnetic-btn"
+          <a
+            href="#about"
+            class="btn-primary fire-link magnetic-btn focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             >Learn More <i class="fas fa-arrow-down"></i
           ></a>
         </div>
@@ -340,17 +373,17 @@
 
           <div class="flex flex-wrap justify-center gap-3 text-sm">
             <a
-              class="inline-block bg-gray-800 text-purple-300 px-3 py-1 rounded-full"
+              class="inline-block bg-gray-800 text-purple-300 px-3 py-1 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
               href="#skills"
               >View my skills</a
             >
             <a
-              class="inline-block bg-gray-800 text-purple-300 px-3 py-1 rounded-full"
+              class="inline-block bg-gray-800 text-purple-300 px-3 py-1 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
               href="#projects"
               >See projects</a
             >
             <a
-              class="inline-block bg-gray-800 text-purple-300 px-3 py-1 rounded-full"
+              class="inline-block bg-gray-800 text-purple-300 px-3 py-1 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
               href="Paulo Brocco — Full Stack Engineer.pdf"
               target="_blank"
               rel="noopener noreferrer"
@@ -373,39 +406,122 @@
               <h3 class="font-semibold mb-3">Frontend</h3>
               <div class="space-y-3">
                 <div class="skill-item">
-                  <div class="flex items-center justify-between text-sm text-gray-300 mb-1">
-                    <span class="flex items-center gap-2"><i class="fab fa-js text-yellow-400"></i> JavaScript (ES6+)</span>
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i class="fab fa-js text-yellow-400"></i> JavaScript
+                      (ES6+)</span
+                    >
                     <span class="text-purple-300 text-xs">90%</span>
                   </div>
-                  <div class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"><div class="skill-bar h-full rounded-full" data-width="90" style="width:0%;background:linear-gradient(90deg,#8e2de2,#facc15);transition:width 1.2s cubic-bezier(.4,0,.2,1);"></div></div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="90"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #facc15);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
                 </div>
                 <div class="skill-item">
-                  <div class="flex items-center justify-between text-sm text-gray-300 mb-1">
-                    <span class="flex items-center gap-2"><i class="fab fa-html5 text-orange-500"></i> HTML5</span>
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i class="fab fa-html5 text-orange-500"></i> HTML5</span
+                    >
                     <span class="text-purple-300 text-xs">95%</span>
                   </div>
-                  <div class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"><div class="skill-bar h-full rounded-full" data-width="95" style="width:0%;background:linear-gradient(90deg,#8e2de2,#f97316);transition:width 1.2s cubic-bezier(.4,0,.2,1);"></div></div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="95"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #f97316);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
                 </div>
                 <div class="skill-item">
-                  <div class="flex items-center justify-between text-sm text-gray-300 mb-1">
-                    <span class="flex items-center gap-2"><i class="fab fa-css3-alt text-sky-400"></i> CSS3</span>
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i class="fab fa-css3-alt text-sky-400"></i> CSS3</span
+                    >
                     <span class="text-purple-300 text-xs">90%</span>
                   </div>
-                  <div class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"><div class="skill-bar h-full rounded-full" data-width="90" style="width:0%;background:linear-gradient(90deg,#8e2de2,#38bdf8);transition:width 1.2s cubic-bezier(.4,0,.2,1);"></div></div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="90"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #38bdf8);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
                 </div>
                 <div class="skill-item">
-                  <div class="flex items-center justify-between text-sm text-gray-300 mb-1">
-                    <span class="flex items-center gap-2"><i class="fab fa-react text-cyan-400"></i> React / React Native</span>
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i class="fab fa-react text-cyan-400"></i> React / React
+                      Native</span
+                    >
                     <span class="text-purple-300 text-xs">80%</span>
                   </div>
-                  <div class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"><div class="skill-bar h-full rounded-full" data-width="80" style="width:0%;background:linear-gradient(90deg,#8e2de2,#22d3ee);transition:width 1.2s cubic-bezier(.4,0,.2,1);"></div></div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="80"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #22d3ee);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
                 </div>
                 <div class="skill-item">
-                  <div class="flex items-center justify-between text-sm text-gray-300 mb-1">
-                    <span class="flex items-center gap-2"><i class="fas fa-desktop text-gray-400"></i> Responsive Design</span>
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i class="fas fa-desktop text-gray-400"></i> Responsive
+                      Design</span
+                    >
                     <span class="text-purple-300 text-xs">92%</span>
                   </div>
-                  <div class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"><div class="skill-bar h-full rounded-full" data-width="92" style="width:0%;background:linear-gradient(90deg,#8e2de2,#a78bfa);transition:width 1.2s cubic-bezier(.4,0,.2,1);"></div></div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="92"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #a78bfa);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -413,32 +529,100 @@
               <h3 class="font-semibold mb-3">Backend</h3>
               <div class="space-y-3">
                 <div class="skill-item">
-                  <div class="flex items-center justify-between text-sm text-gray-300 mb-1">
-                    <span class="flex items-center gap-2"><i class="fab fa-node-js text-green-400"></i> Node.js / Express</span>
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i class="fab fa-node-js text-green-400"></i> Node.js /
+                      Express</span
+                    >
                     <span class="text-purple-300 text-xs">85%</span>
                   </div>
-                  <div class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"><div class="skill-bar h-full rounded-full" data-width="85" style="width:0%;background:linear-gradient(90deg,#8e2de2,#4ade80);transition:width 1.2s cubic-bezier(.4,0,.2,1);"></div></div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="85"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #4ade80);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
                 </div>
                 <div class="skill-item">
-                  <div class="flex items-center justify-between text-sm text-gray-300 mb-1">
-                    <span class="flex items-center gap-2"><i class="fab fa-python text-yellow-300"></i> Python (Flask, Django)</span>
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i class="fab fa-python text-yellow-300"></i> Python
+                      (Flask, Django)</span
+                    >
                     <span class="text-purple-300 text-xs">75%</span>
                   </div>
-                  <div class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"><div class="skill-bar h-full rounded-full" data-width="75" style="width:0%;background:linear-gradient(90deg,#8e2de2,#fde047);transition:width 1.2s cubic-bezier(.4,0,.2,1);"></div></div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="75"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #fde047);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
                 </div>
                 <div class="skill-item">
-                  <div class="flex items-center justify-between text-sm text-gray-300 mb-1">
-                    <span class="flex items-center gap-2"><i class="fas fa-network-wired text-purple-400"></i> RESTful APIs</span>
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i class="fas fa-network-wired text-purple-400"></i>
+                      RESTful APIs</span
+                    >
                     <span class="text-purple-300 text-xs">88%</span>
                   </div>
-                  <div class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"><div class="skill-bar h-full rounded-full" data-width="88" style="width:0%;background:linear-gradient(90deg,#8e2de2,#c084fc);transition:width 1.2s cubic-bezier(.4,0,.2,1);"></div></div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="88"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #c084fc);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
                 </div>
                 <div class="skill-item">
-                  <div class="flex items-center justify-between text-sm text-gray-300 mb-1">
-                    <span class="flex items-center gap-2"><i class="fas fa-robot text-indigo-400"></i> Automation Scripts</span>
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i class="fas fa-robot text-indigo-400"></i> Automation
+                      Scripts</span
+                    >
                     <span class="text-purple-300 text-xs">80%</span>
                   </div>
-                  <div class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"><div class="skill-bar h-full rounded-full" data-width="80" style="width:0%;background:linear-gradient(90deg,#8e2de2,#818cf8);transition:width 1.2s cubic-bezier(.4,0,.2,1);"></div></div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="80"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #818cf8);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -446,25 +630,75 @@
               <h3 class="font-semibold mb-3">Databases</h3>
               <div class="space-y-3">
                 <div class="skill-item">
-                  <div class="flex items-center justify-between text-sm text-gray-300 mb-1">
-                    <span class="flex items-center gap-2"><i class="fas fa-database text-amber-400"></i> MongoDB</span>
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i class="fas fa-database text-amber-400"></i>
+                      MongoDB</span
+                    >
                     <span class="text-purple-300 text-xs">78%</span>
                   </div>
-                  <div class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"><div class="skill-bar h-full rounded-full" data-width="78" style="width:0%;background:linear-gradient(90deg,#8e2de2,#fbbf24);transition:width 1.2s cubic-bezier(.4,0,.2,1);"></div></div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="78"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #fbbf24);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
                 </div>
                 <div class="skill-item">
-                  <div class="flex items-center justify-between text-sm text-gray-300 mb-1">
-                    <span class="flex items-center gap-2"><i class="fas fa-database text-sky-500"></i> PostgreSQL</span>
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i class="fas fa-database text-sky-500"></i>
+                      PostgreSQL</span
+                    >
                     <span class="text-purple-300 text-xs">82%</span>
                   </div>
-                  <div class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"><div class="skill-bar h-full rounded-full" data-width="82" style="width:0%;background:linear-gradient(90deg,#8e2de2,#0ea5e9);transition:width 1.2s cubic-bezier(.4,0,.2,1);"></div></div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="82"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #0ea5e9);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
                 </div>
                 <div class="skill-item">
-                  <div class="flex items-center justify-between text-sm text-gray-300 mb-1">
-                    <span class="flex items-center gap-2"><i class="fas fa-database text-blue-400"></i> MySQL</span>
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i class="fas fa-database text-blue-400"></i> MySQL</span
+                    >
                     <span class="text-purple-300 text-xs">75%</span>
                   </div>
-                  <div class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"><div class="skill-bar h-full rounded-full" data-width="75" style="width:0%;background:linear-gradient(90deg,#8e2de2,#60a5fa);transition:width 1.2s cubic-bezier(.4,0,.2,1);"></div></div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="75"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #60a5fa);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -690,7 +924,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Live Demo for Orbit"
-                    class="btn-primary flex items-center gap-2 py-1.5 px-4 text-sm w-full justify-center"
+                    class="btn-primary flex items-center gap-2 py-1.5 px-4 text-sm w-full justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
                   >
                     <i class="fas fa-external-link-alt"></i> Live Demo
                   </a>
@@ -738,7 +972,7 @@
                     href="https://la-brisa-bar.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="btn-primary flex items-center gap-2 py-1.5 px-4 text-sm w-full justify-center"
+                    class="btn-primary flex items-center gap-2 py-1.5 px-4 text-sm w-full justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
                     style="
                       background: linear-gradient(90deg, #d97706, #b45309);
                       box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3);
@@ -793,7 +1027,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="GitHub Repo for Portfolio"
-                    class="text-gray-400 hover:text-white transition duration-300 text-sm flex items-center gap-1"
+                    class="text-gray-400 hover:text-white transition duration-300 text-sm flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
                     ><i class="fab fa-github"></i> Repo</a
                   >
                 </div>
@@ -832,7 +1066,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="GitHub Repo for BroccoRealtors"
-                    class="text-gray-400 hover:text-white transition duration-300 text-sm flex items-center gap-1"
+                    class="text-gray-400 hover:text-white transition duration-300 text-sm flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
                     ><i class="fab fa-github"></i> Repo</a
                   >
                 </div>
@@ -879,7 +1113,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="GitHub Repo for clone-tabnews"
-                    class="text-gray-400 hover:text-white transition duration-300 text-sm flex items-center gap-1"
+                    class="text-gray-400 hover:text-white transition duration-300 text-sm flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
                     ><i class="fab fa-github"></i> Repo</a
                   >
                 </div>
@@ -918,7 +1152,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="GitHub Repo for machine-learning"
-                    class="text-gray-400 hover:text-white transition duration-300 text-sm flex items-center gap-1"
+                    class="text-gray-400 hover:text-white transition duration-300 text-sm flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
                     ><i class="fab fa-github"></i> Repo</a
                   >
                 </div>
@@ -957,7 +1191,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="GitHub Repo for C# Challenges"
-                    class="text-gray-400 hover:text-white transition duration-300 text-sm flex items-center gap-1"
+                    class="text-gray-400 hover:text-white transition duration-300 text-sm flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
                     ><i class="fab fa-github"></i> Repo</a
                   >
                 </div>
@@ -996,7 +1230,7 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="GitHub Repo for 42 London C Piscine"
-                    class="text-gray-400 hover:text-white transition duration-300 text-sm flex items-center gap-1"
+                    class="text-gray-400 hover:text-white transition duration-300 text-sm flex items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-sm"
                     ><i class="fab fa-github"></i> Repo</a
                   >
                 </div>
@@ -1102,7 +1336,10 @@
         </div>
       </section>
 
-      <section id="education" class="py-16 px-4 md:px-8 bg-black bg-opacity-10 section-reveal">
+      <section
+        id="education"
+        class="py-16 px-4 md:px-8 bg-black bg-opacity-10 section-reveal"
+      >
         <div class="container mx-auto max-w-4xl">
           <h2
             class="text-3xl md:text-4xl font-bold mb-6 text-center gradient-text"
@@ -1298,19 +1535,31 @@
               type="email"
               placeholder="your.email@example.com"
               aria-label="Email address for newsletter"
+              autocomplete="email"
               class="bg-gray-800 text-white border border-gray-700 rounded-md px-4 py-2 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none flex-grow"
               required
             />
-            <button type="submit" id="subscribe-button" class="btn-primary">
+            <button
+              type="submit"
+              id="subscribe-button"
+              class="btn-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+            >
               Subscribe
             </button>
           </form>
-          <p id="subscribe-message" aria-live="polite" class="mt-4 text-sm h-5"></p>
+          <p
+            id="subscribe-message"
+            aria-live="polite"
+            class="mt-4 text-sm h-5"
+          ></p>
           <!-- Added h-5 for consistent height -->
         </div>
       </section>
 
-      <section id="contact" class="py-20 px-4 md:px-8 bg-black bg-opacity-20 section-reveal">
+      <section
+        id="contact"
+        class="py-20 px-4 md:px-8 bg-black bg-opacity-20 section-reveal"
+      >
         <div class="container mx-auto text-center max-w-2xl">
           <h2 class="text-3xl md:text-4xl font-bold mb-6 gradient-text">
             Get In Touch
@@ -1365,7 +1614,7 @@
 
           <a
             href="https://wa.me/5511986001998"
-            class="btn-primary fire-link"
+            class="btn-primary fire-link focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
             target="_blank"
             rel="noopener noreferrer"
             style="display: inline-flex; align-items: center; gap: 8px"
@@ -1433,13 +1682,15 @@
           align-items: end;
         "
       >
-        <button id="ai-chat-button"
-      class="bg-gradient-to-br from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white p-4 rounded-full shadow-xl transition-all duration-300 ease-in-out transform hover:scale-110 focus:outline-none z-50"
-      title="Chat with AI Assistant"
-      aria-label="Open AI Chat">
-      <i class="fas fa-robot fa-lg"></i>
-      <span class="sr-only">Dev_Oxx.orcus AI Chat</span>
-    </button>
+        <button
+          id="ai-chat-button"
+          class="bg-gradient-to-br from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white p-4 rounded-full shadow-xl transition-all duration-300 ease-in-out transform hover:scale-110 focus:outline-none z-50"
+          title="Chat with AI Assistant"
+          aria-label="Open AI Chat"
+        >
+          <i class="fas fa-robot fa-lg"></i>
+          <span class="sr-only">Dev_Oxx.orcus AI Chat</span>
+        </button>
         <!-- Buy Me a Coffee Widget -->
         <div id="bmc-widget-container"></div>
         <style>
@@ -1543,7 +1794,9 @@
               id="ai-chat-input"
               placeholder="Ask me anything..."
               aria-label="Ask the AI assistant a question"
+              autocomplete="off"
               class="flex-grow bg-gray-800 text-white border border-gray-700 rounded-md px-3 py-2 text-sm focus:ring-1 focus:ring-purple-500 focus:border-purple-500 outline-none"
+              required
             />
             <button
               type="submit"
@@ -1588,6 +1841,7 @@
                   type="text"
                   placeholder="Your Name"
                   aria-label="Your Name"
+                  autocomplete="name"
                   required
                   class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none text-white"
                 />
@@ -1599,6 +1853,7 @@
                   type="email"
                   placeholder="your.email@example.com"
                   aria-label="Email address"
+                  autocomplete="email"
                   required
                   class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none text-white"
                 />
@@ -1614,7 +1869,10 @@
                   class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none text-white resize-none"
                 ></textarea>
               </div>
-              <button type="submit" class="w-full btn-primary py-3 px-6 mt-4">
+              <button
+                type="submit"
+                class="w-full btn-primary py-3 px-6 mt-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
+              >
                 Send Message
               </button>
             </form>
@@ -1624,8 +1882,33 @@
     </div>
     <!-- End galaxy-bg-wrapper -->
     <!-- Back to Top Button -->
-    <button id="back-to-top" aria-label="Back to top" title="Back to top"
-      style="position:fixed;bottom:90px;left:24px;z-index:100;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#8e2de2,#4a00e0);color:#fff;border:none;cursor:pointer;opacity:0;pointer-events:none;transition:opacity 0.3s,transform 0.3s;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(74,0,224,0.35);">
+    <button
+      id="back-to-top"
+      aria-label="Back to top"
+      title="Back to top"
+      style="
+        position: fixed;
+        bottom: 90px;
+        left: 24px;
+        z-index: 100;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #8e2de2, #4a00e0);
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          opacity 0.3s,
+          transform 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 16px rgba(74, 0, 224, 0.35);
+      "
+    >
       <i class="fas fa-arrow-up"></i>
     </button>
 
