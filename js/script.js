@@ -850,10 +850,36 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+    // ⚡ Bolt: Cache DOM coordinates outside of the mousemove loop to completely
+    // eliminate layout thrashing and forced synchronous layouts during interaction.
+    // Expected impact: Smoother CPU performance and no forced reflows on hover.
+    let cachedEyeCenters = [];
+
+    function updateEyeCenters() {
+      cachedEyeCenters = Array.from(eyes).map((eye) => {
+        const rect = eye.getBoundingClientRect();
+        return {
+          centerX: rect.left + rect.width / 2,
+          centerY: rect.top + rect.height / 2,
+        };
+      });
+    }
+
+    // Initialize cache
+    updateEyeCenters();
+
+    // Update cache passively on layout changes
+    window.addEventListener("resize", updateEyeCenters, { passive: true });
+
+    // The eyes are in the header, which might change padding on scroll. Update on header transition end.
+    const header = document.querySelector("header");
+    if (header) {
+      header.addEventListener("transitionend", updateEyeCenters, { passive: true });
+    }
+
     // ⚡ Bolt: Throttled mousemove with requestAnimationFrame to prevent
     // style updates from executing on every mouse movement.
-    // DOM reads and writes are separated into two loops to avoid layout thrashing.
-    // Expected impact: smoother scroll and interaction, reduced CPU usage.
+    // DOM reads are now fully cached and eliminated from the frame loop.
     let eyesRafId = null;
     let mouseX = 0;
     let mouseY = 0;
@@ -863,12 +889,11 @@ document.addEventListener("DOMContentLoaded", () => {
       mouseY = event.clientY;
       if (!eyesRafId) {
         eyesRafId = requestAnimationFrame(() => {
-          // Loop 1: DOM Reads
+          // Loop 1: DOM Reads (Now using cache)
           const targetPositions = [];
-          eyes.forEach((eye, i) => {
-            const rect = eye.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
+          eyes.forEach((_, i) => {
+            if (!cachedEyeCenters[i]) return;
+            const { centerX, centerY } = cachedEyeCenters[i];
             let dx = mouseX - centerX;
             let dy = mouseY - centerY;
 

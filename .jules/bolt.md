@@ -70,3 +70,7 @@
 ## 2026-06-14 - Redundant DOM Writes in Animation Frames
 **Learning:** Found that unconditionally applying style/class updates in high-frequency event loops (like `processScrollUpdates` inside `requestAnimationFrame`) causes unnecessary style recalculations and layout overhead, even if DOM reads are separated from DOM writes. If the new value is identical to the current DOM state, the browser still performs work when the assignment occurs.
 **Action:** Always maintain a `domWriteCache` object for properties updated in a high-frequency loop. Before applying any DOM write (like `element.style.width = '...'` or `element.classList.add(...)`), compare the new computed state against the cached state. Only execute the DOM mutation if the state has genuinely changed.
+
+## 2026-06-16 - Eliminate Layout Thrashing in Mousemove DOM Reads
+**Learning:** Querying `getBoundingClientRect()` inside `requestAnimationFrame` on a high-frequency `mousemove` loop (like the pupil tracking effect) causes synchronous layout recalculations and layout thrashing, even if separated from DOM writes.
+**Action:** Always cache the results of `getBoundingClientRect()` outside the high-frequency loop (e.g. in an initialization function) and update the cache passively in response to `resize` or layout transition events (`transitionend`). This fully removes synchronous DOM reads from the animation frame loop.
