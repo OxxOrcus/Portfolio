@@ -102,7 +102,14 @@ module.exports = async (req, res) => {
       },
     });
 
-    const result = await chat.sendMessage(message);
+    // Security enhancement: Add a timeout to the external AI API call to prevent hanging requests
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("AI API request timed out")), 10000)
+    );
+    const result = await Promise.race([
+      chat.sendMessage(message),
+      timeoutPromise
+    ]);
     const response = await result.response;
     // response.text may be async; await if it's a Promise or function
     let text = "";
