@@ -1058,10 +1058,17 @@ document.addEventListener("DOMContentLoaded", () => {
       navLinks.forEach((l) => {
         l.classList.remove("text-white", "font-semibold");
         l.style.borderBottom = "";
+        l.removeAttribute("aria-current");
       });
       if (currentSection) {
-        currentSection.link.classList.add("text-white", "font-semibold");
-        currentSection.link.style.borderBottom = "2px solid #8e2de2";
+        // Apply to all links that point to the current section (both desktop and mobile)
+        navLinks.forEach((l) => {
+          if (l.getAttribute("href") === "#" + currentSectionId) {
+            l.classList.add("text-white", "font-semibold");
+            l.style.borderBottom = "2px solid #8e2de2";
+            l.setAttribute("aria-current", "page");
+          }
+        });
       }
       domWriteCache.activeSectionId = currentSectionId;
     }
