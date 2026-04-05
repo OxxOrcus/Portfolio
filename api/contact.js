@@ -56,11 +56,7 @@ module.exports = async function handler(req, res) {
 
   let { name, email, message } = req.body || {};
 
-  // Security enhancement: Prevent Email Header Injection (CRLF) by removing newlines
-  if (typeof name === "string") name = name.replace(/[\r\n]/g, " ").trim();
-  if (typeof email === "string") email = email.replace(/[\r\n]/g, "").trim();
-
-  // Security enhancement: Add input type and length validation to prevent ReDoS and memory exhaustion attacks (DoS risk)
+  // Security enhancement: Add input type and length validation BEFORE processing to prevent ReDoS and memory exhaustion attacks (DoS risk)
   if (
     !name ||
     typeof name !== "string" ||
@@ -68,11 +64,20 @@ module.exports = async function handler(req, res) {
     !email ||
     typeof email !== "string" ||
     email.length > 254 ||
-    !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) ||
     !message ||
     typeof message !== "string" ||
     message.length > 5000
   ) {
+    return res.status(400).json({ error: "Invalid form data" });
+  }
+
+  // Security enhancement: Prevent Email Header Injection (CRLF) by removing newlines
+  name = name.replace(/[\r\n]/g, " ").trim();
+  email = email.replace(/[\r\n]/g, "").trim();
+  message = message.trim();
+
+  // Validate that strings are not empty after trimming, and email format
+  if (!name || !email || !message || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     return res.status(400).json({ error: "Invalid form data" });
   }
 
