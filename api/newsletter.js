@@ -67,12 +67,19 @@ module.exports = async function handler(req, res) {
       return res.status(200).json({ success: true });
     }
 
-    await resend.emails.send({
-      from: `No Reply <no-reply@${process.env.EMAIL_DOMAIN || "example.com"}>`,
-      to: process.env.EMAIL_TO,
-      subject: "New Newsletter Subscriber",
-      text: `New subscriber: ${email}`,
-    });
+    // Security enhancement: Add a timeout to the external Resend API call to prevent hanging requests
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Email API request timed out")), 10000)
+    );
+    await Promise.race([
+      resend.emails.send({
+        from: `No Reply <no-reply@${process.env.EMAIL_DOMAIN || "example.com"}>`,
+        to: process.env.EMAIL_TO,
+        subject: "New Newsletter Subscriber",
+        text: `New subscriber: ${email}`,
+      }),
+      timeoutPromise
+    ]);
 
     return res.status(200).json({ success: true });
   } catch (err) {
