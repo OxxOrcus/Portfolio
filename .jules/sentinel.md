@@ -37,6 +37,10 @@
  **Learning:** I learned that even for seemingly safe, static UI updates, `innerHTML` should be avoided in favor of more explicit and secure DOM APIs. This "defense in depth" approach prevents future vulnerabilities if the code is later modified to include dynamic content.
  **Prevention:** Strictly avoid `innerHTML` for dynamic UI updates. Instead, use `document.createElement`, `textContent` for text, and `replaceChildren()` or `append()` to update the DOM tree safely.
 
+## 2026-04-05 - [HIGH] ReDoS and Memory Exhaustion (DoS risk) via delayed length validation
+ **Vulnerability:** Serverless endpoints `api/contact.js` and `api/chat.js` performed string manipulation operations (`trim()`, `replace()`) on user-supplied strings *before* validating their lengths. If a client sent a maliciously large payload (e.g., hundreds of megabytes), performing regex replacements or string manipulation on it would cause severe memory exhaustion and crash the function (DoS).
+ **Learning:** I learned that length and type constraints must be the *absolute first* checks performed on any incoming payload. Even seemingly innocent string operations like `trim()` or removing newlines can be weaponized if the input is unbounded.
+ **Prevention:** Always enforce strict maximum length limits and type checks on user input immediately upon receiving the request body, strictly *before* executing any string manipulation, regex evaluation, or further logic.
 ## 2026-06-25 - [ENHANCEMENT] Add timeout to external API calls
  **Vulnerability:** The serverless endpoints `api/chat.js`, `api/newsletter.js`, and `api/contact.js` called external services (Resend and Gemini) without an explicit timeout mechanism. This could lead to hanging requests, consuming serverless function execution time and potentially leading to denial of service if the external API becomes unresponsive.
  **Learning:** In serverless architectures, external API requests can hang, causing the function to run until the provider's execution limit (e.g., 10 or 60 seconds) is reached. This is an inefficient use of resources and can quickly lead to exhaustion of concurrent execution limits and higher costs.

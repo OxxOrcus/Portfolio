@@ -65,11 +65,13 @@ module.exports = async (req, res) => {
   try {
     let { message } = req.body || {};
 
-    // Basic validation and protection against malicious payloads
-    if (typeof message !== "string") {
+    const MAX_MESSAGE_LEN = 2000; // characters
+
+    // Security enhancement: Add input type and length validation BEFORE processing to prevent ReDoS and memory exhaustion attacks (DoS risk)
+    if (typeof message !== "string" || message.length > MAX_MESSAGE_LEN) {
       return res
         .status(400)
-        .json({ success: false, message: "User message must be a string." });
+        .json({ success: false, message: "User message must be a string and under 2000 characters." });
     }
 
     // Limit message length to prevent abuse / large payloads BEFORE string manipulation
