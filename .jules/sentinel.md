@@ -41,3 +41,8 @@
  **Vulnerability:** The serverless endpoints `api/chat.js`, `api/newsletter.js`, and `api/contact.js` called external services (Resend and Gemini) without an explicit timeout mechanism. This could lead to hanging requests, consuming serverless function execution time and potentially leading to denial of service if the external API becomes unresponsive.
  **Learning:** In serverless architectures, external API requests can hang, causing the function to run until the provider's execution limit (e.g., 10 or 60 seconds) is reached. This is an inefficient use of resources and can quickly lead to exhaustion of concurrent execution limits and higher costs.
  **Prevention:** Always wrap external API calls with a timeout mechanism (such as `Promise.race` with a timeout promise) to ensure the function fails fast and releases resources promptly if the external service does not respond in a reasonable time.
+
+## 2024-04-07 - [HIGH] Denial of Service (DoS) via delayed input validation
+**Vulnerability:** In `api/chat.js` and `api/contact.js`, string operations like `.trim()` and `.replace()` were performed on untrusted user input before length validation limits were enforced.
+**Learning:** String manipulations on excessively large input strings require significant memory and CPU processing. A malicious user could submit a multi-megabyte string payload, forcing the server to process it via `.trim()` and RegEx replacements before it gets rejected by the `.length` check. This would exhaust Vercel serverless function resources and cause a Denial of Service.
+**Prevention:** Always enforce strict type checking and maximum length limits on external input *before* executing any string manipulations, regular expressions, or complex parsing logic.
