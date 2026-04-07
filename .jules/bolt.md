@@ -74,3 +74,7 @@
 ## 2026-06-16 - Eliminate Layout Thrashing in Mousemove DOM Reads
 **Learning:** Querying `getBoundingClientRect()` inside `requestAnimationFrame` on a high-frequency `mousemove` loop (like the pupil tracking effect) causes synchronous layout recalculations and layout thrashing, even if separated from DOM writes.
 **Action:** Always cache the results of `getBoundingClientRect()` outside the high-frequency loop (e.g. in an initialization function) and update the cache passively in response to `resize` or layout transition events (`transitionend`). This fully removes synchronous DOM reads from the animation frame loop.
+
+## 2026-06-19 - Garbage Collection Thrashing in O(N²) Canvas Loops
+**Learning:** Found a performance bottleneck in `js/constellation.js` where the background constellation canvas animation was using string interpolation (`rgba(r,g,b,${alpha})`) to set `ctx.strokeStyle` dynamically inside an O(N²) particle connection loop. This creates thousands of new string allocations per frame, forcing the JavaScript garbage collector to run frequently and causing frame drops and main thread stuttering.
+**Action:** When adjusting dynamic opacity in Canvas rendering loops (especially nested loops), avoid allocating new strings (like `rgba()`). Instead, set static properties like `ctx.strokeStyle`, `ctx.fillStyle`, and `ctx.lineWidth` once outside the loop (or once per frame), and use `ctx.globalAlpha` inside the loop to modulate transparency. This offloads alpha blending to the rendering context and drastically reduces GC pressure.

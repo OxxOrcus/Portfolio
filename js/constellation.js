@@ -54,9 +54,9 @@ function initConstellation() {
     }
 
     draw() {
+      ctx.globalAlpha = 1;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
       ctx.fill();
     }
   }
@@ -71,6 +71,13 @@ function initConstellation() {
   function animate() {
     if (!isVisible) return; // Pause animation when off-screen
     ctx.clearRect(0, 0, width, height);
+
+    // ⚡ Bolt: Set static context properties once per frame to avoid redundant assignments
+    // and use globalAlpha for dynamic opacity instead of string interpolation (rgba)
+    // to prevent garbage collection thrashing in the O(N²) loop.
+    ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+    ctx.strokeStyle = "rgb(138, 43, 226)"; // Purple tint
+    ctx.lineWidth = 0.5;
 
     // Update and draw particles
     for (let i = 0; i < particles.length; i++) {
@@ -91,13 +98,13 @@ function initConstellation() {
           ctx.lineTo(particles[j].x, particles[j].y);
           // Opacity based on distance
           const opacity = 1 - distance / maxDistance;
-          ctx.strokeStyle = `rgba(138, 43, 226, ${opacity * 0.5})`; // Purple tint
-          ctx.lineWidth = 0.5;
+          ctx.globalAlpha = opacity * 0.5;
           ctx.stroke();
         }
       }
     }
 
+    ctx.globalAlpha = 1.0; // Reset alpha
     animationId = requestAnimationFrame(animate);
   }
 
