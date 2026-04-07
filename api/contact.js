@@ -57,16 +57,29 @@ module.exports = async function handler(req, res) {
   let { name, email, message } = req.body || {};
 
   // Security enhancement: Add input type and length validation BEFORE processing to prevent ReDoS and memory exhaustion attacks (DoS risk)
+  // Security enhancement: Enforce maximum length limits BEFORE string manipulations to prevent memory exhaustion
   if (
-    !name ||
     typeof name !== "string" ||
     name.length > 100 ||
-    !email ||
     typeof email !== "string" ||
     email.length > 254 ||
     !message ||
     typeof message !== "string" ||
     message.length > 5000
+  ) {
+    return res.status(400).json({ error: "Invalid form data: maximum length exceeded or incorrect type" });
+  }
+
+  // Security enhancement: Prevent Email Header Injection (CRLF) by removing newlines
+  name = name.replace(/[\r\n]/g, " ").trim();
+  email = email.replace(/[\r\n]/g, "").trim();
+
+  // Validate the required fields and email format
+  if (
+    !name ||
+    !email ||
+    !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) ||
+    !message
   ) {
     return res.status(400).json({ error: "Invalid form data" });
   }
@@ -87,12 +100,19 @@ module.exports = async function handler(req, res) {
       return res.status(200).json({ success: true });
     }
 
-    await resend.emails.send({
-      from: `No Reply <no-reply@${process.env.EMAIL_DOMAIN || "example.com"}>`,
-      to: process.env.EMAIL_TO,
-      subject: `New Contact Form Submission from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
-    });
+    // Security enhancement: Add a timeout to the external Resend API call to prevent hanging requests
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Email API request timed out")), 10000)
+    );
+    await Promise.race([
+      resend.emails.send({
+        from: `No Reply <no-reply@${process.env.EMAIL_DOMAIN || "example.com"}>`,
+        to: process.env.EMAIL_TO,
+        subject: `New Contact Form Submission from ${name}`,
+        text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+      }),
+      timeoutPromise
+    ]);
     return res.status(200).json({ success: true });
   } catch (err) {
     console.error(
