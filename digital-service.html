@@ -96,7 +96,7 @@
             href="#contact"
             class="btn-primary px-5 py-2 rounded-md text-lg flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
           >
-            <i class="fas fa-briefcase"></i>
+            <i aria-hidden="true" class="fas fa-briefcase"></i>
             Hire Me
           </a>
         </nav>
@@ -150,7 +150,7 @@
             target="_blank"
             rel="noopener noreferrer"
             class="btn-primary w-full text-center mt-2 flex items-center gap-2 justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
-            ><i class="fas fa-briefcase"></i> Hire Me</a
+            ><i aria-hidden="true" class="fas fa-briefcase"></i> Hire Me</a
           >
         </nav>
       </div>
@@ -216,7 +216,7 @@
             <div
               class="w-14 h-14 bg-purple-600 bg-opacity-20 rounded-lg flex items-center justify-center mb-6"
             >
-              <i class="fas fa-code text-2xl text-purple-400"></i>
+              <i aria-hidden="true" class="fas fa-code text-2xl text-purple-400"></i>
             </div>
             <h3 class="text-xl font-bold mb-3">Web Apps & Frontend</h3>
             <p class="text-gray-400">
@@ -229,7 +229,7 @@
             <div
               class="w-14 h-14 bg-blue-600 bg-opacity-20 rounded-lg flex items-center justify-center mb-6"
             >
-              <i class="fas fa-server text-2xl text-blue-400"></i>
+              <i aria-hidden="true" class="fas fa-server text-2xl text-blue-400"></i>
             </div>
             <h3 class="text-xl font-bold mb-3">Backend & APIs</h3>
             <p class="text-gray-400">
@@ -242,7 +242,7 @@
             <div
               class="w-14 h-14 bg-green-600 bg-opacity-20 rounded-lg flex items-center justify-center mb-6"
             >
-              <i class="fas fa-robot text-2xl text-green-400"></i>
+              <i aria-hidden="true" class="fas fa-robot text-2xl text-green-400"></i>
             </div>
             <h3 class="text-xl font-bold mb-3">AI & Automation</h3>
             <p class="text-gray-400">
@@ -279,15 +279,15 @@
             </div>
             <ul class="space-y-3 mb-8">
               <li class="flex items-center">
-                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                <i aria-hidden="true" class="fas fa-check-circle text-green-500 mr-2"></i>
                 <span>Scope definition & milestone plan</span>
               </li>
               <li class="flex items-center">
-                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                <i aria-hidden="true" class="fas fa-check-circle text-green-500 mr-2"></i>
                 <span>Delivery & 2 weeks support</span>
               </li>
               <li class="flex items-center">
-                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                <i aria-hidden="true" class="fas fa-check-circle text-green-500 mr-2"></i>
                 <span>Source code handover</span>
               </li>
             </ul>
@@ -316,15 +316,15 @@
             </div>
             <ul class="space-y-3 mb-8">
               <li class="flex items-center">
-                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                <i aria-hidden="true" class="fas fa-check-circle text-green-500 mr-2"></i>
                 <span>Short sprints and ongoing support</span>
               </li>
               <li class="flex items-center">
-                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                <i aria-hidden="true" class="fas fa-check-circle text-green-500 mr-2"></i>
                 <span>Priority scheduling for contracts</span>
               </li>
               <li class="flex items-center">
-                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                <i aria-hidden="true" class="fas fa-check-circle text-green-500 mr-2"></i>
                 <span>Transparent time tracking</span>
               </li>
             </ul>
@@ -348,15 +348,15 @@
             </div>
             <ul class="space-y-3 mb-8">
               <li class="flex items-center">
-                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                <i aria-hidden="true" class="fas fa-check-circle text-green-500 mr-2"></i>
                 <span>Guaranteed monthly hours</span>
               </li>
               <li class="flex items-center">
-                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                <i aria-hidden="true" class="fas fa-check-circle text-green-500 mr-2"></i>
                 <span>Faster turnaround & dedicated slots</span>
               </li>
               <li class="flex items-center">
-                <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                <i aria-hidden="true" class="fas fa-check-circle text-green-500 mr-2"></i>
                 <span>Monthly roadmap review</span>
               </li>
             </ul>
@@ -488,6 +488,7 @@
                   id="name"
                   name="name"
                   autocomplete="name"
+                  maxlength="100"
                   required
                   class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="John Doe"
@@ -504,6 +505,7 @@
                   id="email"
                   name="email"
                   autocomplete="email"
+                  maxlength="254"
                   required
                   class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="john@example.com"
@@ -520,6 +522,7 @@
                 id="message"
                 name="message"
                 rows="4"
+                maxlength="5000"
                 required
                 class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 placeholder="Tell us about your project..."
@@ -530,10 +533,10 @@
                 type="submit"
                 class="btn-primary w-full py-4 text-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500"
               >
-                <i class="fas fa-envelope mr-2"></i> Send via Email Client
+                <i aria-hidden="true" class="fas fa-envelope mr-2"></i> Send via Email Client
               </button>
               <p class="text-xs text-gray-400 text-center mt-3">
-                <i class="fas fa-info-circle mr-1"></i> This will open your
+                <i aria-hidden="true" class="fas fa-info-circle mr-1"></i> This will open your
                 default email client to send the message.
               </p>
             </div>
@@ -557,7 +560,7 @@
               title="Twitter"
               aria-label="Twitter"
             >
-              <i class="fab fa-twitter text-xl"></i
+              <i aria-hidden="true" class="fab fa-twitter text-xl"></i
               ><span class="sr-only">Twitter</span>
             </a>
             <a
@@ -566,7 +569,7 @@
               title="LinkedIn"
               aria-label="LinkedIn"
             >
-              <i class="fab fa-linkedin text-xl"></i
+              <i aria-hidden="true" class="fab fa-linkedin text-xl"></i
               ><span class="sr-only">LinkedIn</span>
             </a>
             <a
@@ -575,7 +578,7 @@
               title="GitHub"
               aria-label="GitHub"
             >
-              <i class="fab fa-github text-xl"></i
+              <i aria-hidden="true" class="fab fa-github text-xl"></i
               ><span class="sr-only">GitHub</span>
             </a>
           </div>

@@ -54,6 +54,7 @@ function initConstellation() {
     }
 
     draw() {
+      ctx.globalAlpha = 1;
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
       ctx.fill();
@@ -95,6 +96,10 @@ function initConstellation() {
         // ⚡ Bolt: Only calculate expensive Math.sqrt if particles are close enough
         if (distSq < maxDistanceSq) {
           const distance = Math.sqrt(distSq);
+          // Opacity based on distance
+          const opacity = 1 - distance / maxDistance;
+
+          ctx.globalAlpha = opacity * 0.5;
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
