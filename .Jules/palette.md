@@ -44,3 +44,7 @@
 ## 2026-04-05 - Active Navigation State Accessibility
 **Learning:** Visual indicators for active navigation links (like borders and bold text) are insufficient for screen reader users. They need semantic state information to understand which section of the page they are currently viewing.
 **Action:** Always add `aria-current="true"` (or `aria-current="page"`) to the active navigation link and explicitly remove it from inactive links to provide programmatic context to assistive technologies.
+
+## 2025-06-08 - Hide decorative font icons from screen readers
+**Learning:** Icon-only buttons or decorative icons using font libraries like FontAwesome (`<i>` tags with `fas` or `fab` classes) can confuse screen readers by reading out confusing unicode characters or class names, as they lack semantic meaning and can pollute the accessibility tree.
+**Action:** Always add `aria-hidden="true"` to these decorative `<i>` elements. If the icon acts as a button, ensure the parent `<button>` has an appropriate `aria-label` or contains visually hidden screen-reader-only text (`<span class="sr-only">`).
