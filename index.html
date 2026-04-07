@@ -1536,6 +1536,7 @@
               placeholder="your.email@example.com"
               aria-label="Email address for newsletter"
               autocomplete="email"
+              maxlength="254"
               class="bg-gray-800 text-white border border-gray-700 rounded-md px-4 py-2 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none flex-grow"
               required
             />
@@ -1775,8 +1776,9 @@
             id="close-ai-chat"
             class="text-gray-400 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 rounded-md"
             title="Close Chat"
+            aria-label="Close Chat"
           >
-            <i aria-hidden="true" class="fas fa-times"></i>
+            <i class="fas fa-times" aria-hidden="true"></i>
             <span class="sr-only">Close Chat</span>
           </button>
         </div>
@@ -1795,6 +1797,7 @@
               placeholder="Ask me anything..."
               aria-label="Ask the AI assistant a question"
               autocomplete="off"
+              maxlength="2000"
               class="flex-grow bg-gray-800 text-white border border-gray-700 rounded-md px-3 py-2 text-sm focus:ring-1 focus:ring-purple-500 focus:border-purple-500 outline-none"
               required
             />
@@ -1803,7 +1806,7 @@
               class="bg-purple-600 hover:bg-purple-700 text-white p-2 rounded-md transition-colors duration-200"
               title="Send"
             >
-              <i aria-hidden="true" class="fas fa-paper-plane"></i>
+              <i class="fas fa-paper-plane" aria-hidden="true"></i>
               <span class="sr-only">Send</span>
             </button>
           </form>
@@ -1842,6 +1845,7 @@
                   placeholder="Your Name"
                   aria-label="Your Name"
                   autocomplete="name"
+                  maxlength="100"
                   required
                   class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none text-white"
                 />
@@ -1854,6 +1858,7 @@
                   placeholder="your.email@example.com"
                   aria-label="Email address"
                   autocomplete="email"
+                  maxlength="254"
                   required
                   class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none text-white"
                 />
@@ -1864,6 +1869,7 @@
                   id="contact-message"
                   placeholder="Your message..."
                   aria-label="Message content"
+                  maxlength="5000"
                   required
                   rows="3"
                   class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none text-white resize-none"

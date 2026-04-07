@@ -74,3 +74,7 @@
 ## 2026-06-16 - Eliminate Layout Thrashing in Mousemove DOM Reads
 **Learning:** Querying `getBoundingClientRect()` inside `requestAnimationFrame` on a high-frequency `mousemove` loop (like the pupil tracking effect) causes synchronous layout recalculations and layout thrashing, even if separated from DOM writes.
 **Action:** Always cache the results of `getBoundingClientRect()` outside the high-frequency loop (e.g. in an initialization function) and update the cache passively in response to `resize` or layout transition events (`transitionend`). This fully removes synchronous DOM reads from the animation frame loop.
+
+## 2025-02-15 - Canvas Loop Garbage Collection Thrashing
+**Learning:** In high-frequency Canvas rendering loops (e.g., O(N²) particle connections like the constellation effect), dynamically allocating strings like `rgba()` inside the loop causes excessive garbage collection thrashing and frame drops.
+**Action:** Avoid dynamic string allocations inside performance-critical loops. Declare static context properties (`ctx.strokeStyle`, `ctx.fillStyle`, `ctx.lineWidth`) once per frame outside the loop, and use `ctx.globalAlpha` to adjust dynamic opacity inside the loop.
