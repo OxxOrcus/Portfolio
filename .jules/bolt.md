@@ -78,3 +78,8 @@
 ## 2026-06-25 - Prevent GC Thrashing with globalAlpha
 **Learning:** Found a performance bottleneck in `js/constellation.js` where dynamic template strings like ``rgba(138, 43, 226, ${opacity})`` were being created inside an O(N²) particle connection loop during `requestAnimationFrame`. These continuous string allocations caused severe garbage collection thrashing and frame drops.
 **Action:** When adjusting opacity dynamically inside high-frequency Canvas rendering loops, strictly avoid dynamic string allocations (like `rgba()`). Instead, cache the static color string (e.g., `ctx.strokeStyle = "rgb(138, 43, 226)"`) once outside the loop and adjust the drawing opacity inside the loop using `ctx.globalAlpha = opacity`. Always reset `ctx.globalAlpha = 1.0` when returning to opaque rendering.
+
+
+## 2026-06-25 - Redundant requestAnimationFrame Loops
+**Learning:** Found a performance bottleneck where `animateCounters` spawned a separate `requestAnimationFrame` loop for every single counter on the page (e.g., 4 counters = 4 independent rAF loops). Running multiple identical animation loops per frame increases the number of callback executions on the main thread and can lead to micro-stutters.
+**Action:** When animating multiple similar elements simultaneously (like stat counters), consolidate the update logic into a single `requestAnimationFrame` loop. Cache the element references and their initial static properties (like target numbers) in an array beforehand, and use one loop inside the `step` function to apply the computed progress to all elements at once.
