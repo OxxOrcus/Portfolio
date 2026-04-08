@@ -74,14 +74,6 @@ module.exports = async (req, res) => {
         .json({ success: false, message: "User message must be a string and under 2000 characters." });
     }
 
-    // Limit message length to prevent abuse / large payloads BEFORE string manipulation
-    const MAX_MESSAGE_LEN = 2000; // characters
-    if (message.length > MAX_MESSAGE_LEN) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Message too long." });
-    }
-
     message = message.trim();
     if (!message) {
       return res

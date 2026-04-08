@@ -103,11 +103,6 @@ function initConstellation() {
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-
-          // Opacity based on distance
-          // ⚡ Bolt: Use globalAlpha instead of creating a new rgba() string
-          const opacity = 1 - distance / maxDistance;
-          ctx.globalAlpha = opacity * 0.5;
           ctx.stroke();
         }
       }
@@ -121,7 +116,6 @@ function initConstellation() {
 
   // Set initial size and start animation
   // ⚡ Bolt: Debounce canvas resize to prevent main-thread lockups and layout thrashing
-  let resizeTimeout;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(resize, 150);

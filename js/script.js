@@ -1157,21 +1157,36 @@ document.addEventListener("DOMContentLoaded", () => {
   // COUNTER ANIMATION (Stats Row)
   // ---------------------------------------------------------------------------
   function animateCounters() {
-    const counters = document.querySelectorAll(".stat-number[data-target]");
-    counters.forEach((counter) => {
-      const target = parseInt(counter.dataset.target, 10);
-      const duration = 1800;
-      const start = performance.now();
-      function step(now) {
-        const elapsed = now - start;
-        const progress = Math.min(elapsed / duration, 1);
-        // easeOutQuart
-        const ease = 1 - Math.pow(1 - progress, 4);
-        counter.textContent = Math.round(target * ease) + "+";
-        if (progress < 1) requestAnimationFrame(step);
+    const counterElements = document.querySelectorAll(".stat-number[data-target]");
+    if (counterElements.length === 0) return;
+
+    // ⚡ Bolt: Cache target values and elements to avoid DOM reads/parsing during animation
+    // and use a single requestAnimationFrame loop for all counters to prevent layout thrashing
+    const counters = Array.from(counterElements).map((el) => ({
+      el,
+      target: parseInt(el.dataset.target, 10),
+    }));
+
+    const duration = 1800;
+    const start = performance.now();
+
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // easeOutQuart
+      const ease = 1 - Math.pow(1 - progress, 4);
+
+      // DOM Write loop
+      for (let i = 0; i < counters.length; i++) {
+        const counter = counters[i];
+        counter.el.textContent = Math.round(counter.target * ease) + "+";
       }
-      requestAnimationFrame(step);
-    });
+
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    }
+    requestAnimationFrame(step);
   }
 
   const statsRow = document.getElementById("stats-row");
