@@ -15,7 +15,9 @@ function triggerStarConfetti() {
     const el = document.createElement("div");
     el.className = "star-confetti-piece";
     const color = colors[Math.floor(Math.random() * colors.length)];
-    el.innerHTML = `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="11,2 13.5,8.5 21,9 15,14 17,21 11,17.5 5,21 7,14 1,9 8.5,8.5" fill="${color}" stroke="#fff" stroke-width="0.7"/></svg>`;
+    const svgStr = `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="11,2 13.5,8.5 21,9 15,14 17,21 11,17.5 5,21 7,14 1,9 8.5,8.5" fill="${color}" stroke="#fff" stroke-width="0.7"/></svg>`;
+    const svgEl = new DOMParser().parseFromString(svgStr, "image/svg+xml").documentElement;
+    el.appendChild(svgEl);
     el.style.position = "fixed";
     el.style.left = `${Math.random() * 100}vw`;
     el.style.top = `${Math.random() * 10 + 10}vh`;
@@ -55,7 +57,7 @@ function triggerComet() {
   // Comet SVG: tail points left, head points right
   const comet = document.createElement("div");
   comet.className = "comet-anim";
-  comet.innerHTML = `<svg width="120" height="32" viewBox="0 0 120 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block">
+  const cometSvgStr = `<svg width="120" height="32" viewBox="0 0 120 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block">
     <rect x="0" y="13" width="90" height="6" rx="3" fill="url(#comet-tail)"/>
     <ellipse cx="105" cy="16" rx="13" ry="8" fill="url(#comet-glow)"/>
     <ellipse cx="108" cy="16" rx="7" ry="3.5" fill="#fff" fill-opacity="0.85"/>
@@ -71,6 +73,8 @@ function triggerComet() {
       </radialGradient>
     </defs>
   </svg>`;
+  const cometSvgEl = new DOMParser().parseFromString(cometSvgStr, "image/svg+xml").documentElement;
+  comet.appendChild(cometSvgEl);
   comet.style.position = "fixed";
   comet.style.left = `${startX - 60}px`;
   comet.style.top = `${startY - 16}px`;
@@ -120,7 +124,7 @@ document.querySelectorAll("a,button").forEach((el) => {
 
 // Add confetti and comet animation CSS
 const style = document.createElement("style");
-style.innerHTML = `
+style.textContent = `
     @keyframes star-fall {
       0% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
       80% { opacity: 1; }
