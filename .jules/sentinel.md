@@ -54,3 +54,8 @@
 **Vulnerability:** Client-side form elements (`<input>`, `<textarea>`) across the application lacked `maxlength` attributes. While backend validation was recently added, allowing users to submit arbitrarily large payloads from the frontend creates a poor user experience on failure and presents a minor risk of consuming unnecessary client resources or triggering network payload limits before backend rejection.
 **Learning:** Defense-in-depth requires enforcing constraints at every layer. Implementing `maxlength` attributes that mirror backend limits provides immediate, zero-latency feedback to the user and prevents excessively large payloads from ever leaving the browser.
 **Prevention:** Always define `maxlength` attributes on HTML input elements that align with the corresponding backend data schema or API constraints.
+
+## 2026-04-09 - [LOW] Potential DOM Clobbering/Injection via innerHTML
+ **Vulnerability:** The application used `innerHTML` to inject CSS into a `<style>` tag and SVG elements into the DOM. While the injected strings were largely controlled by the developer, using `innerHTML` is a risky practice that can lead to DOM Clobbering or injection vulnerabilities if any part of the string becomes user-influenced in the future.
+ **Learning:** I learned that `textContent` is a much safer alternative for updating the contents of a `<style>` tag as it treats the content as raw text. For SVG injection, using `DOMParser` allows for safe creation of elements from strings without the risks associated with `innerHTML`.
+ **Prevention:** Strictly avoid `innerHTML` for all DOM updates. Use `textContent` for style tags and text updates, and `DOMParser` or explicit DOM APIs (like `createElementNS`) for complex structures like SVGs.
