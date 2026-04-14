@@ -21,6 +21,9 @@ const rateLimitMap = new Map();
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
 const MAX_REQUESTS_PER_WINDOW = 3;
 
+// Pre-compiled regex for email validation to avoid recompilation per request
+const EMAIL_REGEX = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
 module.exports = async function handler(req, res) {
   // Security fix: Use x-real-ip instead of spoofable x-forwarded-for to prevent IP spoofing
   const ip =
@@ -56,7 +59,7 @@ module.exports = async function handler(req, res) {
     !email ||
     typeof email !== "string" ||
     email.length > 254 ||
-    !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)
+    !EMAIL_REGEX.test(email)
   ) {
     return res.status(400).json({ error: "Invalid email address" });
   }
