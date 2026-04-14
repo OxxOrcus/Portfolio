@@ -1,44 +1,27 @@
 const test = require('node:test');
 const assert = require('node:assert');
 const path = require('node:path');
+const Module = require('module');
 
-function mockModule(moduleName, exports) {
-  const absolutePath = path.resolve(__dirname, "../node_modules", moduleName, "index.js");
-  require.cache[absolutePath] = {
-    id: absolutePath,
-    filename: absolutePath,
-    loaded: true,
-    exports: exports,
-  };
+const chatPath = path.resolve(__dirname, '../api/chat.js');
+
+// Helper to reset module cache and get fresh handler
+function getHandler() {
+  delete require.cache[chatPath];
+  return require('../api/chat.js');
 }
 
-test('Chat API returns 500 when GEMINI_API_KEY is missing', async (t) => {
-  // Mock @google/generative-ai
-  mockModule("@google/generative-ai", {
-    GoogleGenerativeAI: class {
-        constructor() {}
-        getGenerativeModel() { return { startChat: () => ({ sendMessage: async () => ({ response: { text: () => "mock" } }) }) }; }
-    }
-  });
-
-  // Save original env
-  const originalApiKey = process.env.GEMINI_API_KEY;
-  delete process.env.GEMINI_API_KEY;
-
-  // Clear require cache for the chat module to ensure it re-evaluates genAI
-  const chatPath = path.resolve(__dirname, '../api/chat.js');
-  delete require.cache[chatPath];
-
-  // Require the handler
-  const handler = require('../api/chat.js');
-
-  // Mock Request and Response
+// Helper to mock req/res
+function mockReqRes(overrides = {}) {
   const req = {
     method: 'POST',
-    body: { message: 'Hello' }
+    headers: { 'x-real-ip': '127.0.0.1' },
+    body: {},
+    connection: { remoteAddress: "127.0.0.1" },
+    ...overrides
   };
 
-  let statusSet = null;
+  let statusSet = 200;
   let jsonSent = null;
 
   const res = {
@@ -52,45 +35,100 @@ test('Chat API returns 500 when GEMINI_API_KEY is missing', async (t) => {
     }
   };
 
+  return { req, res, getStatus: () => statusSet, getJson: () => jsonSent };
+}
+
+// Mock @google/generative-ai
+const generativeAiMock = {
+  GoogleGenerativeAI: class {
+    constructor() {}
+    getGenerativeModel() {
+      return {
+        startChat: () => ({
+          sendMessage: async () => ({
+            response: { text: () => "mock response" }
+          })
+        })
+      };
+    }
+  }
+};
+
+// Override Module._load to intercept '@google/generative-ai'
+const originalLoad = Module._load;
+Module._load = function(request, parent, isMain) {
+  if (request === '@google/generative-ai') {
+    return generativeAiMock;
+  }
+  return originalLoad.apply(this, arguments);
+};
+
+test('Chat API returns 500 when GEMINI_API_KEY is missing', async (t) => {
+  // Save original env
+  const originalApiKey = process.env.GEMINI_API_KEY;
+  delete process.env.GEMINI_API_KEY;
+
+  const handler = getHandler();
+  const { req, res, getStatus, getJson } = mockReqRes({
+    body: { message: 'Hello' }
+  });
+
   // Call the handler
   await handler(req, res);
 
   // Assertions
-  assert.strictEqual(statusSet, 500);
-  assert.strictEqual(jsonSent.success, false);
-  assert.strictEqual(jsonSent.message, "Server not configured. Missing GEMINI_API_KEY.");
+  assert.strictEqual(getStatus(), 500);
+  assert.strictEqual(getJson().success, false);
+  assert.strictEqual(getJson().message, "Server not configured. Missing GEMINI_API_KEY.");
 
   // Restore environment
   if (originalApiKey) {
     process.env.GEMINI_API_KEY = originalApiKey;
   }
-  delete require.cache[chatPath];
 });
 
 test('Chat API returns 405 for non-POST methods', async (t) => {
-    // Mock @google/generative-ai
-    mockModule("@google/generative-ai", {
-        GoogleGenerativeAI: class {
-            constructor() {}
-        }
+    const handler = getHandler();
+    const { req, res, getStatus, getJson } = mockReqRes({
+        method: 'GET'
     });
-
-    const chatPath = path.resolve(__dirname, '../api/chat.js');
-    delete require.cache[chatPath];
-    const handler = require('../api/chat.js');
-
-    const req = { method: 'GET' };
-    let statusSet = null;
-    let jsonSent = null;
-    const res = {
-      status: function(s) { statusSet = s; return this; },
-      json: function(j) { jsonSent = j; return this; }
-    };
 
     await handler(req, res);
 
-    assert.strictEqual(statusSet, 405);
-    assert.strictEqual(jsonSent.message, "Method Not Allowed");
+    assert.strictEqual(getStatus(), 405);
+    assert.strictEqual(getJson().message, "Method Not Allowed");
+});
 
-    delete require.cache[chatPath];
+test('Chat API returns 400 for messages exceeding MAX_MESSAGE_LEN', async (t) => {
+    process.env.GEMINI_API_KEY = 'test-key';
+    const handler = getHandler();
+    const { req, res, getStatus, getJson } = mockReqRes({
+        body: { message: 'a'.repeat(2001) }
+    });
+
+    await handler(req, res);
+
+    assert.strictEqual(getStatus(), 400);
+    assert.strictEqual(getJson().success, false);
+    assert.strictEqual(getJson().message, "User message must be a string and under 2000 characters.");
+});
+
+test('Chat API returns 400 for non-string message input', async (t) => {
+    process.env.GEMINI_API_KEY = 'test-key';
+    const handler = getHandler();
+
+    const invalidInputs = [
+        { message: 123 },
+        { message: { text: "hello" } },
+        { message: true },
+        { message: null }
+    ];
+
+    for (const body of invalidInputs) {
+        const { req, res, getStatus, getJson } = mockReqRes({ body });
+        await handler(req, res);
+        assert.strictEqual(getStatus(), 400, `Expected 400 for input: ${JSON.stringify(body)}`);
+        assert.strictEqual(getJson().success, false);
+        assert.strictEqual(getJson().message, "User message must be a string and under 2000 characters.");
+    }
 });
