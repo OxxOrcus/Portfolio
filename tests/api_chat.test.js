@@ -132,3 +132,94 @@ test('Chat API returns 400 for non-string message input', async (t) => {
         assert.strictEqual(getJson().message, "User message must be a string and under 2000 characters.");
     }
 });
+
+test('Chat API returns 429 for too many requests', async (t) => {
+    process.env.GEMINI_API_KEY = 'test-key';
+    const handler = getHandler();
+    const ip = '1.2.3.4';
+
+    // Make 5 successful requests
+    for (let i = 0; i < 5; i++) {
+        const { req, res, getStatus } = mockReqRes({
+            headers: { 'x-real-ip': ip },
+            body: { message: `test message ${i}` }
+        });
+        await handler(req, res);
+        assert.strictEqual(getStatus(), 200);
+    }
+
+    // The 6th request should be rate limited
+    const { req, res, getStatus, getJson } = mockReqRes({
+        headers: { 'x-real-ip': ip },
+        body: { message: 'test message 6' }
+    });
+    await handler(req, res);
+
+    assert.strictEqual(getStatus(), 429);
+    assert.strictEqual(getJson().success, false);
+    assert.strictEqual(getJson().message, "Too many requests. Please try again later.");
+});
+
+test('Chat API strictly prefers x-real-ip over x-forwarded-for for rate limiting', async (t) => {
+    process.env.GEMINI_API_KEY = 'test-key';
+    const handler = getHandler();
+
+    const realIp = "1.1.1.1";
+    const spoofedIp = "2.2.2.2";
+
+    // Exhaust rate limit for realIp
+    for (let i = 0; i < 5; i++) {
+        const { req, res } = mockReqRes({
+            headers: {
+                "x-real-ip": realIp,
+                "x-forwarded-for": spoofedIp,
+            },
+            body: { message: "test" }
+        });
+        await handler(req, res);
+    }
+
+    // 6th request with same realIp should be rate limited regardless of spoofed header
+    const { req: req6, res: res6, getStatus: getStatus6 } = mockReqRes({
+        headers: {
+            "x-real-ip": realIp,
+            "x-forwarded-for": "3.3.3.3",
+        },
+        body: { message: "test" }
+    });
+    await handler(req6, res6);
+    assert.strictEqual(getStatus6(), 429);
+});
+
+test('Chat API rate limits are independent per IP', async (t) => {
+    process.env.GEMINI_API_KEY = 'test-key';
+    const handler = getHandler();
+
+    const ip1 = "1.1.1.1";
+    const ip2 = "2.2.2.2";
+
+    // Exhaust rate limit for ip1
+    for (let i = 0; i < 5; i++) {
+        const { req, res } = mockReqRes({
+            headers: { "x-real-ip": ip1 },
+            body: { message: "test" }
+        });
+        await handler(req, res);
+    }
+
+    // ip1 is rate limited
+    const { req: req1, res: res1, getStatus: getStatus1 } = mockReqRes({
+        headers: { "x-real-ip": ip1 },
+        body: { message: "test" }
+    });
+    await handler(req1, res1);
+    assert.strictEqual(getStatus1(), 429);
+
+    // ip2 is NOT rate limited
+    const { req: req2, res: res2, getStatus: getStatus2 } = mockReqRes({
+        headers: { "x-real-ip": ip2 },
+        body: { message: "test" }
+    });
+    await handler(req2, res2);
+    assert.strictEqual(getStatus2(), 200);
+});
