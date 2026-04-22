@@ -87,3 +87,7 @@
 ## 2026-04-13 - Pre-compiling Regex in API Routes
  **Learning:** Moving regex definitions from inside a function handler to the module level avoids recompilation on every request. While modern engines like V8 have internal caches for regex literals, explicit pre-compilation at the module level provides a more reliable performance gain (measured ~5-11% improvement in micro-benchmarks) and is a best practice for performance-critical paths.
  **Action:** Lifted the email validation regex in `api/newsletter.js` to a top-level constant `EMAIL_REGEX`.
+
+## 2026-04-20 - Redundant Canvas Context Assignments
+ **Learning:** Setting `ctx.font` on every frame of a Canvas animation (e.g., in a `draw` loop) triggers expensive font engine parsing and layout logic in the browser, even if the value hasn't changed. Additionally, dynamic `rgba()` string allocations for `ctx.fillStyle` increase garbage collection pressure.
+ **Action:** Move `ctx.font` assignments outside the animation loop, updating them only on window resize or initialization. Use static hex colors combined with `ctx.globalAlpha` to avoid repeated string parsing and memory allocations.
