@@ -189,19 +189,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const drops = Array(columns).fill(1);
     const matrixChars =
       "アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズヅブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const matrixCharsLen = matrixChars.length;
+
+    // ⚡ Bolt: Pre-set constant context properties outside the draw loop
+    // to avoid redundant assignments and overhead on every frame.
+    ctx.font = fontSize + "px monospace";
 
     function draw() {
-      // Draw a semi-transparent black background (0.25 opacity)
-      ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
+      // Draw a semi-transparent black background
+      // ⚡ Bolt: Use globalAlpha with static color strings instead of dynamic rgba()
+      // to reduce string allocation overhead and garbage collection pressure.
+      ctx.fillStyle = "#000000";
+      ctx.globalAlpha = 0.25;
       ctx.fillRect(0, 0, w, h);
-      ctx.font = fontSize + "px monospace";
-      // Draw more visible green letters (higher opacity)
-      ctx.fillStyle = "rgba(0,255,65,0.7)";
+
+      // Draw more visible green letters
+      ctx.fillStyle = "#00ff41"; // Standard Matrix Green
+      ctx.globalAlpha = 0.7;
+
       for (let i = 0; i < drops.length; i++) {
-        const text = matrixChars.charAt(
-          Math.floor(Math.random() * matrixChars.length),
-        );
+        const text = matrixChars.charAt(Math.floor(Math.random() * matrixCharsLen));
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
         if (drops[i] * fontSize > h && Math.random() > 0.975) {
           drops[i] = 0;
         }
