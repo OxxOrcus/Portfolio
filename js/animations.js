@@ -9,7 +9,8 @@ function startAboutTypingEffect() {
     "Experienced in web and backend development, with a passion for solving complex problems using modern technology.",
     "Over the past ~5 years I've focused on building systems and automation that reach and help thousands of users.",
   ];
-  aboutTyping.innerHTML = "";
+  // Security enhancement: Use safer DOM APIs instead of innerHTML to prevent XSS
+  aboutTyping.replaceChildren();
   let line = 0,
     char = 0;
 

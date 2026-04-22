@@ -59,3 +59,8 @@
  **Vulnerability:** The application used `innerHTML` to inject CSS into a `<style>` tag and SVG elements into the DOM. While the injected strings were largely controlled by the developer, using `innerHTML` is a risky practice that can lead to DOM Clobbering or injection vulnerabilities if any part of the string becomes user-influenced in the future.
  **Learning:** I learned that `textContent` is a much safer alternative for updating the contents of a `<style>` tag as it treats the content as raw text. For SVG injection, using `DOMParser` allows for safe creation of elements from strings without the risks associated with `innerHTML`.
  **Prevention:** Strictly avoid `innerHTML` for all DOM updates. Use `textContent` for style tags and text updates, and `DOMParser` or explicit DOM APIs (like `createElementNS`) for complex structures like SVGs.
+
+## 2026-04-20 - [LOW] Unsafe assignment to innerHTML in Typing Animation
+ **Vulnerability:** The typing animation in the "About Me" section was using `innerHTML = ""` to clear the element's content before starting the animation. While the content being assigned was a static empty string, using `innerHTML` is a dangerous practice that bypasses security checks and can lead to DOM-based XSS if user-controlled data is ever interpolated.
+ **Learning:** I reinforced the principle that even for seemingly trivial operations like clearing an element, `innerHTML` should be avoided in favor of modern, safer DOM APIs like `replaceChildren()` or `textContent = ""`.
+ **Prevention:** Strictly avoid `innerHTML` for all DOM updates, regardless of how "safe" the input seems. Use `replaceChildren()` to clear elements and `textContent` or `createTextNode` for updating text content.
