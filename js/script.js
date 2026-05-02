@@ -181,21 +181,49 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function runMatrixRain() {
-    const ctx = matrixCanvas.getContext("2d");
-    const w = matrixCanvas.width;
-    const h = matrixCanvas.height;
+    const ctx = matrixCanvas.getContext("2d", { alpha: false });
+    let w = matrixCanvas.width;
+    let h = matrixCanvas.height;
     const fontSize = 18;
-    const columns = Math.floor(w / fontSize);
-    const drops = Array(columns).fill(1);
+
+    // ⚡ Bolt: Use TypedArrays for better memory locality and performance.
+    // drops stores Y-coordinates in pixels to avoid multiplication in the loop.
+    let columns = Math.floor(w / fontSize);
+    let drops = new Int32Array(columns);
+    let xCoords = new Int32Array(columns);
+
+    // ⚡ Bolt: Pre-calculate X coordinates and initialize drops with random offsets
+    // to create a more natural rain effect from the start.
+    function initStructures() {
+      columns = Math.floor(w / fontSize);
+      drops = new Int32Array(columns);
+      xCoords = new Int32Array(columns);
+      for (let i = 0; i < columns; i++) {
+        xCoords[i] = i * fontSize;
+        drops[i] = Math.random() * -h; // Random start above screen
+      }
+    }
+    initStructures();
+
     const matrixChars =
       "アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズヅブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    const matrixCharsLen = matrixChars.length;
+    const charCache = matrixChars.split("");
+    const matrixCharsLen = charCache.length;
 
     // ⚡ Bolt: Pre-set constant context properties outside the draw loop
     // to avoid redundant assignments and overhead on every frame.
     ctx.font = fontSize + "px monospace";
 
     function draw() {
+      // ⚡ Bolt: Handle canvas resize synchronization within the draw loop
+      // to ensure optimized arrays match new dimensions without frame-locking.
+      if (w !== matrixCanvas.width || h !== matrixCanvas.height) {
+        w = matrixCanvas.width;
+        h = matrixCanvas.height;
+        initStructures();
+        ctx.font = fontSize + "px monospace";
+      }
+
       // Draw a semi-transparent black background
       // ⚡ Bolt: Use globalAlpha with static color strings instead of dynamic rgba()
       // to reduce string allocation overhead and garbage collection pressure.
@@ -208,13 +236,13 @@ document.addEventListener("DOMContentLoaded", () => {
       ctx.globalAlpha = 0.7;
 
       for (let i = 0; i < drops.length; i++) {
-        const text = matrixChars.charAt(Math.floor(Math.random() * matrixCharsLen));
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        const text = charCache[Math.floor(Math.random() * matrixCharsLen)];
+        ctx.fillText(text, xCoords[i], drops[i]);
 
-        if (drops[i] * fontSize > h && Math.random() > 0.975) {
+        if (drops[i] > h && Math.random() > 0.975) {
           drops[i] = 0;
         }
-        drops[i]++;
+        drops[i] += fontSize;
       }
       if (matrixActive) {
         matrixAnimationId = requestAnimationFrame(draw);
