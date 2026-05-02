@@ -91,3 +91,11 @@
 ## 2026-04-20 - Redundant Canvas Context Assignments
  **Learning:** Setting `ctx.font` on every frame of a Canvas animation (e.g., in a `draw` loop) triggers expensive font engine parsing and layout logic in the browser, even if the value hasn't changed. Additionally, dynamic `rgba()` string allocations for `ctx.fillStyle` increase garbage collection pressure.
  **Action:** Move `ctx.font` assignments outside the animation loop, updating them only on window resize or initialization. Use static hex colors combined with `ctx.globalAlpha` to avoid repeated string parsing and memory allocations.
+
+## 2026-06-25 - TypedArrays and Pre-calculated Coordinates in Canvas Loops
+**Learning:** High-frequency (60fps) Canvas animation loops (like Matrix rain) that use standard JavaScript arrays and perform redundant mathematical operations (e.g., `i * fontSize`) on every frame incur significant CPU overhead and garbage collection pressure.
+**Action:** Always utilize `TypedArrays` (like `Int32Array`) for storing numeric animation states (e.g., column vertical positions) to improve memory locality. Additionally, pre-calculate fixed horizontal coordinates and pre-cache string character sets into arrays during initialization or window resize to eliminate per-frame mathematical lookups and string operations within the core `draw` loop.
+
+## 2026-06-25 - Responsive Dimension Synchronization in Animation Loops
+**Learning:** Re-initializing animation structures (like `TypedArrays` or coordinate caches) purely through `resize` event listeners can lead to race conditions or frame stutter if the animation loop is not synchronized with the dimension update.
+**Action:** Implement dimension synchronization within the animation's `draw` loop. By comparing the current canvas dimensions against a cached reference every frame, the animation can detect a resize event and safely re-allocate/re-calculate its internal data structures (like `TypedArrays`) exactly when needed, ensuring the animation remains responsive without breaking the logic flow.
