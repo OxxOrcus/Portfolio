@@ -145,6 +145,25 @@ style.textContent = `
 document.head.appendChild(style);
 // js/script.js
 
+// ---------------------------------------------------------------------------
+// HELPERS (moved to top-level for testing)
+// ---------------------------------------------------------------------------
+function hasSeenPopup() {
+  try {
+    return sessionStorage.getItem("newsletterSeen") === "1";
+  } catch (e) {
+    return false;
+  }
+}
+
+function markPopupSeen() {
+  try {
+    sessionStorage.setItem("newsletterSeen", "1");
+  } catch (e) {
+    // ignore
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   // ---------------------------------------------------------------------------
   // MATRIX RAIN EFFECT
@@ -281,25 +300,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const aiChatMessages = document.getElementById("ai-chat-messages");
 
   let popupShown = false;
-
-  // ---------------------------------------------------------------------------
-  // HELPERS
-  // ---------------------------------------------------------------------------
-  function hasSeenPopup() {
-    try {
-      return sessionStorage.getItem("newsletterSeen") === "1";
-    } catch (e) {
-      return false;
-    }
-  }
-
-  function markPopupSeen() {
-    try {
-      sessionStorage.setItem("newsletterSeen", "1");
-    } catch (e) {
-      // ignore
-    }
-  }
 
   function addMessageToChat(text, sender, isThinking = false) {
     if (!aiChatMessages) return;
@@ -1312,3 +1312,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = { hasSeenPopup, markPopupSeen };
+}
