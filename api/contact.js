@@ -21,14 +21,23 @@ try {
 const rateLimitMap = new Map();
 const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
 const MAX_REQUESTS_PER_WINDOW = 3;
+const EMAIL_REGEX = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
-module.exports = async function handler(req, res) {
-  // Rate limiting check
-  // Security fix: Use x-real-ip instead of spoofable x-forwarded-for to prevent IP spoofing
-  const ip =
+/**
+ * Extracts the client's IP address from the request.
+ */
+function getClientIp(req) {
+  return (
     (req.headers && req.headers["x-real-ip"]) ||
     req.connection?.remoteAddress ||
-    "unknown";
+    "unknown"
+  );
+}
+
+/**
+ * Checks if the request should be rate-limited based on the IP.
+ */
+function isRateLimited(ip) {
   const now = Date.now();
   const userRate = rateLimitMap.get(ip) || { count: 0, firstRequest: now };
 
@@ -44,7 +53,70 @@ module.exports = async function handler(req, res) {
   // Cleanup map to prevent memory leaks over time
   if (rateLimitMap.size > 1000) rateLimitMap.clear();
 
-  if (userRate.count > MAX_REQUESTS_PER_WINDOW) {
+  return userRate.count > MAX_REQUESTS_PER_WINDOW;
+}
+
+/**
+ * Validates and sanitizes the contact form input.
+ */
+function validateAndSanitize(body) {
+  let { name, email, message } = body || {};
+
+  // Type and length validation
+  if (
+    typeof name !== "string" ||
+    name.length > 100 ||
+    typeof email !== "string" ||
+    email.length > 254 ||
+    typeof message !== "string" ||
+    message.length > 5000
+  ) {
+    return {
+      error: "Invalid form data: maximum length exceeded or incorrect type",
+    };
+  }
+
+  // Sanitization: Prevent Email Header Injection (CRLF) and trim
+  name = name.replace(/[\r\n]/g, " ").trim();
+  email = email.replace(/[\r\n]/g, "").trim();
+  message = message.trim();
+
+  // Basic presence and format validation
+  if (!name || !email || !message || !EMAIL_REGEX.test(email)) {
+    return { error: "Invalid form data" };
+  }
+
+  return { name, email, message };
+}
+
+/**
+ * Sends the contact email using Resend.
+ */
+async function sendContactEmail(name, email, message) {
+  if (!resend) {
+    console.warn("Resend client not initialized; skipping send.");
+    return;
+  }
+
+  const timeoutPromise = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error("Email API request timed out")), 10000),
+  );
+
+  await Promise.race([
+    resend.emails.send({
+      from: `No Reply <no-reply@${process.env.EMAIL_DOMAIN || "example.com"}>`,
+      to: process.env.EMAIL_TO,
+      subject: `New Contact Form Submission from ${name}`,
+      text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+    }),
+    timeoutPromise,
+  ]);
+}
+
+module.exports = async function handler(req, res) {
+  const ip = getClientIp(req);
+
+  if (isRateLimited(ip)) {
     return res
       .status(429)
       .json({ error: "Too many requests. Please try again later." });
@@ -54,65 +126,15 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  let { name, email, message } = req.body || {};
-
-  // Security enhancement: Add input type and length validation BEFORE processing to prevent ReDoS and memory exhaustion attacks (DoS risk)
-  // Security enhancement: Enforce maximum length limits BEFORE string manipulations to prevent memory exhaustion
-  if (
-    typeof name !== "string" ||
-    name.length > 100 ||
-    typeof email !== "string" ||
-    email.length > 254 ||
-    !message ||
-    typeof message !== "string" ||
-    message.length > 5000
-  ) {
-    return res.status(400).json({ error: "Invalid form data: maximum length exceeded or incorrect type" });
+  const validationResult = validateAndSanitize(req.body);
+  if (validationResult.error) {
+    return res.status(400).json({ error: validationResult.error });
   }
 
-  // Security enhancement: Prevent Email Header Injection (CRLF) by removing newlines
-  name = name.replace(/[\r\n]/g, " ").trim();
-  email = email.replace(/[\r\n]/g, "").trim();
-
-  // Validate the required fields and email format
-  if (
-    !name ||
-    !email ||
-    !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) ||
-    !message
-  ) {
-    return res.status(400).json({ error: "Invalid form data" });
-  }
-
-  // Security enhancement: Prevent Email Header Injection (CRLF) by removing newlines
-  name = name.replace(/[\r\n]/g, " ").trim();
-  email = email.replace(/[\r\n]/g, "").trim();
-  message = message.trim();
-
-  // Validate that strings are not empty after trimming, and email format
-  if (!name || !email || !message || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-    return res.status(400).json({ error: "Invalid form data" });
-  }
+  const { name, email, message } = validationResult;
 
   try {
-    if (!resend) {
-      console.warn("Resend client not initialized; skipping send.");
-      return res.status(200).json({ success: true });
-    }
-
-    // Security enhancement: Add a timeout to the external Resend API call to prevent hanging requests
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("Email API request timed out")), 10000)
-    );
-    await Promise.race([
-      resend.emails.send({
-        from: `No Reply <no-reply@${process.env.EMAIL_DOMAIN || "example.com"}>`,
-        to: process.env.EMAIL_TO,
-        subject: `New Contact Form Submission from ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
-      }),
-      timeoutPromise
-    ]);
+    await sendContactEmail(name, email, message);
     return res.status(200).json({ success: true });
   } catch (err) {
     console.error(
