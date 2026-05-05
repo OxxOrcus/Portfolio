@@ -133,6 +133,24 @@ test('Chat API returns 400 for non-string message input', async (t) => {
     }
 });
 
+test('Chat API returns 400 for empty or whitespace-only message', async (t) => {
+    process.env.GEMINI_API_KEY = 'test-key';
+    const handler = getHandler();
+
+    const invalidInputs = [
+        { message: "" },
+        { message: "   " }
+    ];
+
+    for (const body of invalidInputs) {
+        const { req, res, getStatus, getJson } = mockReqRes({ body });
+        await handler(req, res);
+        assert.strictEqual(getStatus(), 400, `Expected 400 for input: ${JSON.stringify(body)}`);
+        assert.strictEqual(getJson().success, false);
+        assert.strictEqual(getJson().message, "User message is required.");
+    }
+});
+
 test('Chat API returns 429 for too many requests', async (t) => {
     process.env.GEMINI_API_KEY = 'test-key';
     const handler = getHandler();
