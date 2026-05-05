@@ -104,7 +104,9 @@ function triggerComet() {
 }
 
 // Attach to Hire Me button
-document.querySelectorAll("a,button").forEach((el) => {
+const hireMeButtons = document.querySelectorAll("a,button");
+for (let i = 0; i < hireMeButtons.length; i++) {
+  const el = hireMeButtons[i];
   if (el.textContent && el.textContent.match(/Hire Me/i)) {
     el.addEventListener("click", function (e) {
       // If already handled, do nothing
@@ -120,7 +122,7 @@ document.querySelectorAll("a,button").forEach((el) => {
       }, 2000);
     });
   }
-});
+}
 
 // Add confetti and comet animation CSS
 const style = document.createElement("style");
@@ -1152,7 +1154,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------------------------------------------------------------------------
   // MAGNETIC BUTTON EFFECT
   // ---------------------------------------------------------------------------
-  document.querySelectorAll(".magnetic-btn").forEach((btn) => {
+  const magneticButtons = document.querySelectorAll(".magnetic-btn");
+  for (let i = 0; i < magneticButtons.length; i++) {
+    const btn = magneticButtons[i];
     let rafId = null;
     let targetX = 0;
     let targetY = 0;
@@ -1192,7 +1196,7 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.style.transform = "";
       cachedRect = null;
     });
-  });
+  }
 
   // ---------------------------------------------------------------------------
   // COUNTER ANIMATION (Stats Row)
@@ -1294,7 +1298,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------------------------------------------------------------------------
   // TILT EFFECT ON PROJECT CARDS
   // ---------------------------------------------------------------------------
-  document.querySelectorAll(".project-card").forEach((card) => {
+  const projectCards = document.querySelectorAll(".project-card");
+  for (let i = 0; i < projectCards.length; i++) {
+    const card = projectCards[i];
     let rafId = null;
     let targetX = 0;
     let targetY = 0;
@@ -1338,7 +1344,7 @@ document.addEventListener("DOMContentLoaded", () => {
       card.style.transform = "";
       cachedRect = null;
     });
-  });
+  }
 });
 
 if (typeof module !== "undefined" && module.exports) {
