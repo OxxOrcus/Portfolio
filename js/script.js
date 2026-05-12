@@ -16,7 +16,10 @@ function triggerStarConfetti() {
     el.className = "star-confetti-piece";
     const color = colors[Math.floor(Math.random() * colors.length)];
     const svgStr = `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="11,2 13.5,8.5 21,9 15,14 17,21 11,17.5 5,21 7,14 1,9 8.5,8.5" fill="${color}" stroke="#fff" stroke-width="0.7"/></svg>`;
-    const svgEl = new DOMParser().parseFromString(svgStr, "image/svg+xml").documentElement;
+    const svgEl = new DOMParser().parseFromString(
+      svgStr,
+      "image/svg+xml",
+    ).documentElement;
     el.appendChild(svgEl);
     el.style.position = "fixed";
     el.style.left = `${Math.random() * 100}vw`;
@@ -73,7 +76,10 @@ function triggerComet() {
       </radialGradient>
     </defs>
   </svg>`;
-  const cometSvgEl = new DOMParser().parseFromString(cometSvgStr, "image/svg+xml").documentElement;
+  const cometSvgEl = new DOMParser().parseFromString(
+    cometSvgStr,
+    "image/svg+xml",
+  ).documentElement;
   comet.appendChild(cometSvgEl);
   comet.style.position = "fixed";
   comet.style.left = `${startX - 60}px`;
@@ -395,7 +401,10 @@ document.addEventListener("DOMContentLoaded", () => {
           submitBtn.disabled = true;
           const icon = document.createElement("i");
           icon.className = "fas fa-circle-notch fa-spin mr-2";
-          submitBtn.replaceChildren(icon, document.createTextNode(" Sending..."));
+          submitBtn.replaceChildren(
+            icon,
+            document.createTextNode(" Sending..."),
+          );
           submitBtn.classList.add("opacity-75", "cursor-not-allowed");
         }
         // Send to backend
@@ -491,7 +500,10 @@ document.addEventListener("DOMContentLoaded", () => {
           submitBtn.disabled = true;
           const icon = document.createElement("i");
           icon.className = "fas fa-spinner fa-spin mr-2";
-          submitBtn.replaceChildren(icon, document.createTextNode(" Subscribing..."));
+          submitBtn.replaceChildren(
+            icon,
+            document.createTextNode(" Subscribing..."),
+          );
           submitBtn.classList.add("opacity-75", "cursor-not-allowed");
         }
         try {
@@ -558,12 +570,18 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
           mobileMenu.style.display = "none";
         }, 300);
-        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        const svg = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg",
+        );
         svg.setAttribute("class", "w-6 h-6");
         svg.setAttribute("fill", "none");
         svg.setAttribute("stroke", "currentColor");
         svg.setAttribute("viewBox", "0 0 24 24");
-        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        const path = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path",
+        );
         path.setAttribute("stroke-linecap", "round");
         path.setAttribute("stroke-linejoin", "round");
         path.setAttribute("stroke-width", "2");
@@ -575,12 +593,18 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
           mobileMenu.classList.add("active");
         }, 10);
-        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        const svg = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "svg",
+        );
         svg.setAttribute("class", "w-6 h-6");
         svg.setAttribute("fill", "none");
         svg.setAttribute("stroke", "currentColor");
         svg.setAttribute("viewBox", "0 0 24 24");
-        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        const path = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "path",
+        );
         path.setAttribute("stroke-linecap", "round");
         path.setAttribute("stroke-linejoin", "round");
         path.setAttribute("stroke-width", "2");
@@ -599,12 +623,18 @@ document.addEventListener("DOMContentLoaded", () => {
             mobileMenu.style.display = "none";
           }, 300);
           mobileMenuButton.setAttribute("aria-expanded", "false");
-          const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+          const svg = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "svg",
+          );
           svg.setAttribute("class", "w-6 h-6");
           svg.setAttribute("fill", "none");
           svg.setAttribute("stroke", "currentColor");
           svg.setAttribute("viewBox", "0 0 24 24");
-          const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+          const path = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "path",
+          );
           path.setAttribute("stroke-linecap", "round");
           path.setAttribute("stroke-linejoin", "round");
           path.setAttribute("stroke-width", "2");
@@ -941,7 +971,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // The eyes are in the header, which might change padding on scroll. Update on header transition end.
     const header = document.querySelector("header");
     if (header) {
-      header.addEventListener("transitionend", updateEyeCenters, { passive: true });
+      header.addEventListener("transitionend", updateEyeCenters, {
+        passive: true,
+      });
     }
 
     // ⚡ Bolt: Throttled mousemove with requestAnimationFrame to prevent
@@ -1047,7 +1079,7 @@ document.addEventListener("DOMContentLoaded", () => {
     progress: -1,
     isHeaderScrolled: null,
     activeSectionId: null,
-    isBackToTopVisible: null
+    isBackToTopVisible: null,
   };
 
   function processScrollUpdates() {
@@ -1202,7 +1234,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // COUNTER ANIMATION (Stats Row)
   // ---------------------------------------------------------------------------
   function animateCounters() {
-    const counterElements = document.querySelectorAll(".stat-number[data-target]");
+    const counterElements = document.querySelectorAll(
+      ".stat-number[data-target]",
+    );
     if (counterElements.length === 0) return;
 
     // ⚡ Bolt: Cache target values and elements to avoid DOM reads/parsing during animation
@@ -1210,6 +1244,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const counters = Array.from(counterElements).map((el) => ({
       el,
       target: parseInt(el.dataset.target, 10),
+      current: -1, // ⚡ Bolt: Track current value to avoid redundant DOM writes
     }));
 
     const duration = 1800;
@@ -1224,7 +1259,12 @@ document.addEventListener("DOMContentLoaded", () => {
       // DOM Write loop
       for (let i = 0; i < counters.length; i++) {
         const counter = counters[i];
-        counter.el.textContent = Math.round(counter.target * ease) + "+";
+        const newValue = Math.round(counter.target * ease);
+        // ⚡ Bolt: Only update DOM if the rounded value has actually changed
+        if (newValue !== counter.current) {
+          counter.el.textContent = newValue + "+";
+          counter.current = newValue;
+        }
       }
 
       if (progress < 1) {
