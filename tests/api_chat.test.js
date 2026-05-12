@@ -38,6 +38,8 @@ function mockReqRes(overrides = {}) {
   return { req, res, getStatus: () => statusSet, getJson: () => jsonSent };
 }
 
+let shouldGeminiFail = false;
+
 // Mock @google/generative-ai
 const generativeAiMock = {
   GoogleGenerativeAI: class {
@@ -45,9 +47,14 @@ const generativeAiMock = {
     getGenerativeModel() {
       return {
         startChat: () => ({
-          sendMessage: async () => ({
-            response: { text: () => "mock response" }
-          })
+          sendMessage: async () => {
+            if (shouldGeminiFail) {
+              throw new Error("Gemini API failure");
+            }
+            return {
+              response: { text: () => "mock response" }
+            };
+          }
         })
       };
     }
@@ -240,4 +247,24 @@ test('Chat API rate limits are independent per IP', async (t) => {
     });
     await handler(req2, res2);
     assert.strictEqual(getStatus2(), 200);
+});
+
+test('Chat API returns 500 when Gemini API fails', async (t) => {
+    process.env.GEMINI_API_KEY = 'test-key';
+    const handler = getHandler();
+
+    shouldGeminiFail = true;
+    try {
+        const { req, res, getStatus, getJson } = mockReqRes({
+            body: { message: 'Hello' }
+        });
+
+        await handler(req, res);
+
+        assert.strictEqual(getStatus(), 500);
+        assert.strictEqual(getJson().success, false);
+        assert.strictEqual(getJson().message, "An error occurred while communicating with the AI. Please try again later.");
+    } finally {
+        shouldGeminiFail = false;
+    }
 });
