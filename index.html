@@ -394,7 +394,6 @@
         </div>
       </section>
 
-      <!-- TODO: Add proficiency bars or a timeline showing years of experience per technology -->
       <section id="skills" class="py-16 px-4 md:px-8 bg-black bg-opacity-10">
         <div class="container mx-auto max-w-5xl">
           <h2
@@ -744,103 +743,395 @@
             </div>
             <div class="glass-card p-6">
               <h3 class="font-semibold mb-3">DevOps & Tools</h3>
-              <div class="flex flex-wrap gap-3">
-                <span class="flex items-center text-sm text-gray-300 gap-2"
-                  ><i aria-hidden="true" class="fab fa-docker text-blue-400"></i
-                  ><span>Docker</span></span
-                >
-                <span class="flex items-center text-sm text-gray-300 gap-2"
-                  ><i
-                    aria-hidden="true"
-                    class="fab fa-git-alt text-orange-400"
-                  ></i
-                  ><span>Git</span></span
-                >
-                <span class="flex items-center text-sm text-gray-300 gap-2"
-                  ><i aria-hidden="true" class="fab fa-github text-gray-300"></i
-                  ><span>GitHub</span></span
-                >
-                <span class="flex items-center text-sm text-gray-300 gap-2"
-                  ><i aria-hidden="true" class="fab fa-linux text-gray-400"></i
-                  ><span>Linux</span></span
-                >
-                <span class="flex items-center text-sm text-gray-300 gap-2"
-                  ><i
-                    aria-hidden="true"
-                    class="fas fa-terminal text-green-300"
-                  ></i
-                  ><span>Bash scripting</span></span
-                >
+              <div class="space-y-3">
+                <div class="skill-item">
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i
+                        aria-hidden="true"
+                        class="fab fa-docker text-blue-400"
+                      ></i>
+                      Docker</span
+                    >
+                    <span class="text-purple-300 text-xs">70%</span>
+                  </div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="70"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #60a5fa);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i
+                        aria-hidden="true"
+                        class="fab fa-git-alt text-orange-400"
+                      ></i>
+                      Git</span
+                    >
+                    <span class="text-purple-300 text-xs">90%</span>
+                  </div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="90"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #fb923c);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i
+                        aria-hidden="true"
+                        class="fab fa-github text-gray-300"
+                      ></i>
+                      GitHub</span
+                    >
+                    <span class="text-purple-300 text-xs">92%</span>
+                  </div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="92"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #d1d5db);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i
+                        aria-hidden="true"
+                        class="fab fa-linux text-gray-400"
+                      ></i>
+                      Linux</span
+                    >
+                    <span class="text-purple-300 text-xs">75%</span>
+                  </div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="75"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #9ca3af);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i
+                        aria-hidden="true"
+                        class="fas fa-terminal text-green-300"
+                      ></i>
+                      Bash scripting</span
+                    >
+                    <span class="text-purple-300 text-xs">70%</span>
+                  </div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="70"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #86efac);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="glass-card p-6">
               <h3 class="font-semibold mb-3">AI & Automation</h3>
-              <div class="flex flex-wrap gap-3">
-                <span class="flex items-center text-sm text-gray-300 gap-2"
-                  ><i
-                    aria-hidden="true"
-                    class="fas fa-robot text-indigo-300"
-                  ></i
-                  ><span>Gemini</span></span
-                >
-                <span class="flex items-center text-sm text-gray-300 gap-2"
-                  ><i
-                    aria-hidden="true"
-                    class="fas fa-robot text-indigo-300"
-                  ></i
-                  ><span>ChatGPT</span></span
-                >
-                <span class="flex items-center text-sm text-gray-300 gap-2"
-                  ><i
-                    aria-hidden="true"
-                    class="fas fa-robot text-indigo-300"
-                  ></i
-                  ><span>Claude</span></span
-                >
-                <span class="flex items-center text-sm text-gray-300 gap-2"
-                  ><i
-                    aria-hidden="true"
-                    class="fas fa-code-branch text-purple-300"
-                  ></i
-                  ><span>Copilot</span></span
-                >
-                <span class="flex items-center text-sm text-gray-300 gap-2"
-                  ><i
-                    aria-hidden="true"
-                    class="fas fa-flow-chart text-yellow-300"
-                  ></i
-                  ><span>n8n</span></span
-                >
-                <span class="flex items-center text-sm text-gray-300 gap-2"
-                  ><i
-                    aria-hidden="true"
-                    class="fas fa-robot text-indigo-300"
-                  ></i
-                  ><span>Manus</span></span
-                >
+              <div class="space-y-3">
+                <div class="skill-item">
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i
+                        aria-hidden="true"
+                        class="fas fa-robot text-indigo-300"
+                      ></i>
+                      Gemini</span
+                    >
+                    <span class="text-purple-300 text-xs">85%</span>
+                  </div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="85"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #a5b4fc);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i
+                        aria-hidden="true"
+                        class="fas fa-robot text-indigo-300"
+                      ></i>
+                      ChatGPT</span
+                    >
+                    <span class="text-purple-300 text-xs">88%</span>
+                  </div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="88"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #a5b4fc);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i
+                        aria-hidden="true"
+                        class="fas fa-robot text-indigo-300"
+                      ></i>
+                      Claude</span
+                    >
+                    <span class="text-purple-300 text-xs">90%</span>
+                  </div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="90"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #a5b4fc);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i
+                        aria-hidden="true"
+                        class="fas fa-code-branch text-purple-300"
+                      ></i>
+                      Copilot</span
+                    >
+                    <span class="text-purple-300 text-xs">85%</span>
+                  </div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="85"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #d8b4fe);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i
+                        aria-hidden="true"
+                        class="fas fa-flow-chart text-yellow-300"
+                      ></i>
+                      n8n</span
+                    >
+                    <span class="text-purple-300 text-xs">65%</span>
+                  </div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="65"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #fde047);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i
+                        aria-hidden="true"
+                        class="fas fa-robot text-indigo-300"
+                      ></i>
+                      Manus</span
+                    >
+                    <span class="text-purple-300 text-xs">60%</span>
+                  </div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="60"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #a5b4fc);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="glass-card p-6">
               <h3 class="font-semibold mb-3">Other</h3>
-              <div class="flex flex-wrap gap-3">
-                <span class="flex items-center text-sm text-gray-300 gap-2"
-                  ><i
-                    aria-hidden="true"
-                    class="fas fa-users-cog text-gray-300"
-                  ></i
-                  ><span>Agile methodologies</span></span
-                >
-                <span class="flex items-center text-sm text-gray-300 gap-2"
-                  ><i
-                    aria-hidden="true"
-                    class="fas fa-project-diagram text-gray-300"
-                  ></i
-                  ><span>Automation frameworks</span></span
-                >
-                <span class="flex items-center text-sm text-gray-300 gap-2"
-                  ><i aria-hidden="true" class="fas fa-code text-gray-300"></i
-                  ><span>Clean Code</span></span
-                >
+              <div class="space-y-3">
+                <div class="skill-item">
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i
+                        aria-hidden="true"
+                        class="fas fa-users-cog text-gray-300"
+                      ></i>
+                      Agile methodologies</span
+                    >
+                    <span class="text-purple-300 text-xs">85%</span>
+                  </div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="85"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #9ca3af);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i
+                        aria-hidden="true"
+                        class="fas fa-project-diagram text-gray-300"
+                      ></i>
+                      Automation frameworks</span
+                    >
+                    <span class="text-purple-300 text-xs">80%</span>
+                  </div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="80"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #9ca3af);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
+                </div>
+                <div class="skill-item">
+                  <div
+                    class="flex items-center justify-between text-sm text-gray-300 mb-1"
+                  >
+                    <span class="flex items-center gap-2"
+                      ><i
+                        aria-hidden="true"
+                        class="fas fa-code text-gray-300"
+                      ></i>
+                      Clean Code</span
+                    >
+                    <span class="text-purple-300 text-xs">90%</span>
+                  </div>
+                  <div
+                    class="w-full h-1.5 bg-gray-700 rounded-full overflow-hidden"
+                  >
+                    <div
+                      class="skill-bar h-full rounded-full"
+                      data-width="90"
+                      style="
+                        width: 0%;
+                        background: linear-gradient(90deg, #8e2de2, #9ca3af);
+                        transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+                      "
+                    ></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
