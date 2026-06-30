@@ -64,3 +64,8 @@
  **Vulnerability:** The typing animation in the "About Me" section was using `innerHTML = ""` to clear the element's content before starting the animation. While the content being assigned was a static empty string, using `innerHTML` is a dangerous practice that bypasses security checks and can lead to DOM-based XSS if user-controlled data is ever interpolated.
  **Learning:** I reinforced the principle that even for seemingly trivial operations like clearing an element, `innerHTML` should be avoided in favor of modern, safer DOM APIs like `replaceChildren()` or `textContent = ""`.
  **Prevention:** Strictly avoid `innerHTML` for all DOM updates, regardless of how "safe" the input seems. Use `replaceChildren()` to clear elements and `textContent` or `createTextNode` for updating text content.
+
+## 2024-06-30 - [HIGH] Fix outdated dependency with known vulnerability (nodemailer)
+ **Vulnerability:** The project was using an outdated version of `nodemailer` (8.0.4) which contains a known high severity vulnerability (Nodemailer Vulnerable to SMTP Command Injection via CRLF in Transport name Option, CRLF injection in List-* header, etc).
+ **Learning:** I learned that it is important to check dependencies regularly for security updates, as older versions may have known vulnerabilities that are caught by `npm audit` or `pnpm audit`.
+ **Prevention:** Keep dependencies up-to-date by using `npm audit` and updating libraries with `npm install <package>@latest` or `npm audit fix` to close vulnerabilities. Added regular checks for dependency vulnerabilities.
