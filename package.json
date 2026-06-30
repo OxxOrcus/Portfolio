@@ -20,13 +20,13 @@
   "homepage": "https://github.com/OxxOrcus/Portfolio#readme",
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
-    "@vercel/edge-config": "^1.4.0",
     "nodemailer": "^9.0.3",
     "resend": "^6.16.0"
   },
   "devDependencies": {
+    "@vercel/edge-config": "^1.4.3",
     "finalhandler": "^2.1.1",
-    "playwright": "^1.58.2",
+    "playwright": "^1.61.1",
     "serve-static": "^2.2.1"
   }
 }
